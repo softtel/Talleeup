@@ -1,0 +1,46 @@
+<div class="row product">
+  <%= image_tag 'plus-white.png', class: 'sign' %>
+  <div class="col-md-4 col-sm-4 col-xs-4 product-image">
+    <%= image_tag(product.images.url(:thumb), class: 'img-responsive') %>
+    <div class="layer-product-image"></div>
+  </div>
+  <!--End product-image-->
+  <div class="col-md-8 col-sm-8 col-xs-8 product-reviews">
+    <div class="product-reviews-top">
+      <p class="product-reviews-score">
+        <span>29.8</span>
+      </p>
+
+      <div class="product-reviews-people">
+        <h6>REVIEWS</h6>
+
+        <div class="list-avatars">
+          <%= image_tag 'user-avatar.png', class: 'avatar-reviewer img-circle' %>
+          <%= image_tag 'user-avatar.png', class: 'avatar-reviewer img-circle' %>
+          <%= image_tag 'user-avatar.png', class: 'avatar-reviewer img-circle' %>
+          <%= image_tag 'user-avatar.png', class: 'avatar-reviewer img-circle' %>
+          <%= image_tag 'user-avatar.png', class: 'hidden-xs hidden-sm avatar-reviewer img-circle' %>
+          <span class="num-reviewer pull-right">(+123)</span>
+        </div>
+        <!--End list-avatars-->
+      </div>
+      <!--End product-reviews-people-->
+    </div>
+    <!--End product-reviews-top-->
+
+    <div class="product-reviews-center">
+      <h3 class="product-reviews-center-top"><%= product.name %></h3>
+      <h4 class="product-reviews-center-bottom"><%= product.restaurant.name %></h4>
+    </div>
+    <!--End product-reviews-center-->
+
+    <div class="product-btn-group">
+      <button class="btn-control btn-review"><span class="icon"></span> REVIEW</button>
+      <button class="btn-control btn-share">SHARE</button>
+    </div>
+    <!--End product-btn-group-->
+
+  </div>
+  <!-- End product-reviews -->
+</div>
+<!-- End row product -->

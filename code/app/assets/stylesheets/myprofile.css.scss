@@ -1,0 +1,145 @@
+div.myprofile-header-container{
+  background: image-url('myprofile/bg.png') no-repeat center center fixed !important;
+}
+
+div#tab-container{
+  height: 80px;
+  background-color: #145A8B;
+  color: #ffffff;
+}
+
+#tab{
+  height: 100%;
+}
+
+div#tab-container a{
+  color: #ffffff;
+}
+
+div#tab-container a:hover{
+  background-color: transparent;
+  text-decoration: none;
+}
+
+div.tab-item{
+  float: left;
+  height: 100% !important;
+}
+
+.tab-item h4{
+  margin-top: 33px;
+}
+
+#tab-feed{
+  width: 10%;
+  margin-left: 70px;
+}
+
+#tab-planned-experiences{
+  width: 252px;
+  margin-left: 35px;
+}
+
+#tab-my-experiences{
+  width: 40%;
+  margin-left: 110px;
+}
+
+.tab-active{
+  color: #FCD00F;
+  border-bottom: 4px solid #FCD00F;
+}
+
+.tab-active a{
+  color: #FCD00F !important;
+}
+
+.myprofile-main-container{
+  margin: 0px;
+  padding: 0px !important;
+  background-color: #ffffff;
+}
+
+
+#myprofile-map{
+  height: 600px;
+//  border: 1px solid red;
+//  background-color: red;
+}
+
+#map-canvas{
+  height: 600px;
+  width: 100%;
+}
+
+#myprofile-list-product{
+//  height: 600px;
+//  border: 1px solid red;
+  padding-top: 25px;
+  background-color: #ffffff;
+}
+
+.myprofile-product{
+  margin-bottom: 20px;
+}
+
+.myprofile-product-top{
+  position: relative;
+}
+
+.myprofile-product-center{
+  height: 55px;
+  border-bottom: 1px solid #F3F3F3;
+}
+
+.myprofile-sign{
+  position: absolute;
+  bottom: -12px;
+  right: 30px;
+}
+
+img.myprofile-product-image{
+  width: 350px;
+  height: 220px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+}
+
+.myprofile-product-score{
+  display: inline-block;
+  width: 85px;
+  font-size: 40px;
+  color: #38BFDD;
+  border-bottom: 2px solid #38BFDD;
+  padding-top: 17px;
+  height: 100%;
+}
+
+.myprofile-product-review{
+  display: inline-block;
+  margin-left: 12px;
+}
+
+.myprofile-product-review h5{
+  font-size: 11px;
+  font-weight: bold;
+  color: #B4B7B6;
+  margin-bottom: -5px;
+}
+
+.myprofile-product-review h6{
+  font-weight: bold;
+  color: #26BBDC;
+}
+
+.myprofile-product-bottom h4{
+  color: #7F8083;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.myprofile-product-bottom h5{
+  color: #BFBFC1;
+  font-size: 11px;
+  font-weight: bold;
+}

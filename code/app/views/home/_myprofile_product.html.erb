@@ -1,0 +1,22 @@
+<div class="row myprofile-product">
+  <div class="col-md-6 col-sm-6 col-xs-6">
+    <div class="myprofile-product-top">
+      <%= image_tag(myprofile_product.images.url(:thumb), class: 'img-responsive myprofile-product-image') %>
+      <%=  image_tag 'plus-white.png', class: 'myprofile-sign' %>
+      <div class="myprofile-layer-product-image"></div>
+    </div>
+    <div class="myprofile-product-center">
+      <span class="myprofile-product-score">29.8</span>
+              <span class="myprofile-product-review">
+                <h5>REVIEWS</h5>
+                <h6>(+123)</h6>
+              </span>
+    </div>
+    <div class="myprofile-product-bottom">
+      <h4><%= myprofile_product.name %></h4>
+      <h5><%= myprofile_product.restaurant.name %></h5>
+    </div>
+  </div>
+  <!--End product-image-->
+</div>
+<!-- End row product -->

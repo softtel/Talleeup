@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Burger Profile</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body style="background: #fff !important;">
+<header>
+
+  <div class="page-header headermain">
+    <div style="position: relative;background-color: #145a8b">
+    <div class="bk-top-header headerburger">
+      <div class="container">
+        <div class="navbar-header">
+          <%if device_type == :mobile %>
+              <div class="m-logo-header"></div>
+
+          <%else%>
+              <div class="logo-header "></div>
+          <%end%>
+          <%if device_type != :mobile %>
+              <div class="home-login-poniter"></div>
+
+
+          <%end%>
+
+          <%if device_type == :mobile %>
+              <div class="m-search-home">
+                <input  type="button"/>
+              </div>
+          <%else%>
+              <div class="search-home">
+                <input placeholder="search" type="text"/>
+              </div>
+          <%end%>
+
+          <div class="button-review">
+            <input type="button" value="REVIEW" name="REVIEW">
+          </div>
+          <div class="button-profile">
+            <%= image_tag("/Uploads/avatar/avatar.png") %>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+    <div class="bk-header bk-header-burgerprofile" style="background-image:url('/Uploads/banner/02.png') ">
+
+
+
+    </div>
+    <div class="bk-content-header bk-content-header-burgerprofile">
+      <div class="number-bk-content-header">
+        <div class="item-noline-number"></div>
+        <div class="item-line-number">
+          <div class="item-no"></div>
+          <div class="item-nnumber">29.8</div>
+          <div class="item-no"></div>
+        </div>
+        <div class="item-noline-number"></div>
+      </div>
+      <div class="text-bk-content-header text-burgerprofile">
+        juicy Lucy
+      </div>
+
+      <div class="clearfix"></div>
+      <div class="bur-text-bk-content-header">
+        circle 7 ranch
+      </div>
+      <div class="img-text-bk-content-header downburgerprofile"></div>
+    </div>
+    <div class="bk-content-header-bottom header-bottom-bur">
+      <div class="container">
+        <div class="item-text-bottom">reviews</div>
+
+        <div class="item-text-bottom">add tolist</div>
+        <div class="item-text-bottom">views</div>
+        <div class="clearfix"></div>
+        <div class="item-number-bottom">3,456</div>
+        <div class="item-number-bottom">789</div>
+        <div class="item-number-bottom">89,012</div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    </div>
+    <div class="menu-top-header">
+      <div class="container">
+
+        <div class="container-menu-add">
+
+          <div class="full-noline-bur"></div>
+
+          <div class="item-menu-top-header-bur"><a href="#" class="bur-review" >REVIEW </a></div>
+          <div class="no-line-bur"></div>
+
+          <div class="item-menu-top-header-bur"><a href="#" class="bur-addtolist">ADD TO LIST </a></div>
+          <div class="no-line-bur"></div>
+
+          <div class="item-menu-top-header-bur"><a href="#" class="bur-share">SHARE </a></div>
+
+          <div class="clearfix"></div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</header>
+<%= yield %>
+
+</body>
+</html>

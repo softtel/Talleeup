@@ -1,0 +1,20 @@
+<div id="main" class="col-md-12">
+
+  <%= render "profileinfo" %>
+
+  <div id="city-filter" class="row center-block">
+    BURGERS REVIEWED
+  </div>
+  <!-- End city-filter -->
+
+  <div class="row" id="main-body">
+    <div id="list-products" class="col-md-12">
+      <%= render partial: "product", collection: @products %>
+      <button id="btn-seefull" class="center-block">SEE FULL LIST</button>
+    </div>
+    <!-- End list-product -->
+  </div>
+  <!-- End main-body -->
+
+</div>
+<!-- End main -->
