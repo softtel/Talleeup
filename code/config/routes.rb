@@ -3,8 +3,11 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users
   resources :articles
+  root 'home#index'
   get 'homelogin/login'
   get 'home/index'
+  post 'home/index'
+  get 'home/test_ajax'
   get 'home/userprofile'
   get 'home/geolocation'
   get 'home/myprofile'
@@ -13,7 +16,7 @@ Rails.application.routes.draw do
   get 'home/BurgerProfile'
   get 'home/login'
   get 'home/locations'
-  root 'home#index'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

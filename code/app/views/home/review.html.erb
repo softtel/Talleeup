@@ -10,12 +10,13 @@
     <div id="step-1-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
 
       <div class="form-group form-group-mobile form-group-mobile-top">
-        <input class="txt-control txt-success txt-control-mobile-top" />
+        <input class="txt-control txt-success txt-control-mobile-top" value="<%= @product.restaurant.name %>" />
         <img src="/assets/review/valid.png" />
       </div>
 
       <div class="form-group form-group-mobile">
-        <input placeholder="Name Of Burger" class="txt-control txt-normal txt-control-mobile-bottom" />
+        <input placeholder="Name Of Burger" class="txt-control txt-success txt-normal txt-control-mobile-bottom" value="<%= @product.name %>" />
+        <img src="/assets/review/valid.png" />
       </div>
     </div>
   </div>
@@ -157,3 +158,22 @@
 <div id="form-control-submit" class="center-block">
   <button id="btn-talleeup" class="center-block">TALLEEUP!</button>
 </div>
+
+<script>
+  $(document).ready(function(){
+      $.ajax({
+          type: "GET",
+//          url: 'http://localhost:3000/articles.json',
+          url: 'test_ajax',
+          //url: 'DeleteProduct',
+          //contentType: 'application/text; charset=utf-8',
+          //data: _ProductId,
+          success: function (data) {
+              console.log('success');
+          },
+          error: function () {
+              console.log('error');
+          }
+      });// end $.ajax
+  });
+</script>

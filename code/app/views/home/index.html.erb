@@ -1,3 +1,4 @@
+<h1><%= @cityDetected %></h1>
 <div id="main" class="col-md-12">
 
   <div id="main-title" class="row center-block">
@@ -10,8 +11,15 @@
   <!--End main-title-->
 
   <div id="city-filter" class="row center-block">
-    SAN FRANCISCO
-    <img src="/assets/05.png" alt=""/>
+
+    <div class="styled-select center-block">
+
+      <%= form_tag("/home/index", method: "post") do %>
+        <%= select_tag :city_id, options_for_select(@city.collect {|p| [ p.name, p.id ] }, @city_id), :onchange => "this.form.submit()" %>
+      <% end %>
+
+    </div>
+
   </div>
   <!-- End city-filter -->
 

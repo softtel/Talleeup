@@ -14,4 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require ./sites/bootstrap.min
+//= require ./sites/tooltip
+//= require ./sites/popover
 //= require_directory ./sites

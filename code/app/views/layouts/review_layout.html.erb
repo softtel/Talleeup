@@ -17,34 +17,7 @@
 
 <div id="profile-header-container"  class="container-fluid review-header-container">
 
-
-  <nav id="navbar-container-fluid" class="container-fluid navbar">
-
-    <div id="navbar-container" class="container">
-
-      <div id="col-logo" class="col-md-5 col-xs-5">
-        <img id="logo" src="/assets/userprofile/logo.png" />
-      </div>
-
-      <div id="col-form-search" class="col-md-5 col-xs-5">
-        <form id="form-search">
-          <img id="icon-map" src="/assets/userprofile/map.png" />
-          <input id="txt-search" placeholder="Search" />
-          <button id="btn-search" type="submit"></button>
-        </form>
-      </div>
-
-      <div id="col-review" class="col-md-1 col-xs-1">
-        <button id="btn-review-top">REVIEW</button>
-      </div>
-
-      <div id="col-avatar" class="col-md-1 col-xs-1">
-        <img id="avatar" class="img-circle img-responsive" src="/assets/userprofile/avatar.png" />
-        <img id="icon-avatar" class="img-circle img-responsive" src="/assets/userprofile/icon-avatar.png" />
-      </div>
-
-    </div>
-  </nav>
+  <%= render partial: "navbar" %>
 
 
   <div id="review-titles" class="container-fluid">
@@ -62,13 +35,6 @@
 </div>
 <!-- End header-container -->
 
-
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

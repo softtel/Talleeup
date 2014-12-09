@@ -1,3 +1,4 @@
 class ProductComponent < ActiveRecord::Base
-  has_many :product_component_values
+  belongs_to :products
+  belongs_to :component_value
 end

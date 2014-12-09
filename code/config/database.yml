@@ -30,7 +30,8 @@ development:
 #   pool: 5
 #   username: postgres
 #   password: root
-   host: 192.168.0.101
+#   host: 192.168.0.101
+   host: 14.161.4.95
    username: talleeup
    port: 5433
    password: Softtel@188C
@@ -75,7 +76,8 @@ test:
 #   pool: 5
 #   username: postgres
 #   password: root
-   host: 192.168.0.101
+#   host: 192.168.0.101
+   host: 14.161.4.95
    port: 5433
    username: talleeup
    password: Softtel@188C
@@ -108,7 +110,8 @@ production:
 #    pool: 5
 #    username: postgres
 #    password: root
-    host: 192.168.0.101
+#    host: 192.168.0.101
+    host: 14.161.4.95
     port: 5433
     username: talleeup
     password: Softtel@188C

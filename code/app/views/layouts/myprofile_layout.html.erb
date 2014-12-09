@@ -19,50 +19,9 @@
 
   <div id="layer-profile-header-container"></div>
 
-  <nav id="navbar-container-fluid" class="container-fluid navbar">
+  <%= render partial: "navbar" %>
 
-    <div id="navbar-container" class="container">
-
-      <div id="col-logo" class="col-md-5 col-xs-5">
-        <img id="logo" src="/assets/userprofile/logo.png" />
-      </div>
-
-      <div id="col-form-search" class="col-md-5 col-xs-5">
-        <form id="form-search">
-          <img id="icon-map" src="/assets/userprofile/map.png" />
-          <input id="txt-search" placeholder="Search" />
-          <button id="btn-search" type="submit"></button>
-        </form>
-      </div>
-
-      <div id="col-review" class="col-md-1 col-xs-1">
-        <button id="btn-review-top">REVIEW</button>
-      </div>
-
-      <div id="col-avatar" class="col-md-1 col-xs-1">
-        <img id="avatar" class="img-circle img-responsive" src="/assets/userprofile/avatar.png" />
-        <img id="icon-avatar" class="img-circle img-responsive" src="/assets/userprofile/icon-avatar.png" />
-      </div>
-
-    </div>
-  </nav>
-
-
-  <div id="profile-header" class="container">
-
-    <div id="profile-header-top" class="row">
-
-      <div class="col-md-7 col-xs-7" id="col-profile-user-image">
-        <img class="pull-right img-responsive img-circle" id="profile-user-image" src="/assets/myprofile/user.png"  alt="" />
-      </div>
-      <div class="col-md-5 col-xs-5" id="col-profile-info">
-        <h1>Zach Smyth</h1>
-        <h5>ST. LOUIS, MO</h5>
-      </div>
-
-    </div>
-    <!--End header-top-->
-  </div>
+  <%= render partial: "profile", locals: {profile: @myprofile} %>
   <!-- End header -->
 </div>
 <!-- End header-container -->

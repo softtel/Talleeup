@@ -16,9 +16,11 @@
 <%if device_type == :mobile %>
     <div class="m-content-body-item">
         <div class="m-item-conettn-body">
+          <a href="/home/BurgerProfile">
             <div class="m-item-img" style="position: relative">
                      <%= image_tag("/Uploads/product/01.png", :class => 'img-responsive') %>
             </div>
+          </a>
             <div class="item-body">
               <div class="item-reviews">
                 <div class="number-reviews">
@@ -37,16 +39,18 @@
                 </div>
               </div>
           <div class="title-product-reviews">
-            <div class="name-title-product-review">Super Duper awesome Burger</div>
+            <a href="/home/BurgerProfile"> <div class="name-title-product-review">Super Duper awesome Burger</div></a>
             <div class="name-title-product-review-child">Yum Yum Burger Joint</div>
           </div>
         </div>
 </div>
     <div class="m-content-body-item">
       <div class="m-item-conettn-body">
+        <a href="/home/BurgerProfile">
         <div class="m-item-img" style="position: relative">
           <%= image_tag("/Uploads/product/01.png", :class => 'img-responsive') %>
         </div>
+          </a>
         <div class="item-body">
           <div class="item-reviews">
             <div class="number-reviews">
@@ -65,7 +69,7 @@
           </div>
         </div>
         <div class="title-product-reviews">
-          <div class="name-title-product-review">Super Duper awesome Burger</div>
+          <a href="/home/BurgerProfile"> <div class="name-title-product-review">Super Duper awesome Burger</div></a>
           <div class="name-title-product-review-child">Yum Yum Burger Joint</div>
         </div>
       </div>
@@ -73,11 +77,13 @@
 <%else%>
     <div class="content-body-item">
       <div class="item-conettn-body">
+        <a href="/home/BurgerProfile">
         <div class="item-img" style="position: relative">
           <%= image_tag("/Uploads/product/01.png", :class => 'img-responsive') %>
           <div class="tim-hover">
           </div>
         </div>
+          </a>
         <div class="item-body">
           <div class="item-reviews">
             <div class="number-reviews">
@@ -86,22 +92,25 @@
             <div class="user-reviews">
               <div class="title-reviews">Reviews</div>
               <div class="user-data">
+                <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a>
+                <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a>
                 <%if device_type == :desktop %>
+                    <a href="/home/userprofile?id=1">
                     <div class="item-img-user">
                       <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                    </div>
+                    </div></a>
                 <% end %>
                 <div class="item-number-count">(+123)</div>
                 <div class="item-add" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen'>Experience planned</div><div class='text-item-show-tim active-t'>Experience completed</div></div></div>">
@@ -111,12 +120,12 @@
             </div>
           </div>
           <div class="title-product-reviews">
-            <div class="name-title-product-review">Super Duper awesome Burger</div>
+            <a href="/home/BurgerProfile"> <div class="name-title-product-review">Super Duper awesome Burger</div></a>
             <div class="name-title-product-review-child">Yum Yum Burger Joint</div>
           </div>
           <div class="user-review-toolbal">
             <div class="content-body-share">
-              <div class="text-review">Reviews</div>
+              <a href="/home/review"><div class="text-review">Reviews</div></a>
               <div class="text-review-share">share</div>
             </div>
           </div>
@@ -125,11 +134,11 @@
     </div>
     <div class="content-body-item">
       <div class="item-conettn-body">
-        <div class="item-img" style="position: relative">
+        <a href="/home/BurgerProfile"> <div class="item-img" style="position: relative">
           <%= image_tag("/Uploads/product/01.png", :class => 'img-responsive') %>
           <div class="tim-hover">
           </div>
-        </div>
+        </div></a>
         <div class="item-body">
           <div class="item-reviews">
             <div class="number-reviews">
@@ -138,22 +147,24 @@
             <div class="user-reviews">
               <div class="title-reviews">Reviews</div>
               <div class="user-data">
+                <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a>
                 <%if device_type == :desktop %>
+                    <a href="/home/userprofile?id=1">
                     <div class="item-img-user">
                       <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                    </div>
+                    </div></a>
                 <%end%>
                 <div class="item-number-count">(+123)</div>
                 <div class="item-add" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen'>Experience planned</div><div class='text-item-show-tim active-t'>Experience completed</div></div></div>">
@@ -163,12 +174,12 @@
             </div>
           </div>
           <div class="title-product-reviews">
-            <div class="name-title-product-review">Super Duper awesome Burger</div>
+            <a href="/home/BurgerProfile"> <div class="name-title-product-review">Super Duper awesome Burger</div></a>
             <div class="name-title-product-review-child">Yum Yum Burger Joint</div>
           </div>
           <div class="user-review-toolbal">
             <div class="content-body-share">
-              <div class="text-review">Reviews</div>
+              <a href="/home/review"><div class="text-review">Reviews</div></a>
               <div class="text-review-share">share</div>
             </div>
           </div>
@@ -177,9 +188,10 @@
     </div>
     <div class="content-body-item">
       <div class="item-conettn-body">
-        <div class="item-img">
+        <a href="/home/BurgerProfile"><div class="item-img">
           <%= image_tag("/Uploads/product/01.png", :class => 'img-responsive') %>
         </div>
+          </a>
         <div class="item-body">
           <div class="item-reviews">
             <div class="number-reviews">
@@ -188,22 +200,24 @@
             <div class="user-reviews">
               <div class="title-reviews">Reviews</div>
               <div class="user-data">
+                <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a>
                 <%if device_type == :desktop %>
+                    <a href="/home/userprofile?id=1">
                     <div class="item-img-user">
                       <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                    </div>
+                    </div></a>
                 <%end%>
                 <div class="item-number-count">(+123)</div>
                 <div class="item-add" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow active-y'>Plan my experience</div><div class='text-item-show-greeen'>Experience planned</div><div class='text-item-show-tim'>Experience completed</div></div></div>">
@@ -213,12 +227,12 @@
             </div>
           </div>
           <div class="title-product-reviews">
-            <div class="name-title-product-review">Super Duper awesome Burger</div>
+            <a href="/home/BurgerProfile"> <div class="name-title-product-review">Super Duper awesome Burger</div></a>
             <div class="name-title-product-review-child">Yum Yum Burger Joint</div>
           </div>
           <div class="user-review-toolbal">
             <div class="content-body-share">
-              <div class="text-review">Reviews</div>
+              <a href="/home/review"> <div class="text-review">Reviews</div></a>
               <div class="text-review-share">share</div>
             </div>
           </div>
@@ -227,9 +241,9 @@
     </div>
     <div class="content-body-item">
       <div class="item-conettn-body">
-        <div class="item-img">
+        <a href="/home/BurgerProfile"> <div class="item-img">
           <%= image_tag("/Uploads/product/01.png", :class => 'img-responsive') %>
-        </div>
+        </div></a>
         <div class="item-body">
           <div class="item-reviews">
             <div class="number-reviews">
@@ -238,22 +252,24 @@
             <div class="user-reviews">
               <div class="title-reviews">Reviews</div>
               <div class="user-data">
+                <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a> <a href="/home/userprofile?id=1">
                 <div class="item-img-user">
                   <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                </div>
+                </div></a>
                 <%if device_type == :desktop %>
+                    <a href="/home/userprofile?id=1">
                     <div class="item-img-user">
                       <%= image_tag("/Uploads/avatar/avatar.png",:width => 35, :height => 35,) %>
-                    </div>
+                    </div></a>
                 <%end%>
                 <div class="item-number-count">(+123)</div>
                 <div class="item-add" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen active-g'>Experience planned</div><div class='text-item-show-tim'>Experience completed</div></div></div>">
@@ -263,12 +279,12 @@
             </div>
           </div>
           <div class="title-product-reviews">
-            <div class="name-title-product-review">Super Duper awesome Burger</div>
+            <a href="/home/BurgerProfile"> <div class="name-title-product-review">Super Duper awesome Burger</div></a>
             <div class="name-title-product-review-child">Yum Yum Burger Joint</div>
           </div>
           <div class="user-review-toolbal">
             <div class="content-body-share">
-              <div class="text-review">Reviews</div>
+              <a href="/home/review"> <div class="text-review">Reviews</div></a>
               <div class="text-review-share">share</div>
             </div>
           </div>

@@ -50,3 +50,7 @@ gem 'activeadmin', github: 'gregbell/active_admin'
 # gem "meta_search",    '>= 1.1.0.pre'
 
 gem "paperclip", "~> 4.2"
+
+
+gem 'omniauth-facebook'
+gem 'geocoder', '~> 1.2.6'

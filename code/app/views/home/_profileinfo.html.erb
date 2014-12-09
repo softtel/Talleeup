@@ -4,15 +4,25 @@
 
   <div class="info-details row">
     <h4 class="pull-left">Country</h4>
-    <h4 class="pull-right">U.S.A</h4>
+    <h4 class="pull-right">
+      <% if(@profile.city && @profile.city.country) %>
+        <%= @profile.city.country.name %>
+      <% end %>
+    </h4>
   </div>
   <div class="info-details row">
     <h4 class="pull-left">City</h4>
-    <h4 class="pull-right">Mestropolis</h4>
+    <h4 class="pull-right">
+      <% if(@profile.city) %>
+          <%= @profile.city.name %>
+      <% end %>
+    </h4>
   </div>
   <div class="info-details row">
     <h4 class="pull-left">Twitter</h4>
-    <h4 class="pull-right"><a href="#">@supergirll</a></h4>
+    <h4 class="pull-right">
+      <a href="#"><%= @profile.social %></a>
+    </h4>
   </div>
   <div class="info-details row">
     <h4 class="pull-left">Favorite Burger</h4>
@@ -24,7 +34,7 @@
   </div>
   <div id="info-details-age" class="info-details row">
     <h4 class="pull-left">Age</h4>
-    <h4 class="pull-right">28</h4>
+    <h4 class="pull-right"><%= @profile.age %></h4>
   </div>
 </div>
 <!--End main-title-->

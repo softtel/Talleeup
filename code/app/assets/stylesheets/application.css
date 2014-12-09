@@ -15,6 +15,7 @@
  *= require userprofile
  *= require myprofile
  *= require review
+ *= require reset
  *= require_tree .
  *= require_self
  *= stub active_admin

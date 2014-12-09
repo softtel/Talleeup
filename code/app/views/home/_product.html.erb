@@ -1,26 +1,37 @@
+<% is_reviewed = product.check_reviewed(@my_user_id) %>
 <div class="row product">
-  <%= image_tag 'plus-white.png', class: 'sign' %>
-  <div class="col-md-4 col-sm-4 col-xs-4 product-image">
-    <%= image_tag(product.images.url(:thumb), class: 'img-responsive') %>
-    <div class="layer-product-image"></div>
-  </div>
+
+  <%= image_tag 'plus-white.png', class: 'btn-img-sign', data: {content: "<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen active-g'>Experience planned</div><div class='text-item-show-tim'>Experience completed</div></div></div>"} %>
+
+  <!--<button class="btn-img-sign" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen active-g'>Experience planned</div><div class='text-item-show-tim'>Experience completed</div></div></div>">-->
+    <!--btn-->
+  <!--</button>-->
+
+  <a href="/home/BurgerProfile">
+    <div class="col-md-4 col-sm-4 col-xs-4 product-image">
+        <%= image_tag(product.images.url(:medium), class: 'img-responsive') %>
+      <% if(is_reviewed) %>
+        <div class="layer-product-image"></div>
+      <% end %>
+    </div>
+  </a>
   <!--End product-image-->
   <div class="col-md-8 col-sm-8 col-xs-8 product-reviews">
     <div class="product-reviews-top">
       <p class="product-reviews-score">
-        <span>29.8</span>
+        <span><%=  product.get_review_score.round(1) %></span>
       </p>
 
       <div class="product-reviews-people">
         <h6>REVIEWS</h6>
 
         <div class="list-avatars">
-          <%= image_tag 'user-avatar.png', class: 'avatar-reviewer img-circle' %>
-          <%= image_tag 'user-avatar.png', class: 'avatar-reviewer img-circle' %>
-          <%= image_tag 'user-avatar.png', class: 'avatar-reviewer img-circle' %>
-          <%= image_tag 'user-avatar.png', class: 'avatar-reviewer img-circle' %>
-          <%= image_tag 'user-avatar.png', class: 'hidden-xs hidden-sm avatar-reviewer img-circle' %>
-          <span class="num-reviewer pull-right">(+123)</span>
+
+          <% product.get_reviewers.limit(5).each  do |review| %>
+              <%= link_to(image_tag(review.user.profile.avatar.url(:thumb), :id=>"avatar", :class=>"avatar-reviewer img-circle"), :controller => :home, :action => :userprofile, :id => review.user_id) %>
+          <% end %>
+
+          <span class="num-reviewer pull-right">(+<%= product.get_reviewers.count %>)</span>
         </div>
         <!--End list-avatars-->
       </div>
@@ -29,13 +40,20 @@
     <!--End product-reviews-top-->
 
     <div class="product-reviews-center">
-      <h3 class="product-reviews-center-top"><%= product.name %></h3>
+      <a href="/home/BurgerProfile"><h3 class="product-reviews-center-top"><%= product.name %></h3></a>
       <h4 class="product-reviews-center-bottom"><%= product.restaurant.name %></h4>
     </div>
     <!--End product-reviews-center-->
 
     <div class="product-btn-group">
-      <button class="btn-control btn-review"><span class="icon"></span> REVIEW</button>
+      <a href="/home/review?product_id=<%= product.id %>">
+        <button class="btn-control btn-review">
+          <% if(is_reviewed) %>
+            <span class="icon"></span>
+          <% end %>
+          REVIEW
+        </button>
+      </a>
       <button class="btn-control btn-share">SHARE</button>
     </div>
     <!--End product-btn-group-->

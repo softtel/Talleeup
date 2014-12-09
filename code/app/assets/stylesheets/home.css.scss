@@ -301,11 +301,11 @@
     border-radius: 0px;
   }
 
-  .product .sign{
+  .product .btn-img-sign{
     right: 18px !important;
     top: 220px !important;
     width: 35px;
-    z-index: 2;
+//    z-index: 2;
   }
 
   div.product-reviews{
@@ -503,7 +503,7 @@ ul#signup-list li:not(:first-child):before {
 
 /**********end header***********/
 #header-container{
-  padding-left: 90px;
+  padding-left: 50px;
   padding-right: 50px;
 //  border: 1px solid red;
 }
@@ -523,7 +523,7 @@ ul#signup-list li:not(:first-child):before {
 
 #main-title{
   text-align: center;
-  margin-top: 150px;
+  margin-top: 50px;
   border-bottom: 1px solid #B2B2B2;
 }
 
@@ -652,7 +652,7 @@ div#main-bar-color{
   height: 95px;
 }
 
-.product .sign{
+.product .btn-img-sign{
   position: absolute;
   right: 10px;
   top: 9px;
@@ -724,4 +724,26 @@ span.icon {
   height: 30px;
   left: 20%;
   top: 24%;
+}
+
+.styled-select {
+  width: 200px;
+  height: 34px;
+  overflow: hidden;
+  background: url('/assets/05.png') no-repeat right #F3F7FA;
+  border: none;
+}
+
+.styled-select select {
+  background: transparent;
+  width: 100%;
+  padding: 5px;
+  color: #165A8B;
+  font-weight: bold;
+  font-size: 25px;
+  line-height: 1;
+  border: 0;
+  border-radius: 0;
+  height: 34px;
+  -webkit-appearance: none;
 }

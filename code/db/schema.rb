@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201100437) do
+ActiveRecord::Schema.define(version: 20141205123436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 20141201100437) do
 
   create_table "categories", force: true do |t|
     t.string   "name"
-    t.string   "type",       limit: 50
+    t.string   "categorytype", limit: 50
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -79,6 +79,19 @@ ActiveRecord::Schema.define(version: 20141201100437) do
     t.text     "content"
     t.integer  "reviewsproductuser_id"
     t.string   "images"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "component_values", force: true do |t|
+    t.string   "name"
+    t.integer  "component_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "components", force: true do |t|
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -112,22 +125,9 @@ ActiveRecord::Schema.define(version: 20141201100437) do
     t.datetime "updated_at"
   end
 
-  create_table "product_component_values", force: true do |t|
-    t.string   "name"
-    t.integer  "product_component_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "product_components", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "product_details", force: true do |t|
     t.integer  "product_id"
-    t.integer  "productcomponentvalue_id"
+    t.integer  "component_value_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -150,13 +150,22 @@ ActiveRecord::Schema.define(version: 20141201100437) do
     t.string   "phone"
     t.string   "social"
     t.integer  "age"
-    t.string   "avatar"
     t.integer  "user_id"
     t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "coverImage"
     t.integer  "favorite_id"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "cover_image_file_name"
+    t.string   "cover_image_content_type"
+    t.integer  "cover_image_file_size"
+    t.datetime "cover_image_updated_at"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.string   "address"
   end
 
   create_table "restaurants", force: true do |t|
@@ -167,27 +176,25 @@ ActiveRecord::Schema.define(version: 20141201100437) do
     t.datetime "updated_at"
   end
 
-  create_table "reviewsproducts", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "product_id"
-    t.integer  "status"
-    t.float    "totalpoint"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "reviewsproductusers", force: true do |t|
-    t.integer  "user_id"
+  create_table "review_components", force: true do |t|
     t.integer  "point"
-    t.integer  "typereviews_id"
-    t.integer  "product_id"
+    t.integer  "review_type_id"
+    t.integer  "review_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "typereviews", force: true do |t|
+  create_table "review_types", force: true do |t|
     t.string   "name"
     t.integer  "sort"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reviews", force: true do |t|
+    t.integer  "totalpoint"
+    t.integer  "user_id"
+    t.integer  "product_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -205,8 +212,16 @@ ActiveRecord::Schema.define(version: 20141201100437) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

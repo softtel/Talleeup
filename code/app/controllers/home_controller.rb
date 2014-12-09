@@ -1,21 +1,58 @@
+require 'product_view_models'
 class HomeController < ApplicationController
   # before_action :authenticate_user!
   def index
-    @products = Product.all
+
+    @cityDetected = request.location.city
+
+    @city_id = (params[:city_id].nil?) ? 1 : params[:city_id]
+
+    @city = City.all
+    # country = request.location.country_code
+
+    session[:user_id] = 1
+
+    @products = Product.get_products(@city_id, 5)
+
+    @my_user_id = 1
+
     render layout: "home_layout"
   end
 
   def userprofile
-    @products = Product.all
+    user_id = params[:id]
+    my_user_id = 1 # get from section
+
+    @user = User.find_by_id(user_id)
+
+    if @user.nil?
+      @user = User.find_by_id(1)
+    end
+
+    @profile = Profile.find(@user.id)
+    @myprofile = Profile.find(my_user_id)
+
+    @products = @user.get_products_reviewed
     render layout: "userprofile_layout"
   end
 
   def myprofile
+    my_user_id = 1 # get from section
+    user = User.find(my_user_id)
+    @myprofile = Profile.find(my_user_id)
     @products = Product.all
+
     render layout: "myprofile_layout"
   end
 
   def review
+    @product = Product.find_by_id(params[:product_id])
+    @my_user_id = session[:user_id] # get from section
+
+    user = User.find(@my_user_id)
+    user = User.find(@my_user_id)
+    @myprofile = Profile.find(@my_user_id)
+
     render layout: "review_layout"
   end
 
@@ -45,6 +82,10 @@ class HomeController < ApplicationController
   def test
     # render layout: "homelogin"
     render layout: "application"
+  end
+
+  def test_ajax
+    render json: Restaurant.all
   end
 
 end
