@@ -9,4 +9,5 @@ class ApplicationController < ActionController::Base
   def device_type
     request.env['mobvious.device_type']
   end
+
 end

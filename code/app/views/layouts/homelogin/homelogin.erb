@@ -54,9 +54,12 @@
           <%= image_tag("/images/08.png") %>
         </div>
         <div class="text-bk-content-header">
-          San Francisco
+          <div class="style_select">
+           <%= collection_select(:country, :country_id, City.all, :id, :name_with_initial, prompt: true,include_blank: false)%>
+          </div>
+
         </div>
-        <div class="img-text-bk-content-header"></div>
+       <!-- <div class="img-text-bk-content-header"></div>-->
       </div>
     </div>
 

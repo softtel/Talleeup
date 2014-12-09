@@ -1,13 +1,15 @@
 require 'product_view_models'
 class HomeController < ApplicationController
   # before_action :authenticate_user!
+
   def index
 
     @cityDetected = request.location.city
 
     @city_id = (params[:city_id].nil?) ? 1 : params[:city_id]
+    @city = City.find_by_id(@city_id)
 
-    @city = City.all
+    @cities = City.all
     # country = request.location.country_code
 
     session[:user_id] = 1
@@ -59,7 +61,10 @@ class HomeController < ApplicationController
   #hungnt
   #login
   def login
-      @product = Product.all
+      @location=City.all
+      countrycurrent=request.location.city
+      citycurrent=request.location.country
+      @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @location.first().id})
       render layout: "homelogin/homelogin"
   end
 
