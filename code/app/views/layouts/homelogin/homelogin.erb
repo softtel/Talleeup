@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,10 @@
         </div>
         <div class="text-bk-content-header">
           <div class="style_select">
-           <%= collection_select(:country, :country_id, City.all, :id, :name_with_initial, prompt: true,include_blank: false)%>
+            <%= form_tag("/home/login", method: "post") do %>
+
+            <%= select_tag :city_id, options_for_select(@location.collect {|p| [ p.name, p.id ] }, @city_id), :onchange => "this.form.submit()" %>
+            <%end%>
           </div>
 
         </div>

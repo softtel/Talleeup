@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   get 'home/BurgerProfile'
   get 'home/login'
   get 'home/locations'
-
+  post 'home/login'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

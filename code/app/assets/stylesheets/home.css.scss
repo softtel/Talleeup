@@ -45,6 +45,11 @@
 
 @media (max-width: 768px) {
 
+  div#login-container-fluid{
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
   div#header-container{
     margin: 0 !important;
     padding: 0 !important;
@@ -97,6 +102,15 @@
 }
 
 @media (max-width: 633px) {
+
+  div#login-container {
+    width: 480px;
+  }
+
+  .input-login-wrapper{
+    width: 190px;
+  }
+
   .avatar-reviewer:nth-child(3){
     display: none;
   }
@@ -162,6 +176,16 @@
 }
 
 @media (max-width: 503px) {
+
+  div#login-container {
+    width: 450px;
+  }
+
+  .input-login-wrapper{
+    width: 170px;
+  }
+
+
   div.product-reviews-center{
     padding-left: 3px;
   }
@@ -182,6 +206,21 @@
 }
 
 @media (max-width: 469px) {
+
+  div#login-container {
+    width: 420px;
+  }
+
+  .input-login-wrapper{
+    width: 150px;
+  }
+
+  .input-login{
+    border-radius: 0;
+    background-color: #E1E6EA;
+    border-color: transparent;
+  }
+
   div#main-title{
     margin-top: 90px;
   }
@@ -205,6 +244,44 @@
 
 @media (max-width: 429px) {
 
+  div#login-container-fluid{
+    width: 100%;
+    height: 130px;
+    padding-top: 0px;
+    position: absolute;
+    top: 100px;
+    z-index: 3;
+
+    background-color: transparent;
+//    opacity: 0.7;
+  }
+
+  input#btn-login-submit {
+    width: 98% !important;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+    margin-top: 5px !important;
+    border-radius: 3px;
+  }
+
+  div#layer{
+    top: 0px;
+  }
+
+  div#login-container {
+    width: 100%;
+  }
+
+  .input-login-wrapper{
+    padding: 0px !important;
+    width: 100%;
+  }
+
+  input#btn-login-submit {
+    margin-top: 20px;
+    width: 100%;
+  }
+
   body{
 //    overflow-x: hidden;
   }
@@ -215,6 +292,34 @@
 
   div#header{
     padding: 0px !important;
+  }
+
+  #register-container-fluid{
+    top: 0;
+    opacity: 1 !important;
+    height: 100% !important;
+  }
+
+  #form-register{
+    width: 99% !important;
+  }
+
+  .form-group-register-mobile{
+    padding: 0px;
+    margin: 0px;
+    border-color: #D7DADE;
+  }
+
+  .input-register-mobile{
+    background-color: #E1E6EA;
+    border-radius: 0;
+    height: 50px;
+    width: 100%;
+  }
+
+  #btn-register-submit{
+    width: 100% !important;
+    margin: 20px 1px;
   }
 
   div#main{
@@ -379,17 +484,50 @@
   }
 }
 
-@media (max-width: 351px) {
-  ul#signup-list li{
+@media (max-width: 378px) {
+  #signup-list li{
     font-size: 10px !important;
+    margin-left: 2px !important;
   }
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 body{
+  position: relative;
   background-color: #F3F7FA !important;
 //  background-color: red !important;
   width: 100% !important;
 //  min-width: 300px !important;
+}
+
+#layer{
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  position: absolute;
+  top: 100px;
+  left: 0;
+  background-color: rgb(20, 90, 139);
+  opacity: 0.7;
+  display: none;
+}
+
+#login-container-fluid{
+  height: 100px;
+  background-color: #E7EFF2;
+  padding-top: 32px;
+
+  display: none;
+}
+
+#login-container{
+  width: 600px;
 }
 
 #header-container{
@@ -399,6 +537,33 @@ body{
   -o-background-size: cover;
   background-size: cover;
   height: 853px;
+  position: relative;
+}
+
+div#register-container-fluid{
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  height: 475px;
+  background-color: #ffffff;
+  opacity: 0.7;
+}
+
+#form-register{
+  width: 400px;
+  padding-top: 50px;
+  z-index: 4;
+}
+
+#form-register-title{
+  font-size: 35px !important;
+  font-weight: bold;
+  color: #145a8b;
+  text-align: center;
+  margin-bottom: 35px;
 }
 
 #header{
@@ -435,7 +600,7 @@ body{
   margin-top: 10px;
 }
 
-#btn-signup, #btn-seefull{
+#btn-signup, #btn-seefull, #btn-register-submit{
   width: 290px;
   height: 62px;
   font-size: 18px;
@@ -443,11 +608,24 @@ body{
   border: transparent;
 }
 
-#btn-signup{
+#btn-signup, #btn-register-submit{
   background-color: #fccf0f;
   color: #145a8b;
+}
+
+#btn-signup{
   margin-top: 60px;
   margin-bottom: 0px;
+}
+
+#btn-login-submit{
+  width: 100px;
+  height: 36px;
+  font-size: 18px;
+  border-radius: 6px;
+  border: transparent;
+  background-color: #fccf0f;
+  color: #145a8b;
 }
 
 #btn-seefull{

@@ -1,8 +1,8 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.7'
+gem 'rails'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use SCSS for stylesheets
@@ -43,14 +43,17 @@ gem 'devise'
 gem 'mobvious'
 gem 'mobvious-rails'
 
-
-
 # Gemfile in Rails >= 3.1
 gem 'activeadmin', github: 'gregbell/active_admin'
 # gem "meta_search",    '>= 1.1.0.pre'
+
+
 
 gem "paperclip", "~> 4.2"
 
 
 gem 'omniauth-facebook'
 gem 'geocoder', '~> 1.2.6'
+gem 'geokit'
+gem 'geokit-rails'
+gem "prototype-rails"

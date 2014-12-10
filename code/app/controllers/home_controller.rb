@@ -61,10 +61,22 @@ class HomeController < ApplicationController
   #hungnt
   #login
   def login
+      citycurrent = request.location.city
       @location=City.all
-      countrycurrent=request.location.city
-      citycurrent=request.location.country
-      @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @location.first().id})
+      if request.post?
+        @city_id=params[:city_id]
+        @city = City.find_by_id(@city_id)
+        @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
+      else
+        if citycurrent.nil?
+          locationcureent=City.find_by_name(citycurrent)
+          @city_id=locationcureent.id
+          @city = City.find_by_id(@city_id)
+          @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
+        else
+          @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @location.first().id})
+        end
+      end
       render layout: "homelogin/homelogin"
   end
 
@@ -76,6 +88,7 @@ class HomeController < ApplicationController
   #hungnt
   #BurgerProfile
   def BurgerProfile
+
       render layout:"BurgerProfile/BurgerProfile"
   end
   #hungnt
@@ -92,5 +105,10 @@ class HomeController < ApplicationController
   def test_ajax
     render json: Restaurant.all
   end
+  def getProductByCity
+    logger.debug('here')
+    @ok="111"
 
+    render layout: "homelogin/homelogin"
+  end
 end
