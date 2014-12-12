@@ -1,4 +1,4 @@
-
+<%= @hh%>
 <div class="cl"></div>
 <div class="container">
 <div class="content-product">
@@ -17,7 +17,7 @@
     <% @data.each do |item| %>
         <div class="m-content-body-item">
           <div class="m-item-conettn-body">
-            <a href="/home/BurgerProfile">
+            <a href="/home/BurgerProfile/<%=item.id %>">
               <div class="m-item-img" style="position: relative">
                 <%= image_tag("/Uploads/product/01.png", :class => 'img-responsive') %>
               </div>
@@ -40,7 +40,7 @@
               </div>
             </div>
             <div class="title-product-reviews">
-              <a href="/home/BurgerProfile"> <div class="name-title-product-review"><%= item.productname%></div></a>
+              <a href="/home/BurgerProfile/<%=item.id %>"> <div class="name-title-product-review"><%= item.productname%></div></a>
               <div class="name-title-product-review-child"><%= item.restaurantsname%></div>
             </div>
           </div>
@@ -51,7 +51,7 @@
     <% @data.each do |item| %>
     <div class="content-body-item">
       <div class="item-conettn-body">
-        <a href="/home/BurgerProfile">
+        <a href="/home/BurgerProfile/<%=item.id %>">
           <div class="item-img" style="position: relative">
             <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'border-radius:10px') %>
             <div class="tim-hover">
@@ -82,7 +82,7 @@
             </div>
           </div>
           <div class="title-product-reviews">
-            <a href="/home/BurgerProfile"> <div class="name-title-product-review"><%= item.productname%></div></a>
+            <a href="/home/BurgerProfile/<%=item.id %>"> <div class="name-title-product-review"><%= item.productname%></div></a>
             <div class="name-title-product-review-child"><%= item.restaurantsname%></div>
           </div>
           <div class="user-review-toolbal">

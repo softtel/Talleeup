@@ -35,5 +35,36 @@ class Product < ActiveRecord::Base
     # @@is_reviewed = (reviewed > 0) ? true : false
     return (reviewed > 0) ? true : false
   end
+  def self.get_socre_average_product_byid(productid,_num)
+    reviews = Review.where('product_id' => productid)
+    return (reviews.count == 0) ? 0.0 : reviews.average("totalpoint").round(_num)
+  end
+  def self.get_count_user_review_byIcProduct(productid)
+    return Review.where(product_id: productid).select(:user_id).distinct.count()
+  end
+  def self.get_product_Byid(productid)
+    return Product.where(id: productid).first()
+  end
+  def self.update_views_product_byid(product_id)
+      product=Product.find_by(id: product_id)
+      product.numviews= product.numviews+1
+      product.save
+  end
+  def self.get_score_product_groupByuserId(productid,_num)
+    reviews =Review.find_by_sql("select  *
+                                from reviews
+                                where id = (
+                                            select max(id)
+                                            from reviews as f
+                                            where f.product_id = #{productid} and f.user_id = reviews.user_id) limit #{_num}")
 
+    return reviews
+  end
+  def self.get_comment_product_byid(commentid)
+   # data=Commentproduct.where("reviewsproductuser_id"=> commentid)
+    data=Commentproduct.find_by_sql("
+      SELECT * FROM commentproducts WHERE reviewsproductuser_id=#{commentid}
+")
+    return data
+  end
 end

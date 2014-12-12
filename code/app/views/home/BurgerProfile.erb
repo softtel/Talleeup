@@ -194,12 +194,12 @@
           <div class="content-deatisl-title">
             <div class="item-content-details">
               <div class="text-dataisl-item">Price</div>
-              <div class="price-dataisl-item">$99.9</div>
+              <div class="price-dataisl-item"><%=number_to_currency(@productdetails.prices)%></div>
             </div>
             <div class="clear-fix"></div>
             <div class="item-content-details">
               <div class="text-dataisl-item">Protein</div>
-              <div class="price-dataisl-item">Bison Organic Beef</div>
+              <div class="price-dataisl-item">Lettuce</div>
             </div>
 
             <div class="clear-fix"></div>
@@ -227,85 +227,74 @@
           </div>
         </div>
     </div>
-<div class="line-none"></div>
-<div class="container">
+
+<!--<div class="container">
   <div class="details-bur-profile">
     <div class="details-title">
       <div class="detaisl-noline"></div>
       <div class="detaisl-item-titl">
-        <span>Reviews</span><span style="font-size: 8pt">(45)</span>
+        <span>Reviews</span><span style="font-size: 8pt">(<%=number_with_delimiter(@countreview.count())%>)</span>
       </div>
       <div class="detaisl-noline"></div>
     </div>
     <div class="content-reviews">
-      <div class="item-reviews-bur">
-        <div class="item-avarta">
-          <%= image_tag("/Uploads/avatar/01.png",:class=>"img-circle") %>
-        </div>
-        <div class="item-text-reviews">
-          <div class="item-name-reviews">clark kent</div>
-          <div class="item-number-reviews">29.8</div>
-        </div>
-        <div class="item-clock">
-                just now
-        </div>
-      </div>
-      <div class="item-reviews-bur">
-        <div class="item-avarta">
-          <%= image_tag("/Uploads/avatar/01.png",:class=>"img-circle") %>
-        </div>
-        <div class="item-text-reviews">
-          <div class="item-name-reviews">clark kent</div>
-          <div class="item-number-reviews">29.8</div>
-        </div>
-        <div class="item-clock">
-          just now
-        </div>
-      </div>
-      <div class="item-reviews-bur">
-        <div class="item-avarta">
-          <%= image_tag("/Uploads/avatar/01.png",:class=>"img-circle") %>
-        </div>
-        <div class="item-text-reviews">
-          <div class="item-name-reviews">clark kent</div>
-          <div class="item-number-reviews">29.8</div>
-        </div>
-        <div class="item-clock">
-          just now
-        </div>
-      </div>
+      <%@scoreuser.each do |item| %>
+          <div class="item-reviews-bur">
+            <div class="item-avarta">
+
+              <%= image_tag(item.user.profile.avatar.url(:thumb),:width => 70, :height => 70,:class => 'img-circle') %>
+            </div>
+            <div class="item-text-reviews">
+              <div class="item-name-reviews"><%=item.user.profile.lastname %> <%=item.user.profile.firstname%></div>
+              <div class="item-number-reviews"><%= item.totalpoint %></div>
+            </div>
+            <div class="item-clock">
+              <%= item.created_at %>
+            </div>
+
+          </div>
+      <%end%>
+
         <div class="clear-fix"></div>
       <div class="buttom-loadmore" align="center">
         <div class="text-loadmore">Load More</div>
         </div>
     </div>
   </div>
-</div>
+</div>-->
 <div class="line-none" style="height: 10px"></div>
 <div class="container">
   <div class="details-bur-profile">
     <div class="details-title">
       <div class="detaisl-noline"></div>
       <div class="detaisl-item-titl">
-        <span>Comments</span><span style="font-size: 8pt">(3)</span>
+        <span>discuss this burger</span>
       </div>
       <div class="detaisl-noline"></div>
     </div>
+    <div class="buttom-loadmore" align="center" style="padding-top: 18px">
+      <div class="text-loadmore">ADD COMMENT</div>
+    </div>
+    <div style="width: 100%;height: 2px;border-bottom: 1px solid #ccc;float:left;padding-top: 18px"></div>
     <div class="content-reviews">
+
+      <%@scoreuser.each do |item| %>
+        <% data=Product.get_comment_product_byid(item.id) %>
+          <%=data.nil? %>
+          <% if data.nil? %>
       <div class="item-reviews-bur-comennt">
         <div class="item-avarta">
-          <%= image_tag("/Uploads/avatar/01.png",:class=>"img-circle") %>
+          <%= image_tag(item.user.profile.avatar.url(:thumb),:width => 70, :height => 70,:class => 'img-circle') %>
         </div>
         <div class="item-text-reviews-comment">
-          <div class="item-name-reviews-comment">clark kent</div>
+          <div class="item-name-reviews-comment"><%=item.user.profile.lastname %> <%=item.user.profile.firstname%></div>
           <div class="item-clock-comment">
-            just now
+
           </div>
           <div class="clear-fix"></div>
 
           <div class="item-text-reviews-mutile">
-            <span>This is the best burger on the planet.nerno enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,sed quia consequuntur
-            magni dolores eos qui ratione voluptatem sequi nesciunt</span></div>
+            <span></span></div>
           <div style="width: 100%;height: 10px;float: left"></div>
           <div class="like-active">
             <span>like</span>
@@ -314,72 +303,9 @@
         </div>
 
       </div>
-      <div class="item-reviews-bur-comennt">
-        <div class="item-avarta">
-          <%= image_tag("/Uploads/avatar/01.png",:class=>"img-circle") %>
-        </div>
-        <div class="item-text-reviews-comment">
-          <div class="item-name-reviews-comment">clark kent</div>
-          <div class="item-clock-comment">
-            just now
-          </div>
-          <div class="clear-fix"></div>
+              <%end%>
+     <%end%>
 
-          <div class="item-text-reviews-mutile">
-            <span>This is the best burger on the planet.nerno enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,sed quia consequuntur
-            magni dolores eos qui ratione voluptatem sequi nesciunt</span></div>
-          <div style="width: 100%;height: 10px;float: left"></div>
-          <div class="like-active">
-            <span>like</span>
-          </div>
-          <div class="next-comment"></div>
-        </div>
-
-      </div>
-      <div class="item-reviews-bur-comennt">
-        <div class="item-avarta">
-          <%= image_tag("/Uploads/avatar/01.png",:class=>"img-circle") %>
-        </div>
-        <div class="item-text-reviews-comment">
-          <div class="item-name-reviews-comment">clark kent</div>
-          <div class="item-clock-comment">
-            just now
-          </div>
-          <div class="clear-fix"></div>
-
-          <div class="item-text-reviews-mutile">
-            <span>This is the best burger on the planet.nerno enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,sed quia consequuntur
-            magni dolores eos qui ratione voluptatem sequi nesciunt</span></div>
-          <div style="width: 100%;height: 10px;float: left"></div>
-          <div class="like-active">
-            <span>like</span>
-          </div>
-          <div class="next-comment"></div>
-        </div>
-
-      </div>
-      <div class="item-reviews-bur-comennt">
-        <div class="item-avarta">
-          <%= image_tag("/Uploads/avatar/01.png",:class=>"img-circle") %>
-        </div>
-        <div class="item-text-reviews-comment">
-          <div class="item-name-reviews-comment">clark kent</div>
-          <div class="item-clock-comment">
-            just now
-          </div>
-          <div class="clear-fix"></div>
-
-          <div class="item-text-reviews-mutile">
-            <span>This is the best burger on the planet.nerno enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,sed quia consequuntur
-            magni dolores eos qui ratione voluptatem sequi nesciunt</span></div>
-          <div style="width: 100%;height: 10px;float: left"></div>
-          <div class="like-active">
-            <span>like</span>
-          </div>
-          <div class="next-comment"></div>
-        </div>
-
-      </div>
     </div>
 
   </div>

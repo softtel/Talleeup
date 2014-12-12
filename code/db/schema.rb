@@ -159,6 +159,7 @@ ActiveRecord::Schema.define(version: 20141203065100) do
     t.string   "images_content_type"
     t.integer  "images_file_size"
     t.datetime "images_updated_at"
+    t.integer  "numviews",            default: 0
   end
 
   create_table "profiles", force: true do |t|

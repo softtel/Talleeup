@@ -59,7 +59,7 @@
         <div class="item-noline-number"></div>
         <div class="item-line-number">
           <div class="item-no"></div>
-          <div class="item-nnumber">29.8</div>
+          <div class="item-nnumber"><%=@avrage%></div>
           <div class="item-no"></div>
         </div>
         <div class="item-noline-number"></div>
@@ -78,12 +78,12 @@
       <div class="container">
           <div class="item-text-bottom">reviews</div>
 
-        <div class="item-text-bottom">add tolist</div>
+
         <div class="item-text-bottom">views</div>
         <div class="clearfix"></div>
-        <div class="item-number-bottom">3,456</div>
-        <div class="item-number-bottom">789</div>
-        <div class="item-number-bottom">89,012</div>
+        <div class="item-number-bottom"><%= number_with_delimiter(@countreview.count()) %></div>
+
+        <div class="item-number-bottom"><%=number_with_delimiter(@productdetails.numviews) %></div>
         <div class="clearfix"></div>
       </div>
     </div>

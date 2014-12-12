@@ -1,4 +1,5 @@
 require 'product_view_models'
+
 class HomeController < ApplicationController
   # before_action :authenticate_user!
 
@@ -61,8 +62,17 @@ class HomeController < ApplicationController
   #hungnt
   #login
   def login
+
       citycurrent = request.location.city
-      @location=City.all
+      countrycrrent=request.location.country
+      if countrycrrent.nil?
+        countryid=Country.find_by_name(countrycrrent).id
+      else
+        country=Country.all.order("name ASC")
+        countryid=country.first().id
+      end
+      @location=City.where(country_id:countryid)
+      #@location=City.all
       if request.post?
         @city_id=params[:city_id]
         @city = City.find_by_id(@city_id)
@@ -88,6 +98,11 @@ class HomeController < ApplicationController
   #hungnt
   #BurgerProfile
   def BurgerProfile
+        @avrage=Product.get_socre_average_product_byid(params[:id],1)
+        @countreview=Product.get_score_product_groupByuserId(params[:id],999999)
+        Product.update_views_product_byid(params[:id])
+        @productdetails=Product.get_product_Byid(params[:id])
+        @scoreuser=Product.get_score_product_groupByuserId(params[:id],3)
 
       render layout:"BurgerProfile/BurgerProfile"
   end
