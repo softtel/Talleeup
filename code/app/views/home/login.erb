@@ -19,22 +19,22 @@
           <div class="m-item-conettn-body">
             <a href="/home/BurgerProfile/<%=item.id %>">
               <div class="m-item-img" style="position: relative">
-                <%= image_tag("/Uploads/product/01.png", :class => 'img-responsive') %>
+                <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'border-radius:10px') %>
               </div>
             </a>
             <div class="item-body">
               <div class="item-reviews">
                 <div class="number-reviews">
-                  29.8
+                  <%=  item.get_review_score.round(1) %>
                 </div>
                 <div class="user-reviews">
                   <div class="title-reviews">Reviews</div>
                   <div class="user-data">
 
-                    <div class="item-number-count">(+123)</div>
-                    <div class="item-add" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen'>Experience planned</div><div class='text-item-show-tim active-t'>Experience completed</div></div></div>">
+                    <div class="item-number-count">(+<%=item.get_reviewers.count %>)</div>
+                   <!-- <div class="item-add" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen'>Experience planned</div><div class='text-item-show-tim active-t'>Experience completed</div></div></div>">
                       <%= image_tag("/Images/add_yellow.png") %>
-                    </div>
+                    </div>-->
                   </div>
                 </div>
               </div>
@@ -54,8 +54,8 @@
         <a href="/home/BurgerProfile/<%=item.id %>">
           <div class="item-img" style="position: relative">
             <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'border-radius:10px') %>
-            <div class="tim-hover">
-            </div>
+            <!--<div class="tim-hover">
+            </div>-->
           </div>
         </a>
         <div class="item-body">
@@ -75,9 +75,9 @@
 
                 <% end %>
                 <div class="item-number-count">(+<%=item.get_reviewers.count %>)</div>
-                <div class="item-add" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen'>Experience planned</div><div class='text-item-show-tim active-t'>Experience completed</div></div></div>">
+               <!-- <div class="item-add" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen'>Experience planned</div><div class='text-item-show-tim active-t'>Experience completed</div></div></div>">
                   <%= image_tag("/Images/add_yellow.png") %>
-                </div>
+                </div>-->
               </div>
             </div>
           </div>
@@ -87,7 +87,7 @@
           </div>
           <div class="user-review-toolbal">
             <div class="content-body-share">
-              <a href="/home/review"><div class="text-review">Reviews</div></a>
+              <a href="/home/review?product_id=<%=item.id %>"><div class="text-review">Reviews</div></a>
               <div class="text-review-share">share</div>
             </div>
           </div>

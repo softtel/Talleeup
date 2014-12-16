@@ -531,13 +531,31 @@ body{
 }
 
 #header-container{
-  background: image-url('bg-header.png') no-repeat center center fixed;
+//  background: image-url('bg-header.png') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
   height: 853px;
   position: relative;
+}
+
+#header-container-layer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 90, 139, 0.7);
+//  opacity: 0.7;
+}
+
+#header-content-layer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 div#register-container-fluid{

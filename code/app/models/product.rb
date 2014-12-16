@@ -60,11 +60,5 @@ class Product < ActiveRecord::Base
 
     return reviews
   end
-  def self.get_comment_product_byid(commentid)
-   # data=Commentproduct.where("reviewsproductuser_id"=> commentid)
-    data=Commentproduct.find_by_sql("
-      SELECT * FROM commentproducts WHERE reviewsproductuser_id=#{commentid}
-")
-    return data
-  end
+
 end

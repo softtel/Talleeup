@@ -65,25 +65,26 @@
         <div class="item-noline-number"></div>
       </div>
       <div class="text-bk-content-header text-burgerprofile">
-        juicy Lucy
+        <%=Product.where(id: params[:id]).first().name%>
       </div>
 
       <div class="clearfix"></div>
       <div class="bur-text-bk-content-header">
-        circle 7 ranch
+        <%=Product.where(id: params[:id]).first().restaurant.name%>
+
       </div>
       <div class="img-text-bk-content-header downburgerprofile"></div>
     </div>
     <div class="bk-content-header-bottom header-bottom-bur">
       <div class="container">
-          <div class="item-text-bottom">reviews</div>
+          <div class="item-text-bottom" style="text-align: right;padding-right: 20px">reviews</div>
 
 
-        <div class="item-text-bottom">views</div>
+        <div class="item-text-bottom" style="text-align: left;padding-left: 20px">views</div>
         <div class="clearfix"></div>
-        <div class="item-number-bottom"><%= number_with_delimiter(@countreview.count()) %></div>
+        <div class="item-number-bottom" style="text-align: right;padding-right: 20px"><%= number_with_delimiter(@countreview.count()) %></div>
 
-        <div class="item-number-bottom"><%=number_with_delimiter(@productdetails.numviews) %></div>
+        <div class="item-number-bottom" style="text-align: left;padding-left: 20px"><%=number_with_delimiter(@productdetails.numviews) %></div>
         <div class="clearfix"></div>
       </div>
     </div>
@@ -95,10 +96,10 @@
 
           <div class="full-noline-bur"></div>
 
-          <div class="item-menu-top-header-bur"><a href="/home/review" class="bur-review" >REVIEW </a></div>
-          <div class="no-line-bur"></div>
+          <div class="item-menu-top-header-bur"><a href="/home/review?product_id=<%=params[:id]%>" class="bur-review" >REVIEW </a></div>
+         <!-- <div class="no-line-bur"></div>-->
 
-          <div class="item-menu-top-header-bur"><a href="#" class="bur-addtolist">ADD TO LIST </a></div>
+          <!--<div class="item-menu-top-header-bur"><a href="#" class="bur-addtolist">ADD TO LIST </a></div>-->
           <div class="no-line-bur"></div>
 
           <div class="item-menu-top-header-bur"><a href="#" class="bur-share">SHARE </a></div>

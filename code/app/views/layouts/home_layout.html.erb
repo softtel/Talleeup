@@ -16,25 +16,33 @@
 
 <div id="login-container-fluid" class="container-fluid">
   <div id="login-container" class="center-block">
-    <form class="form-inline" role="form">
-      <div class="form-group">
-        <div class="col-sm-5 col-xs-5 input-login-wrapper">
-          <input type="email" class="form-control input-login" id="Email" placeholder="Email">
+
+    <%= form_for(:user, :url => session_path(:user), :format => :json, :html => {:id => "login-form" ,:class => "form-inline", :role=>"form"}) do |f| %>
+
+        <div class="form-group">
+          <div class="col-sm-5 col-xs-5 input-login-wrapper">
+            <%= f.email_field :email, autofocus: true, :id => "Email", :class => "form-control input-login", :placeholder => "Email" %>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-5 col-xs-5 input-login-wrapper">
-          <input type="password" class="form-control input-login" id="Password" placeholder="Password">
+
+        <div class="form-group">
+          <div class="col-sm-5 col-xs-5 input-login-wrapper">
+            <%= f.password_field :password, autocomplete: "off", :id => "Password", :class => "form-control input-login", :placeholder=>"Password" %>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <input type="submit" id="btn-login-submit" value="LOGIN"/>
-      </div>
-    </form>
+
+        <div class="form-group">
+          <%= f.submit "LOGIN", :id => "btn-login-submit" %>
+        </div>
+    <% end %>
+
   </div>
 </div>
 
 <div id="header-container" class="container-fluid">
+  <div id="header-container-layer"></div>
+
+  <div id="header-content-layer">
   <div id="header-content" class="container">
 
     <button id="btn-login" class="pull-right">LOGIN</button>
@@ -56,8 +64,8 @@
       <p id="sign-ups" class="center-block">
         <span>Sign up using</span>
       <ul id="signup-list" class="center-block">
-        <li><a href="#">Facebook</a></li>
-        <li><a href="#">Google+</a></li>
+        <li><%=  link_to "Facebook", user_omniauth_authorize_path(:facebook) %></li>
+        <li><%= link_to "Google+", user_omniauth_authorize_path(:google_oauth2) %></li>
         <li><a href="#">Twitter</a></li>
         <li><a href="#">Github</a></li>
         <li><a href="#">Email</a></li>
@@ -67,34 +75,47 @@
     </div>
     <!--End header-top-->
   </div>
-  <!-- End header -->
+  </div>
+    <!-- End header -->
 
   <div id="register-container-fluid">
-    <form id="form-register" class="center-block">
 
-      <button id="btn-slose-register-form" type="button" class="close pull-right">
-        <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-      </button>
+    <%= form_for(:user, :url => registration_path(:user), :format => :json, :html => {:id => "form-register" ,:class => "center-block", :role=>"form"}) do |f| %>
 
-      <h2 class="center-block" id="form-register-title">Alright!</h2>
+        <button id="btn-slose-register-form" type="button" class="close pull-right">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
 
-      <div class="form-group form-group-register-mobile">
-        <input class="form-control input-register-mobile" placeholder="full name" />
-      </div>
+        <h2 class="center-block" id="form-register-title">Alright!</h2>
 
-      <div class="form-group form-group-register-mobile">
-        <input class="form-control input-register-mobile" placeholder="email" />
-      </div>
+        <div class="form-group form-group-register-mobile">
+          <%= f.email_field :email, autofocus: true, :class => "form-control input-register-mobile", :placeholder => "email" %>
+        </div>
 
-      <div class="form-group form-group-register-mobile">
-        <input class="form-control input-register-mobile" placeholder="password" />
-      </div>
+        <div class="form-group form-group-register-mobile">
+          <%= f.text_field :fullname, :class => "form-control input-register-mobile", :placeholder => "full name" %>
+        </div>
 
-      <div class="form-group">
-        <input type="submit" class="center-block" id="btn-register-submit" value="JOIN TALLEEUP" />
-      </div>
+        <div class="form-group form-group-register-mobile">
+          <% if @validatable %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <br />
+          <% end %>
+          <%= f.password_field :password, autocomplete: "off", :class => "form-control input-register-mobile", :placeholder => "password" %>
+        </div>
 
-    </form>
+        <!--<div class="form-group form-group-register-mobile">-->
+          <!--<%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control input-register-mobile", :placeholder => "password confirm" %>-->
+        <!--</div>-->
+
+        <div class="form-group">
+          <%= f.submit "JOIN TALLEEUP", :class => "center-block", :id => "btn-register-submit" %>
+        </div>
+    <% end %>
+
+
+
+
   </div>
 </div>
 <!-- End header-container -->
@@ -114,6 +135,8 @@
 
 <script>
  $(document).ready(function(){
+
+
      $('#btn-login').click(function(){
          $('#login-container-fluid').show('slow');
          $('#layer').show('slow');
@@ -143,6 +166,37 @@
 
      });
  });
+</script>
+
+<script>
+    // this is the id of the form
+    $("#login-form").submit(function() {
+
+        var url = $(this).attr('action'); // the script where you handle the form input.
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $("#login-form").serialize(), // serializes the form's elements.
+            success: function(data, status)
+            {
+                var domain = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+                console.log(domain);
+                console.log(status);
+                console.log(data);
+
+
+                window.location = domain + "/home/login";
+            },
+            fail: function(data, status)
+            {
+                console.log(status);
+                console.log(data);
+            }
+        });
+
+        return false; // avoid to execute the actual submit of the form.
+    });
 </script>
 
 </body>

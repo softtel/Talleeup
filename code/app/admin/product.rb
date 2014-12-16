@@ -28,13 +28,13 @@ ActiveAdmin.register Product do
   filter :restaurant_id, as: :select, collection: Restaurant.select(:id, :name).uniq
   filter :created_at
 
-  form :html => { :enctype => "multipart/form-data",:multipart => true } do |f|
+  form :html => { :enctype => "multipart/form-data" } do |f|
     f.inputs "Product Details" do
       f.input :name
       f.input :prices
       f.input :category_id, as: :select, collection: Category.select(:id, :name).uniq
       f.input :restaurant_id, as: :select, collection: Restaurant.select(:id, :name).uniq
-      f.input :images, :required => true,:input_html => { :multiple => true }, :as => :file, :hint => f.image_tag(f.object.images.url(:thumb))
+      f.input :images, :required => true, :as => :file, :hint => f.image_tag(f.object.images.url(:thumb))
     end
 
     f.actions

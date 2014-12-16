@@ -53,8 +53,9 @@ gem "paperclip", "~> 4.2"
 
 
 gem 'omniauth-facebook'
+gem "omniauth-google-oauth2"
+gem 'omniauth-twitter'
 gem 'geocoder', '~> 1.2.6'
 gem 'geokit'
 gem 'geokit-rails'
 gem "prototype-rails"
-gem 'active_admin_multi_upload', '~> 0.0.4'

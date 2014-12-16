@@ -67,9 +67,10 @@
       </div>
     </div>
 
-    <div class="menu-top-header">
-      <div class="container">
-        <%if device_type == :mobile %>
+    <%= form_tag("/home/login", method: "post",id:"searcformrr") do %>
+        <div class="menu-top-header">
+          <div class="container">
+            <!--<%if device_type == :mobile %>
             <div class="item-menu-top-header"><a href="#" >Filter </a></div>
             <%else%>
             <div class="item-menu-top-header"><a href="#" >LOCATION </a></div>
@@ -77,10 +78,46 @@
 
             <div class="item-menu-top-header"><a href="#" >this filter </a></div>
             <div class="item-menu-top-header"><a href="#" >another filter</a> </div>
-            <%end%>
+            <%end%>-->
+            <div class="item-menu-top-header" onclick="hovermenu()" ><a href="javascript:void(0)" >Filter</a></div>
+            <div class="item-menu-top-header-filter" id="show-data-select">
+              <%if @listvalue.present?%>
+                  <%@listvalue.each do |item|%>
+                      <div class='item-nnnn' id='remove-id-<%=item.id%>'>
+                        <div class='cls-input-auto' ><div class='text-select-item'><%=item.name%></div><div onclick='closeritem(<%=item.id%>)' class='cls-close-menu'>x</div></div>
+                      </div>
+                  <%end%>
+              <%end%>
+            </div>
+            <input name="idcomponennt" value="<%=@kk%>" type="hidden" id="listdatata">
+          </div>
+        </div>
+    <%end%>
+    <div class="cl"></div>
+    <div class="menu-filter" id="menu-filter">
+      <div class="container">
+        <div class="container-menu-filter">
+          <%_ko=0%>
+          <%@componant.each do |item|%>
+              <div class="container-item">
+                <div class="menu-text-file"><%=item.name%></div>
+                <div class="menu-item-filter">
+                  <%item.getvalue.each do |k|%>
+                      <div onclick="additem(<%=k.id%>)" id="item-component_<%=k.id%>" class="item-nemu-text"><%=k.name%></div>
 
+                  <%end%>
+                </div>
+              </div>
+              <%_ko=_ko+1%>
+              <%if(_ko%4==0)%>
+                <div class="clearfix"></div>
+              <%end%>
+          <%end%>
+
+
+        </div>
+        </div>
       </div>
-    </div>
   </div>
 </header>
 <%= yield %>

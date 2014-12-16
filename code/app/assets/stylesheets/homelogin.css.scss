@@ -1178,3 +1178,74 @@ and (orientation : landscape)
   outline: none;
 
 }
+.cl
+{
+  clear: both;
+}
+.container-menu-filter
+{
+  width: 100%;
+  float: left;
+  background: #36c0de;
+}
+.container-item
+{
+  width: 25%;
+  float: left;
+
+}
+.menu-text-file
+{
+  color: #145a8b;
+  font-weight: bold;
+  font-size: 11pt;
+  padding: 10px;
+}
+.item-nemu-text
+{
+  color: white;
+  padding: 10px;
+  font-size: 11pt;
+  cursor: pointer;
+}
+.item-menu-top-header-filter
+{
+  float: left;
+}
+.cls-input-auto
+{
+  float: left;
+  width: auto;
+  padding-left: 8px;
+  padding-right: 8px;
+
+
+  background: #36c0de;
+  height: 30px;
+  line-height: 28px;
+  border-radius: 7px;
+
+}
+.item-nnnn
+{
+  width: auto;
+  float: left;
+
+  margin-top: 13px;
+  margin-left: 14px;
+}
+.text-select-item
+{
+  float: left;
+  width: 95%;
+  color: white;
+}
+.cls-close-menu
+{
+  float: left;
+  width: 5%;
+  color: #145a8b;
+  cursor: pointer;
+  font-size: 12pt;
+  padding-right: 2px;
+}

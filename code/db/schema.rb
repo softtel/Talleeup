@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20141203065100) do
     t.string   "images"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "numlikes"
   end
 
   create_table "component_values", force: true do |t|
@@ -133,10 +134,9 @@ ActiveRecord::Schema.define(version: 20141203065100) do
     t.datetime "updated_at"
   end
 
-  create_table "locations", force: true do |t|
-    t.string   "address"
-    t.float    "latitude"
-    t.float    "longitude"
+  create_table "follows", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "followed_user"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -236,6 +236,9 @@ ActiveRecord::Schema.define(version: 20141203065100) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "fullname"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

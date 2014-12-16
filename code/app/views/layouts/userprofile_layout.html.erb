@@ -45,7 +45,13 @@
         <h2>5678</h2>
       </div>
       <div id="menu-item-follow" class="menu-item">
-        <button id="btn-follow">FOLLOW</button>
+        <button id="btn-follow">
+          <% if(@isFollowed) %>
+            FOLLOWED
+          <% else %>
+            FOLLOW
+          <% end %>
+        </button>
       </div>
       <div class="clearfix"></div>
     </div>
