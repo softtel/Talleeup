@@ -14,25 +14,37 @@
 
 <div id="layer"></div>
 
-<div id="login-container-fluid" class="container-fluid">
-  <div id="login-container" class="center-block">
+<%
+   _style=""
+  _email=""
+   _passwor=""
+
+    if session[:checklogin].present? and user_signed_in? ===false
+         _style="display:block"
+         _email="border:1px solid red"
+          _passwor="border:1px solid red"
+    end
+
+%>
+<div id="login-container-fluid" style="<%=_style%>" class="container-fluid">
+  <div id="login-container" style="<%=_style%>" class="center-block">
 
     <%= form_for(:user, :url => session_path(:user), :format => :json, :html => {:id => "login-form" ,:class => "form-inline", :role=>"form"}) do |f| %>
 
         <div class="form-group">
           <div class="col-sm-5 col-xs-5 input-login-wrapper">
-            <%= f.email_field :email, autofocus: true, :id => "Email", :class => "form-control input-login", :placeholder => "Email" %>
+            <%= f.email_field :email, autofocus: false,:style=>_email, :id => "Email", :class => "form-control input-login", :placeholder => "Email" %>
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-sm-5 col-xs-5 input-login-wrapper">
-            <%= f.password_field :password, autocomplete: "off", :id => "Password", :class => "form-control input-login", :placeholder=>"Password" %>
+            <%= f.password_field :password, autocomplete: "off",:style=>_passwor ,:id => "Password", :class => "form-control input-login", :placeholder=>"Password" %>
           </div>
         </div>
 
         <div class="form-group">
-          <%= f.submit "LOGIN", :id => "btn-login-submit" %>
+          <%= f.submit "LOGIN", :id => "btn-login-submit",:type=>"button" %>
         </div>
     <% end %>
 
@@ -45,7 +57,12 @@
   <div id="header-content-layer">
   <div id="header-content" class="container">
 
-    <button id="btn-login" class="pull-right">LOGIN</button>
+    <%if user_signed_in? %>
+        <%= link_to('LOGOUT', destroy_user_session_path, :method => :delete,:class=>"pull-right",:id=>"btn-logout",:style=>"line-height:62px") %>
+
+        <%else%>
+        <button id="btn-login" class="pull-right">LOGIN</button>
+     <%end%>
 
     <div id="header-top" class="row">
 
@@ -59,7 +76,7 @@
         on the planet
       </h1>
 
-      <button id="btn-signup" class="center-block">SIGN UP</button>
+      <button id="btn-signup" class="center-block">SIGN UP </button>
 
       <p id="sign-ups" class="center-block">
         <span>Sign up using</span>
@@ -166,37 +183,100 @@
 
      });
  });
+$("#btn-login-submit").click(function(){
+    var _Email=$("#Email").val();
+    if(_Email=="")
+    {
+        $("#Email").css({"border":"1px solid red"});
+        return false;
+    }
+    var _Password=$("#Password").val();
+    if(_Password=="")
+    {
+        $("#Password").css({"border":"1px solid red"});
+        return false;
+    }
+    $.getJSON("/home/addSession",{},function(){
+    }).success(function(data){
+        $("#login-form").submit();
+    });
+
+
+});
+ $("#Password").change(function () {
+     var _Password=$("#Password").val();
+     if(_Password=="")
+     {
+         $("#Password").css({"border":"1px solid red"});
+
+     }
+     //else
+     //{
+     //    $("#Password").css({"border":"0px solid red"});
+    // }
+ })
+ $("#Email").change(function () {
+     var _Password=$("#Email").val();
+     if(_Password=="")
+     {
+         $("#Email").css({"border":"1px solid red"});
+
+     }
+     //else
+    // {
+     //    $("#Email").css({"border":"0px solid red"});
+    // }
+ })
+
 </script>
 
 <script>
     // this is the id of the form
-    $("#login-form").submit(function() {
+   // $("#login-form").submit(function() {
 
-        var url = $(this).attr('action'); // the script where you handle the form input.
+     //   $.ajax({
+     //       url: '/users/sign_in.json',
+      //      type: 'POST',
+      //      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+//            contentType: "application/json; charset=utf-8",
+        //    dataType: "json",
+        //    data: {user: {email: 'abc@gmail.com', password: 'Tancse1992'}},
+        //    success: function(data, textStatus, xhr) {
+                //called when successful
+         //       console.log('success' + data);
+       //     },
+         //   error: function(data, textStatus, xhr) {
+                //called when successful
+         //       console.log('fail');
+         //   }
+        //});
 
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: $("#login-form").serialize(), // serializes the form's elements.
-            success: function(data, status)
-            {
-                var domain = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-                console.log(domain);
-                console.log(status);
-                console.log(data);
+//        var url = $(this).attr('action'); // the script where you handle the form input.
+//
+//        $.ajax({
+//            type: "POST",
+//            url: url,
+//            data: $("#login-form").serialize(), // serializes the form's elements.
+//            success: function(data, status)
+//            {
+//                var domain = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+//                console.log(domain);
+//                console.log(status);
+//                console.log(data);
+//
+//
+//                window.location = domain + "/home/login";
+//            },
+//            fail: function(data, status)
+//            {
+//                console.log(status);
+//                console.log(data);
+//            }
+//        });
+//
+        //return false; // avoid to execute the actual submit of the form.
+    //});
 
-
-                window.location = domain + "/home/login";
-            },
-            fail: function(data, status)
-            {
-                console.log(status);
-                console.log(data);
-            }
-        });
-
-        return false; // avoid to execute the actual submit of the form.
-    });
 </script>
 
 </body>

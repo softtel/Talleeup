@@ -1,12 +1,28 @@
 class Product < ActiveRecord::Base
+
   belongs_to :restaurant
   belongs_to :category
   has_many :product_components
   has_many :reviews
+  has_many :product_images
 
   validates :name, :images, :restaurant_id, presence: true
   validates :prices, presence: true, numericality: true
   validates :restaurant, presence: true
+
+
+  include PgSearch
+  pg_search_scope :whose_name_starts_with,
+                  :against => :name,
+                  :using => {
+                      :tsearch => {:prefix => true}
+                  }
+
+  pg_search_scope :with_name_matching,
+                  :against => :name,
+                  :using => {
+                      :tsearch => {:negation => true}
+                  }
 
   has_attached_file :images, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :images, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif","image/PNG"]
@@ -18,6 +34,11 @@ class Product < ActiveRecord::Base
                                 LEFT JOIN (SELECT product_id, AVG(totalpoint) as review_score FROM reviews GROUP BY reviews.product_id) AS table_reviews ON products.id = table_reviews.product_id
                                 ORDER BY  review_score DESC
                                 LIMIT #{_limit}")
+  end
+
+  def self.search(_keyword)
+    # return Product.where("name like ?", "%#{_keyword}%")
+    return (Product.with_name_matching(_keyword) + Product.whose_name_starts_with(_keyword)).uniq
   end
 
   def get_reviewers

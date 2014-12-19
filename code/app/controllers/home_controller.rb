@@ -1,8 +1,8 @@
 require 'product_view_models'
 
 class HomeController < ApplicationController
-  # before_action :authenticate_user!
-  # before_action :authenticate_user!, :except => [:index]
+   #before_action :authenticate_user!
+   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile]
 
   def index
 
@@ -23,6 +23,39 @@ class HomeController < ApplicationController
     render layout: "home_layout"
   end
 
+
+  def follow
+
+    user_id = 1 # get from session
+    Follow.add(user_id, params[:friend_id])
+    render :json => { :status => true } # send back any data if necessar
+    # render json: Restaurant.all
+  end
+
+
+  def search
+
+    # @cityDetected = request.location.city
+
+
+    session[:user_id] = 1
+
+    @keyword = params[:keyword]
+    @products = Product.search(@keyword)
+
+    @results = 0
+    # unless @products.nil?
+    #   @results = @products.count
+    # end
+
+    @my_user_id = 1
+    @myprofile = Profile.find(@my_user_id)
+
+    render layout: "search_layout"
+  end
+
+
+
   def userprofile
 
     ### friend
@@ -37,7 +70,7 @@ class HomeController < ApplicationController
     @products = @friend.get_products_reviewed
 
     ### user
-    user_id = 1 # get from section
+    user_id = 1 # get from session
     @user = User.find_by_id(user_id)
     @myprofile = Profile.find(user_id)
     @isFollowed = @user.isFollowed(friend_id)
@@ -61,9 +94,12 @@ class HomeController < ApplicationController
     @my_user_id = session[:user_id] # get from section
 
     user = User.find(@my_user_id)
-    user = User.find(@my_user_id)
-    @myprofile = Profile.find(@my_user_id)
 
+    @myprofile = Profile.find(@my_user_id)
+    if request.post?
+      productId=params[:product_id]
+      total=params[:totalnumber]
+    end
     render layout: "review_layout"
   end
 
@@ -123,7 +159,7 @@ class HomeController < ApplicationController
         Product.update_views_product_byid(params[:id])
         @productdetails=Product.get_product_Byid(params[:id])
         @scoreuser=Product.get_score_product_groupByuserId(params[:id],3)
-
+        @profile=Profile.where(id: current_user).first().a
       render layout:"BurgerProfile/BurgerProfile"
   end
   #hungnt
@@ -147,5 +183,12 @@ class HomeController < ApplicationController
     @ok="111"
 
     render layout: "homelogin/homelogin"
+  end
+  def addSession
+    session[:checklogin]=1
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: 1}
+    end
   end
 end

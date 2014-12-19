@@ -41,7 +41,12 @@
           </div>
           <a href="/home/myprofile">
           <div class="button-profile">
-            <%= image_tag("/Uploads/avatar/avatar.png") %>
+            <% if user_signed_in? %>
+                <%= image_tag(@profile.avatar_file_name.url(:medium), :id=>"profile-user-image", :class=>"pull-right img-responsive img-circle") %>
+
+              <%else%>
+                    <%= image_tag("/Uploads/avatar/avatar.png") %>
+            <%end%>
           </div>
           </a>
         </div>

@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   resources :articles
   root 'home#index'
   get 'homelogin/login'
   get 'home/index'
   post 'home/index'
+  post 'home/search'
+  post 'home/follow'
+  get 'home/search'
   get 'home/test_ajax'
   get 'home/userprofile'
   get 'home/geolocation'
@@ -16,13 +20,14 @@ Rails.application.routes.draw do
   get 'home/login'
   get 'home/locations'
   post 'home/login'
-
+  post 'home/addSession'
+  get 'home/addSession'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   devise_scope :user do
     get "/login" => "devise/sessions#new"
   end
-  # resources :users
+  resources :users
 
 
   # The priority is based upon order of creation: first created -> highest priority.

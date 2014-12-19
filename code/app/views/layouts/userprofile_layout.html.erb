@@ -37,21 +37,15 @@
         <h2>32</h2>
       </div>
       <div id="menu-item-loved" class="menu-item">
-        <h5>LOVED</h5>
-        <h2>1234</h2>
-      </div>
-      <div id="menu-item-views" class="menu-item">
-        <h5>INFLUENCE (VIEWS)</h5>
-        <h2>5678</h2>
+        <h5>FOLLOWERS</h5>
+        <h2><%= @friend.get_numFollows() %></h2>
       </div>
       <div id="menu-item-follow" class="menu-item">
-        <button id="btn-follow">
           <% if(@isFollowed) %>
-            FOLLOWED
+              <button id="btn-follow" disabled> FOLLOWED</button>
           <% else %>
-            FOLLOW
+              <button data-friendId="<%= @friend.id %>" id="btn-follow"> FOLLOW</button>
           <% end %>
-        </button>
       </div>
       <div class="clearfix"></div>
     </div>
@@ -102,6 +96,36 @@
       $(window).resize(function() {
           responsive();
       });
+
+      $('#btn-follow').click(function(){
+
+        var friendId = $(this).attr('data-friendId');
+        console.log(friendId);
+        data = {friend_id: friendId};
+
+        $.ajax({
+            type: "POST",
+            url: 'follow',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            data: JSON.stringify(data),
+//            data: {friend_id: friendId},
+            success: function(data, status)
+            {
+                if(data['status'] == true)
+                {
+                    $('#btn-follow').text("FOLLOWED").attr('disabled','disabled');
+                }
+
+//                console.log('success');
+            },
+            error: function(data, status)
+            {
+                console.log('error');
+            }
+        });
+
+      });// end click
 
   });// end ready
 </script>

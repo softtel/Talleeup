@@ -21,7 +21,7 @@
     </div>
   </div>
 </div>
-
+<%= form_tag("/home/review", method: "post") do %>
 <div id="step-2-container-fluid" class="container-fluid step-container-fluid">
   <div id="step-2-container" class="container step-container">
     <div id="step-2-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
@@ -39,14 +39,14 @@
         <div class="clearfix"></div>
       </div>
       <div id="box-total-number-mobile">
-        <span id="total-number-mobile" class="total-number">0</span>
+        <span id="total-number-mobile"  class="total-number">0</span>
       </div>
       <div class="clearfix"></div>
     </div>
     <div id="step-2-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
       <div id="total-rate" class="center-block">
         <h5 id="total-title">TOTAL</h5>
-        <h1 id="total-number" class="total-number">0</h1>
+        <h1 id="total-number" name="total-number" class="total-number">0</h1>
       </div>
 
       <div class="form-group form-group-rate-mobile">
@@ -144,7 +144,7 @@
 
     <div id="step-3-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
       <div id="form-group-comment" class="form-group">
-        <textarea id="txt-textarea-comment" class="txt-control txt-normal">
+        <textarea id="txt-textarea-comment" name="txt-textarea-comment" class="txt-control txt-normal">
         </textarea>
         <div class="inputWrapper">
           <input id="btn-attach-image" class="fileInput" type="file" />
@@ -158,7 +158,7 @@
 <div id="form-control-submit" class="center-block">
   <button id="btn-talleeup" class="center-block">TALLEEUP!</button>
 </div>
-
+<%end%>
 <script>
   $(document).ready(function(){
       $.ajax({

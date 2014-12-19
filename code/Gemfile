@@ -58,4 +58,5 @@ gem 'omniauth-twitter'
 gem 'geocoder', '~> 1.2.6'
 gem 'geokit'
 gem 'geokit-rails'
-gem "prototype-rails"
+gem 'pg_search'
+gem 'devise-i18n'

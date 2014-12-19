@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
 
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
-
+  before_action :authenticate_user!
   protected
 
   def after_sign_in_path_for(resource_or_scope)
@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
   def device_type
     request.env['mobvious.device_type']
   end
+
 
 
 end

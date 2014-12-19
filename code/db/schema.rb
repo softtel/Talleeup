@@ -15,6 +15,8 @@ ActiveRecord::Schema.define(version: 20141203065100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pg_trgm"
+  enable_extension "fuzzystrmatch"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -141,11 +143,29 @@ ActiveRecord::Schema.define(version: 20141203065100) do
     t.datetime "updated_at"
   end
 
+  create_table "pg_search_documents", force: true do |t|
+    t.text     "content"
+    t.integer  "searchable_id"
+    t.string   "searchable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "product_components", force: true do |t|
     t.integer  "product_id"
     t.integer  "component_value_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "product_images", force: true do |t|
+    t.integer  "product_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "products", force: true do |t|

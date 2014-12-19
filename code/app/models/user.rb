@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook, :google_oauth2]
 
+
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.email = auth.info.email
@@ -31,8 +32,8 @@ class User < ActiveRecord::Base
     return Product.joins(:reviews).where(reviews: {user_id: self.id}).distinct
   end
 
-  def isFollowed(followed_userid)
-    count = Follow.where("user_id = ? AND followed_user = ?", followed_userid, self.id).limit(1).count
+  def isFollowed(friend_id)
+    count = Follow.where("user_id = ? AND followed_user = ?", self.id, friend_id).limit(1).count
     if(count == 0)
       return false
     else
@@ -60,4 +61,6 @@ class User < ActiveRecord::Base
         return "Master"
     end
   end
+
+
 end

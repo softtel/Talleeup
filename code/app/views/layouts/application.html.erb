@@ -13,7 +13,7 @@
 <body>
 <div id="header-container" class="container-fluid">
   <div id="header-content" class="container">
-
+    <%= devise_flash %>
     <a href="/home/login"><button id="btn-login" class="pull-right">LOGIN</button></a>
 
     <div id="header-top" class="row">
@@ -49,6 +49,9 @@
 <!-- End header-container -->
 
 <div class="container" id="main-container">
+  <p class="notice"><%=notice%></p>
+  <p class="alert"><%=alert%></p>
+
   <%= yield %>
 </div>
 <!-- End main-container -->

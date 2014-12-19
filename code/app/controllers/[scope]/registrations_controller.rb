@@ -1,6 +1,7 @@
 class [scope]::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
+  respond_to :json
 
   def after_sign_up_path_for(resource)
     after_sign_in_path_for(resource)
