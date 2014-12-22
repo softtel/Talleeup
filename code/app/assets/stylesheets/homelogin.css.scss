@@ -41,19 +41,33 @@
   float: left;
   width:38%;
   margin-top: 40px;
+  position: relative;
 }
-.search-home input
+.search-home input[type="text"]
 {
   border :2px solid #36c0de;
   width: 100%;
   border-radius: 6px;
   height: 40px;
   background: #145a8b;
-  background-image: image-url("07.png");
+
   background-color: #145a8b;
+
+  color: #ffffff;
+}
+.button-search-submit
+{
+  position: absolute;
+  background-image: image-url("07.png");
+  border: none;
+  background-color: transparent;
   background-repeat:no-repeat;
   background-position: right;
-  color: #ffffff;
+  top: 10px;
+  right: 0px;
+  content: "";
+  width: 22px;
+  height: 22px;
 }
 .button-review
 {

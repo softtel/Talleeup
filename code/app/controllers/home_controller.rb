@@ -2,7 +2,7 @@ require 'product_view_models'
 
 class HomeController < ApplicationController
    #before_action :authenticate_user!
-   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile]
+   #before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile]
 
   def index
 
@@ -14,11 +14,7 @@ class HomeController < ApplicationController
     @cities = City.all
     # country = request.location.country_code
 
-    session[:user_id] = 1
-
     @products = Product.get_products(city_id, 5)
-
-    @my_user_id = 1
 
     render layout: "home_layout"
   end
@@ -26,8 +22,7 @@ class HomeController < ApplicationController
 
   def follow
 
-    user_id = 1 # get from session
-    Follow.add(user_id, params[:friend_id])
+    Follow.add(current_user.id, params[:friend_id])
     render :json => { :status => true } # send back any data if necessar
     # render json: Restaurant.all
   end
@@ -37,19 +32,10 @@ class HomeController < ApplicationController
 
     # @cityDetected = request.location.city
 
-
-    session[:user_id] = 1
-
     @keyword = params[:keyword]
     @products = Product.search(@keyword)
 
-    @results = 0
-    # unless @products.nil?
-    #   @results = @products.count
-    # end
-
-    @my_user_id = 1
-    @myprofile = Profile.find(@my_user_id)
+    @myprofile = Profile.getProfile(current_user.id)
 
     render layout: "search_layout"
   end
@@ -66,40 +52,50 @@ class HomeController < ApplicationController
       @friend = User.find_by_id(1)
     end
 
-    @profile = Profile.find(friend_id)
-    @products = @friend.get_products_reviewed
+    @profile = Profile.getProfile(friend_id)
+    limit = (params[:fulllist].nil?) ? 5 : 1000
+    @products = @friend.get_products_reviewed(limit)
 
     ### user
-    user_id = 1 # get from session
-    @user = User.find_by_id(user_id)
-    @myprofile = Profile.find(user_id)
+    @user = current_user
+    @myprofile = Profile.getProfile(current_user.id)
     @isFollowed = @user.isFollowed(friend_id)
-
 
     # layout
     render layout: "userprofile_layout"
   end
 
   def myprofile
-    my_user_id = 1 # get from section
-    @user = User.find(my_user_id)
-    @myprofile = Profile.find(my_user_id)
+
+    @user = current_user
+    @myprofile = Profile.getProfile(current_user.id)
     @products = Product.all
 
     render layout: "myprofile_layout"
   end
 
+  def review_post
+    # parsed_json = ActiveSupport::JSON.decode(params[:_json])
+
+    # add review
+    review = Review.add(current_user.id, params[:review][:product_id], params[:review][:totalpoint])
+
+    # add review component
+    params[:review_components].each do |component|
+      ReviewComponent.add(review.id, component[:review_type_id], component[:point])
+      # logger.debug component[:review_type_id].inspect
+    end
+
+    # add comment
+    Commentproduct.add(review.id, params[:comment][:content])
+
+    render json: Restaurant.all
+  end
+
   def review
     @product = Product.find_by_id(params[:product_id])
-    @my_user_id = session[:user_id] # get from section
-
-    user = User.find(@my_user_id)
-
-    @myprofile = Profile.find(@my_user_id)
-    if request.post?
-      productId=params[:product_id]
-      total=params[:totalnumber]
-    end
+    @my_user_id = current_user.id
+    @myprofile = Profile.getProfile(@my_user_id)
     render layout: "review_layout"
   end
 
@@ -143,6 +139,7 @@ class HomeController < ApplicationController
           @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @location.first().id})
         #end
       end
+      @profile=Profile.where(user_id: current_user.id).first()
       render layout: "homelogin/homelogin"
   end
 
@@ -159,7 +156,7 @@ class HomeController < ApplicationController
         Product.update_views_product_byid(params[:id])
         @productdetails=Product.get_product_Byid(params[:id])
         @scoreuser=Product.get_score_product_groupByuserId(params[:id],3)
-        @profile=Profile.where(id: current_user).first().a
+        @profile=Profile.where(user_id: current_user.id).first()
       render layout:"BurgerProfile/BurgerProfile"
   end
   #hungnt
@@ -191,4 +188,11 @@ class HomeController < ApplicationController
       format.json { render json: 1}
     end
   end
+
+  def addlike
+    logger.debug params[:id].inspect
+      Commentproduct.updatelike(params[:id])
+      render :json => { :status => true }
+  end
+
 end

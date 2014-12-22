@@ -4,12 +4,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
 
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
-  before_action :authenticate_user!
+  # before_action :authenticate_user!
   protected
 
   def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource) ||
-        if resource.is_a?(Admin)
+    stored_location_for(resource_or_scope) ||
+        if resource_or_scope.is_a?(Admin)
           admin_dashboard_path
         else
           '/home/login'

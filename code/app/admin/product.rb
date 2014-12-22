@@ -19,7 +19,16 @@ ActiveAdmin.register Product do
         p.category.name
       end
     end
+
+    column 'Upload' do |p|
+      link_to(p.restaurant.name, admin_restaurant_path(:id => p.restaurant_id))
+      link_to('images', upload_admin_product_path(p))
+
+    end
+
+
     actions
+
   end
 
   filter :name
@@ -56,6 +65,38 @@ ActiveAdmin.register Product do
       end
     end
     render "product_components"
+  end
+
+
+  #-------------------------------------------
+  member_action :uploadpost, :method=>:post do
+
+  end
+
+  member_action :upload, :method=>:get do
+
+  end
+
+
+  controller do
+
+    def uploadpost
+      @product_image = ProductImage.new(product_id => params[:product_id], image => params[:image])
+
+      if @product_image.save
+        render :action => 'admin/products/'+@product_image.product_id+'/upload'
+      else
+
+      end
+    end
+
+    def upload
+      @products = Product.all
+      @product_image = ProductImage.new(product_id: 4)
+      # renders view 'app/views/admin/products/upload.html.erb'
+    end
+
+
   end
 
 end

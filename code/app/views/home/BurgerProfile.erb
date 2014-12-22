@@ -247,7 +247,7 @@
             <span><%=data%></span></div>
           <div style="width: 100%;height: 10px;float: left"></div>
           <div class="like-active">
-            <span>like</span>
+            <span onclick="addlikecomment(<%=item.get_id_comment_product_byid %>)">like</span>
           </div>
           <div class="next-comment"></div>
         </div>
@@ -261,3 +261,26 @@
   </div>
 
 </div>
+<script>
+  function addlikecomment(_id)
+  {
+      var data = {id: _id};
+
+      $.ajax({
+          type: "POST",
+          url: '/home/addlike',
+          contentType: "application/json; charset=utf-8",
+          dataType: 'json',
+          data: JSON.stringify(data),
+          success: function(data, status)
+          {
+              console.log('success');
+          },
+          error: function(data, status)
+          {
+              console.log('error');
+          }
+      });
+
+  }
+</script>

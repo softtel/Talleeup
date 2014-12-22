@@ -26,23 +26,29 @@
 
 
                 <%end%>
-
+            <form  action="/home/search" >
               <%if device_type == :mobile %>
                 <div class="m-search-home">
                     <input  type="button"/>
                 </div>
               <%else%>
                 <div class="search-home">
-                  <input placeholder="search" type="text"/>
+                  <input placeholder="search" name="keyword" type="text"/>
+                  <input type="submit" class="button-search-submit" value="">
                 </div>
                <%end%>
-
+               </form>
             <div class="button-review">
               <input type="button" value="REVIEW" name="REVIEW">
             </div>
             <a href="/home/myprofile">
             <div class="button-profile">
-              <%= image_tag("/Uploads/avatar/avatar.png") %>
+              <% if user_signed_in? %>
+                  <%= image_tag(@profile.avatar.url(:thumb), :id=>"profile-user-image", :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
+
+              <%else%>
+                  <%= image_tag("/Uploads/avatar/avatar.png") %>
+              <%end%>
             </div>
                 </a>
           </div>

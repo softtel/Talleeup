@@ -15,19 +15,19 @@ Rails.application.routes.draw do
   get 'home/geolocation'
   get 'home/myprofile'
   get 'home/review'
+  post 'home/review_post'
   get 'home/test'
   get 'home/BurgerProfile/:id'=>'home#BurgerProfile'
   get 'home/login'
   get 'home/locations'
   post 'home/login'
+
   post 'home/addSession'
   get 'home/addSession'
+  post 'home/addlike'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  devise_scope :user do
-    get "/login" => "devise/sessions#new"
-  end
-  resources :users
+  # resources :users
 
 
   # The priority is based upon order of creation: first created -> highest priority.

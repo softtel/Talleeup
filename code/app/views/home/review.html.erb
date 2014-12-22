@@ -21,7 +21,9 @@
     </div>
   </div>
 </div>
+<!--
 <%= form_tag("/home/review", method: "post") do %>
+-->
 <div id="step-2-container-fluid" class="container-fluid step-container-fluid">
   <div id="step-2-container" class="container step-container">
     <div id="step-2-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
@@ -161,19 +163,68 @@
 <%end%>
 <script>
   $(document).ready(function(){
-      $.ajax({
-          type: "GET",
-//          url: 'http://localhost:3000/articles.json',
-          url: 'test_ajax',
-          //url: 'DeleteProduct',
-          //contentType: 'application/text; charset=utf-8',
-          //data: _ProductId,
-          success: function (data) {
-              console.log('success');
-          },
-          error: function () {
-              console.log('error');
-          }
-      });// end $.ajax
+
+     $('#btn-talleeup').click(function(){
+
+         var data_rate = {
+             review_components: [],
+             review: {
+                 user_id: 1,
+                 product_id: 4,
+                 totalpoint: $('#total-number').text()
+             },
+             comment: {
+                 content: $('#txt-textarea-comment').val()
+             }
+         }
+
+         data_rate.review_components.push({
+             review_type_id: 1,
+             point: 6
+         });
+
+         data_rate.review_components.push({
+             review_type_id: 2,
+             point: 7
+         });
+
+         console.log(data_rate);
+
+
+         $.ajax({
+             type: "POST",
+             url: 'review_post',
+             contentType: "application/json; charset=utf-8",
+             dataType: 'json',
+//             data: rates,
+             data: JSON.stringify(data_rate),
+             success: function(data, status)
+             {
+                console.log('success');
+             },
+             error: function(data, status)
+             {
+                 console.log('error');
+             }
+         });
+
+
+
+     });// end click
+
+//      $.ajax({
+//          type: "GET",
+////          url: 'http://localhost:3000/articles.json',
+//          url: 'test_ajax',
+//          //url: 'DeleteProduct',
+//          //contentType: 'application/text; charset=utf-8',
+//          //data: _ProductId,
+//          success: function (data) {
+//              console.log('success');
+//          },
+//          error: function () {
+//              console.log('error');
+//          }
+//      });// end $.ajax
   });
 </script>
