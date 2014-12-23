@@ -837,13 +837,18 @@ div#main-bar-color{
   float: left;
   height: 94px;
 }
-
+.number-sub
+{
+  font-size: 10pt;
+  color: #ccc;
+  padding-top: 17px;
+}
 .product-reviews-score{
   text-align: center;
   margin-left: 0px;
   height: 96px;
   border-bottom: 3px solid #36C0DD;
-  width: 138px;
+  width: 175px;
   cursor: initial;
   padding-top: 8px;
 }
@@ -857,7 +862,7 @@ div#main-bar-color{
 }
 
 .product-reviews-people{
-  padding-left: 50px;
+  padding-left: 20px;
   position: relative;
   height: 95px;
 }
@@ -956,4 +961,12 @@ span.icon {
   border-radius: 0;
   height: 34px;
   -webkit-appearance: none;
+}
+@font-face {
+  font-family: myFirstFont;
+  src: url('/assets/Montserrat-Regular.ttf');
+}
+#introduct-top,#introduct-bottom
+{
+  font-family:myFirstFont;
 }

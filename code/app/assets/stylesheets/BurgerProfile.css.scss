@@ -338,6 +338,19 @@
   line-height: 74px;
 
 }
+.like-noactive
+{
+  line-height: 25px;
+  float: left;
+  padding-left: 20px;
+  background-image:image_url("no-heart.png") ;
+  background-position:left center;
+  background-repeat: no-repeat;
+  color: #145a8b;
+  font-size: 11pt;
+  width: 50%;
+  cursor: pointer;
+}
 .like-active
 {
   line-height: 25px;

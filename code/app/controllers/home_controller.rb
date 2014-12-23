@@ -2,7 +2,7 @@ require 'product_view_models'
 
 class HomeController < ApplicationController
    #before_action :authenticate_user!
-   #before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile]
+   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile]
 
   def index
 
@@ -18,7 +18,6 @@ class HomeController < ApplicationController
 
     render layout: "home_layout"
   end
-
 
   def follow
 
@@ -54,7 +53,7 @@ class HomeController < ApplicationController
 
     @profile = Profile.getProfile(friend_id)
     limit = (params[:fulllist].nil?) ? 5 : 1000
-    @products = @friend.get_products_reviewed(limit)
+    @products = @friend.get_products_reviewed()
 
     ### user
     @user = current_user
@@ -96,9 +95,17 @@ class HomeController < ApplicationController
     @product = Product.find_by_id(params[:product_id])
     @my_user_id = current_user.id
     @myprofile = Profile.getProfile(@my_user_id)
+
+    @review_type = ReviewType.get_all
+
+    @restaurant=Restaurant.all()
+    @restaurant_product=Product.where(restaurant_id: @restaurant.first().id)
     render layout: "review_layout"
   end
-
+  def getchangeproduct
+    @restaurant_product=Product.where(restaurant_id: params[:idre])
+    render :json => { :data => @restaurant_product }
+  end
   #hungnt
   #login
   def login
@@ -156,7 +163,10 @@ class HomeController < ApplicationController
         Product.update_views_product_byid(params[:id])
         @productdetails=Product.get_product_Byid(params[:id])
         @scoreuser=Product.get_score_product_groupByuserId(params[:id],3)
-        @profile=Profile.where(user_id: current_user.id).first()
+        if user_signed_in?
+          @profile=Profile.where(user_id: current_user.id).first()
+        end
+
       render layout:"BurgerProfile/BurgerProfile"
   end
   #hungnt

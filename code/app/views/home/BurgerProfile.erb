@@ -86,31 +86,16 @@
     <!-- Slides Container -->
     <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1500px; height: 330px;
             overflow: hidden;">
+      <%@productdetails.product_images.each do |kkkk| %>
       <div>
         <div u="caption" t="IMG" style="position: absolute; top: 0px; left: 0px;
              width: 100%;height: 100%;   background: #ffffff">
-          <%= image_tag("/Demos/10.png",:u=>'image',:t=>'IMG') %>
+
+          <%= image_tag(kkkk.image.url(:original), :u=>'image',:t=>'IMG') %>
           </div>
       </div>
-      <div>
-        <div u="caption" t="IMG" style="position: absolute; top: 0px; left: 0px;
-                width: 100%;height: 100%;  background: #ffffff">
-          <%= image_tag("/Demos/10.png",:u=>'image') %>
-        </div>
-      </div>
-      <div>
-        <div u="caption" t="IMG" style="position: absolute; top: 0px; left: 0px;
-                width: 100%;height: 100%;   background: #ffffff">
-          <%= image_tag("/Demos/10.png",:u=>'image') %>
-        </div>
-      </div>
-      <div>
+          <%end%>
 
-        <div u="caption" t="IMG" style="position: absolute; top: 0px; left: 0px;
-                width: 100%;height: 100%;    background: #ffffff">
-          <%= image_tag("/Demos/10.png",:u=>'image') %>
-        </div>
-      </div>
     </div>
     <div u="navigator" class="jssorb05" style="position: absolute; bottom: 0px; right: 0px;z-index: 9999">
       <!-- bullet navigator item prototype -->
@@ -246,9 +231,17 @@
           <div class="item-text-reviews-mutile">
             <span><%=data%></span></div>
           <div style="width: 100%;height: 10px;float: left"></div>
-          <div class="like-active">
-            <span onclick="addlikecomment(<%=item.get_id_comment_product_byid %>)">like</span>
-          </div>
+          <%
+          if item.get_numlink_comment_product_byid==1%>
+            <div class="like-active">
+            <span>like</span>
+              </div>
+          <%else%>
+              <div class="like-noactive">
+                <span onclick="addlikecomment(<%=item.get_id_comment_product_byid %>)">like</span>
+              </div>
+         <%end %>
+
           <div class="next-comment"></div>
         </div>
 
@@ -274,7 +267,9 @@
           data: JSON.stringify(data),
           success: function(data, status)
           {
+
               console.log('success');
+              window.location=document.URL;
           },
           error: function(data, status)
           {

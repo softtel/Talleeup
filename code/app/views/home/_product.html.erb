@@ -1,7 +1,7 @@
 <% is_reviewed = product.check_reviewed(@my_user_id) %>
 <div class="row product">
 
-  <%= image_tag 'plus-white.png', class: 'btn-img-sign', data: {content: "<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen active-g'>Experience planned</div><div class='text-item-show-tim'>Experience completed</div></div></div>"} %>
+  <!--<%= image_tag 'plus-white.png', class: 'btn-img-sign', data: {content: "<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen active-g'>Experience planned</div><div class='text-item-show-tim'>Experience completed</div></div></div>"} %>-->
 
   <!--<button class="btn-img-sign" data-content="<div class='show_puopt_reviews'><div class='item-show'><div class='text-item-show-yellow '>Plan my experience</div><div class='text-item-show-greeen active-g'>Experience planned</div><div class='text-item-show-tim'>Experience completed</div></div></div>">-->
     <!--btn-->
@@ -19,7 +19,26 @@
   <div class="col-md-8 col-sm-8 col-xs-8 product-reviews">
     <div class="product-reviews-top">
       <p class="product-reviews-score">
-        <span><%=  product.get_review_score.round(1) %></span>
+
+
+        <% if action_name==='userprofile' %>
+             <span style="float: left"><%=  product.get_review_score.round(1) %>
+            </span>
+           <span class="number-sub" style=" font-size: 10pt;
+                   color: #34C1DD;
+                   padding-top: 20px;float: right">/ <%=product.getMinReview%></span>
+             <span class="number-sub" style=" font-size: 10pt;
+                     color: #ccc;
+                     padding-top: 17px;">/<%=product.getMaxReview%></span>
+         <%else%>
+             <span ><%=  product.get_review_score.round(1) %>
+
+            </span>
+            <span class="number-sub" style=" font-size: 10pt;
+                    color: #ccc;
+                    padding-top: 35px;">/<%=product.getMaxReview%></span>
+        <%end%>
+
       </p>
 
       <div class="product-reviews-people">

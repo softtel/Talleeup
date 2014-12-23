@@ -340,6 +340,7 @@ title-product-reviews a:hover
   text-transform: uppercase;
   font-weight: bold;
   font-size: 13pt;
+  border-right: 1px solid #ccc;
 }
 .text-review-share
 {
@@ -1262,4 +1263,10 @@ and (orientation : landscape)
   cursor: pointer;
   font-size: 12pt;
   padding-right: 2px;
+}
+.number-sub
+{
+  font-size: 11pt;
+  color: #ccc;
+  font-weight: normal;
 }

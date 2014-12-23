@@ -16,18 +16,48 @@
 
 <div id="layer-review"></div>
 <div id="share-dialog" class="center-block">
+    <button id="btn-close-dialog" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <div id="share-dialog-1">
       <h2 class="text-center text-bold">BOOMSHAKALAKA!</h2>
-      <h5 class="text-center text-normal">Thanks for bringing even more</h5>
-      <h5 class="text-center text-normal">awesomeness to TalleeUp</h5>
+      <h6 class="text-center text-normal">Thanks for bringing even more</h6>
+      <h6 class="text-center text-normal">awesomeness to TalleeUp</h6>
     </div>
   <div id="share-dialog-2">
-    <h3 class="text-center text-bold">Add Friends!</h3>
-    <h5 class="text-center text-normal">Share this review with your friends</h5>
-    <div class="form-group">
-        <input class="form-control" />
+    <h4 class="text-center text-bold">Add Friends!</h4>
+    <h6 class="text-center text-normal">Share this review with your friends</h6>
+    <div id="form-group-share" class="form-group center-block">
+        <input id="txt-share-friend" class="form-control" />
     </div>
 
+  </div>
+  <div id="share-dialog-3">
+    <h4 class="text-center text-bold">Share your Experience</h4>
+    <h6 class="text-center text-normal">Tell everyone about your burger review</h6>
+    <div class="center-block">
+
+      <div class="center-block" id="fb-root"></div>
+      <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&appId=1527198720891153&version=v2.0";
+          fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+      <a class="twitter-share-button center-block" href="https://twitter.com/share"
+         data-related="twitterdev"
+         data-size="large"
+         data-count="none">
+        Tweet
+      </a>
+      <script type="text/javascript">
+          window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+      </script>
+    </div>
+
+  </div>
+  <div id="share-dialog-4">
+    <button id="btn-done" class="center-block">DONE</button>
   </div>
 </div>
 
@@ -79,6 +109,11 @@
     }
   };
 
+  function closeDialog(){
+      $('#share-dialog').hide();
+      $('#layer-review').hide();
+  }
+
   $(document).ready(function(){
 
       responsive();
@@ -88,14 +123,22 @@
       });
 
 
+      $('#btn-close-dialog').click(function(){
+          closeDialog();
+      });
+
+      $('#btn-done').click(function(){
+          closeDialog();
+      });
+
       $('.rate-number').hover(function()
       {
           var numRate = $(this).text();
           var rateControl = $(this).closest('.rate-control');
 
           rateControl.children('.rate-result').text(numRate);
-          rateControl.children().slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
-          rateControl.children().slice(numRate, 7).css({'background-color': '#DFE3E6', 'color': '#ffffff'});
+          rateControl.children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+          rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
 
           var totalRate = 0;
           $('.rate-result').each(function(){

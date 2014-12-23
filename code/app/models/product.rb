@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   belongs_to :category
   has_many :product_components
   has_many :reviews
-  has_many :product_images
+  has_many :product_images, :dependent => :delete_all
 
   validates :name, :images, :restaurant_id, presence: true
   validates :prices, presence: true, numericality: true
@@ -49,7 +49,14 @@ class Product < ActiveRecord::Base
     reviews = Review.where('product_id' => self.id)
     return (reviews.count == 0) ? 0.0 : reviews.average("totalpoint")
   end
-
+  def getMaxReview
+    reviews = Review.where('product_id' => self.id)
+    return (reviews.count == 0) ? 0 : reviews.maximum("totalpoint")
+  end
+  def getMinReview
+    reviews = Review.where('product_id' => self.id)
+    return (reviews.count == 0) ? 0 : reviews.minimum("totalpoint")
+  end
   def check_reviewed(user_id)
     first_day_of_month = Time.new(Time.now.year, Time.now.month, 1)
     reviewed = Review.where("user_id = ? AND product_id = ? AND  created_at >= ?", user_id, self.id,  first_day_of_month).count

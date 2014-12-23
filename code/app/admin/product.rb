@@ -21,8 +21,7 @@ ActiveAdmin.register Product do
     end
 
     column 'Upload' do |p|
-      link_to(p.restaurant.name, admin_restaurant_path(:id => p.restaurant_id))
-      link_to('images', upload_admin_product_path(p))
+      link_to('images', upload_admin_product_path(:id => p.id))
 
     end
 
@@ -77,25 +76,49 @@ ActiveAdmin.register Product do
 
   end
 
+  # member_action :delete, :method=>:delete do
+  member_action :delete, :method=>:get do
+
+  end
+
 
   controller do
 
     def uploadpost
-      @product_image = ProductImage.new(product_id => params[:product_id], image => params[:image])
 
-      if @product_image.save
-        render :action => 'admin/products/'+@product_image.product_id+'/upload'
-      else
+      logger.debug "--------------------".inspect
+      logger.debug params[:product_image].inspect
+      logger.debug params[:product_image][:product_id].inspect
+      logger.debug params[:product_image][:image].inspect
+      logger.debug "--------------------".inspect
+      @product_image = ProductImage.new(product_id: params[:product_image][:product_id], image: params[:product_image][:image])
 
-      end
+      logger.debug "--------------------".inspect
+      logger.debug @product_image.inspect
+      logger.debug "--------------------".inspect
+
+      @product_image.save
+        # render :action => 'upload'
+        redirect_to :action => "upload", :id => @product_image.product_id
     end
 
     def upload
       @products = Product.all
-      @product_image = ProductImage.new(product_id: 4)
+      @product_image = ProductImage.new(product_id: params[:id])
+      @images = Product.find(params[:id]).product_images
       # renders view 'app/views/admin/products/upload.html.erb'
     end
 
+    def delete
+      @product_image = ProductImage.find(params[:id])
+      @product_image.destroy
+      redirect_to :action => "upload", :id => @product_image.product_id
+    end
+
+
+    def productimage_params
+      params.require(:productimage).permit(:product_id, :image)
+    end
 
   end
 

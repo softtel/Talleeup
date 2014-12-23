@@ -20,11 +20,11 @@
           <%else%>
               <div class="logo-header "></div>
           <%end%>
-          <%if device_type != :mobile %>
+         <!-- <%if device_type != :mobile %>
               <a href="/home/locations"> <div class="home-login-poniter"></div></a>
 
 
-          <%end%>
+          <%end%>-->
           <form  action="/home/search" >
           <%if device_type == :mobile %>
               <div class="m-search-home">
@@ -42,17 +42,24 @@
           <div class="button-review">
             <input type="button" value="REVIEW" name="REVIEW">
           </div>
-          <a href="/home/myprofile">
-          <div class="button-profile">
+
+
 
             <% if user_signed_in? %>
+              <a href="/home/userprofile?id=<%=current_user.id%>">
+                <div class="button-profile">
                 <%= image_tag(@profile.avatar.url(:thumb), :id=>"profile-user-image", :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
-
+                </div>
+                  </a>
               <%else%>
+              <a href="#">
+                <div class="button-profile">
                     <%= image_tag("/Uploads/avatar/avatar.png") %>
+                </div>
+              </a>
             <%end%>
-          </div>
-          </a>
+
+
         </div>
 
 

@@ -2,9 +2,9 @@
 <div class="cl"></div>
 <div class="container">
 <div class="content-product">
-<%if device_type != :mobile %>
+<!--<%if device_type != :mobile %>
 <div class="title-header">The top 5 </div>
-    <%end%>
+    <%end%>-->
 <div class="cl"></div>
 <div class="no-line-header">
   <div class="line-no">&nbsp;</div>
@@ -25,7 +25,7 @@
             <div class="item-body">
               <div class="item-reviews">
                 <div class="number-reviews">
-                  <%=  item.get_review_score.round(1) %>
+                  <%=  item.get_review_score.round(1) %><span class="number-sub">/<%=item.getMaxReview%></span>
                 </div>
                 <div class="user-reviews">
                   <div class="title-reviews">Reviews</div>
@@ -61,7 +61,7 @@
         <div class="item-body">
           <div class="item-reviews">
             <div class="number-reviews">
-              <%=  item.get_review_score.round(1) %>
+              <%=  item.get_review_score.round(1) %><span class="number-sub">/<%=item.getMaxReview%></span>
             </div>
             <div class="user-reviews">
               <div class="title-reviews">Reviews</div>
@@ -97,7 +97,7 @@
    <%end%>
 
 <%end%>
-
+<div style="width: 100%;height: 50px;clear: left"></div>
 </div>
 
 </div>

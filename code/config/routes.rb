@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :articles
+  resources :product_images
   root 'home#index'
   get 'homelogin/login'
   get 'home/index'
@@ -21,10 +22,10 @@ Rails.application.routes.draw do
   get 'home/login'
   get 'home/locations'
   post 'home/login'
-
   post 'home/addSession'
   get 'home/addSession'
   post 'home/addlike'
+  post'home/getchangeproduct'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   # resources :users
