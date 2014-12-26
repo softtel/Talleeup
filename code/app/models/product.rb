@@ -57,12 +57,13 @@ class Product < ActiveRecord::Base
     reviews = Review.where('product_id' => self.id)
     return (reviews.count == 0) ? 0 : reviews.minimum("totalpoint")
   end
+
   def check_reviewed(user_id)
     first_day_of_month = Time.new(Time.now.year, Time.now.month, 1)
     reviewed = Review.where("user_id = ? AND product_id = ? AND  created_at >= ?", user_id, self.id,  first_day_of_month).count
-    # @@is_reviewed = (reviewed > 0) ? true : false
     return (reviewed > 0) ? true : false
   end
+
   def self.get_socre_average_product_byid(productid,_num)
     reviews = Review.where('product_id' => productid)
     return (reviews.count == 0) ? 0.0 : reviews.average("totalpoint").round(_num)

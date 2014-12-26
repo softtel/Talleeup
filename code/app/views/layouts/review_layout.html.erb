@@ -135,7 +135,7 @@
       {
           var numRate = $(this).text();
           var rateControl = $(this).closest('.rate-control');
-
+          var _idddd=$(this).attr("lang");
           rateControl.children('.rate-result').text(numRate);
           rateControl.children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
           rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
@@ -145,7 +145,36 @@
               totalRate += Number($(this).text());
           });
 
+          if(numRate==1) {
+
+              $("#idiididid_"+_idddd+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+              $("#idiididid_"+_idddd+"").html("Fail")
+          }
+
+         else  if(numRate==4)
+          {
+
+              $("#idiididid_"+_idddd+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+              $("#idiididid_"+_idddd+"").html("Average")
+          }
+
+
+          else if(numRate==7)
+          {
+
+              $("#idiididid_"+_idddd+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+              $("#idiididid_"+_idddd+"").html("Perfect")
+          }
+          else
+          {
+              $("#idiididid_"+_idddd+"").css({"display":"none"});
+          }
+
           $('.total-number').text(totalRate);
+          valid();
+      },function(){
+          var _idddd=$(this).attr("lang");
+          $("#idiididid_"+_idddd+"").css({"display":"none"});
       });
 
   });// end ready

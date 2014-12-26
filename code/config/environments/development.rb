@@ -36,27 +36,29 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-  # config.action_mailer.delivery_method = :smtp
+  #config.action_mailer.delivery_method = :smtp
   # config.action_mailer.smtp_settings = {:address => "localhost", :port => 1025}
   # change to true to allow email to be sent during development
   # config.action_mailer.delivery_method = :sendmail
 
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.default :charset => "utf-8"
+  #config.action_mailer.perform_deliveries = true
+  #config.action_mailer.raise_delivery_errors = true
+  #config.action_mailer.default :charset => "utf-8"
   # require 'tlsmail'
   # Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
 
   ActionMailer::Base.delivery_method = :smtp
+  ActionMailer::Base.perform_deliveries=true
+  ActionMailer::Base.raise_delivery_errors=true
   ActionMailer::Base.smtp_settings = {
       :enable_starttls_auto => true,
       :address            => 'smtp.gmail.com',
       :port               => 587,
       :tls                  => true,
       :domain             => 'gmail.com', #you can also use google.com
-      :authentication     => :login,
-      :user_name          => 'pointcashs@gmail.com',
-      :password           => 'Tancse1992'
+      :authentication => :plain,
+      :user_name          => 'nthit90@gmail.com',
+      :password           => '26101990hung@'
   }
 
   Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.9.0-Q16'#"/usr/bin/"

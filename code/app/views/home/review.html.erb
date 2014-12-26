@@ -10,31 +10,35 @@
     <div id="step-1-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
 
       <div class="form-group form-group-mobile form-group-mobile-top">
-        <!--<input class="txt-control txt-success txt-control-mobile-top" value="<%= @product.restaurant.name %>" />-->
+
 
         <select id="reviews-select" class="reviews-select" >
           <%=@restaurant.each do |item| %>
               <%
                  _select=""
-                 if item.id===@product.restaurant.id
-                   _select="selected"
-                end
+                 if  params[:product_id].present?
+                   if item.id===@product.restaurant.id
+                     _select="selected"
+                   end
+                 end
               %>
-          <option <%=_select%> value="<%=item.id %>"><%=item.name%></option>
+              <option <%=_select%> value="<%=item.id %>"><%=item.name%></option>
           <%end%>
         </select>
         <img src="/assets/review/valid.png" />
       </div>
 
       <div class="form-group form-group-mobile">
-       <!-- <input placeholder="Name Of Burger" class="txt-control txt-success txt-normal txt-control-mobile-bottom" value="<%= @product.name %>" />-->
+
 
         <select id="child-product" class="reviews-select">
           <%=@restaurant_product.each do |child|%>
               <%
                  _selectdd=""
-                 if child.id===@product.id
-                   _selectdd="selected"
+                 if  params[:product_id].present?
+                   if child.id===@product.id
+                     _selectdd="selected"
+                   end
                  end
               %>
               <option <%= _selectdd %> value="<%=child.id %>"><%=child.name%></option>
@@ -47,173 +51,238 @@
 </div>
 <!--
 <%= form_tag("/home/review", method: "post") do %>
--->
-<div id="step-2-container-fluid" class="container-fluid step-container-fluid">
-  <div id="step-2-container" class="container step-container">
-    <div id="step-2-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
-      <img class="center-block img-responsive" src="/assets/review/2.png"  alt="" />
-      <h3 class="center-block text-title">Rate</h3>
-      <h4 class="center-block text-details">This is some detail for this step</h4>
-      <h4 class="center-block text-details">if it needs it</h4>
-    </div>
-    <div id="step-2-left-mobile">
-      <div id="step-2-left-title-mobile">
-        <div id="image-step-2-mobile">
-          <img class="center-block img-responsive" src="/assets/review/2.png"  alt="" />
+    -->
+    <div id="step-2-container-fluid" class="container-fluid step-container-fluid">
+      <div id="step-2-container" class="container step-container">
+        <div id="step-2-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
+          <img class="center-block img-responsive image-step-2" src="/assets/review/2.png"  alt="" />
+          <h3 class="center-block text-title">Rate</h3>
+          <h4 class="center-block text-details">This is some detail for this step</h4>
+          <h4 class="center-block text-details">if it needs it</h4>
         </div>
-        <span id="image-text-step-2-mobile">Rate</span>
-        <div class="clearfix"></div>
-      </div>
-      <div id="box-total-number-mobile">
-        <span id="total-number-mobile"  class="total-number">0</span>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-    <div id="step-2-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
-      <div id="total-rate" class="center-block">
-        <h5 id="total-title">TOTAL</h5>
-        <h1 id="total-number" name="total-number" class="total-number">0</h1>
-      </div>
-
-      <% @review_type.each do |r_t| %>
-
-          <div class="form-group form-group-rate-mobile">
-            <div class="rate-control">
-              <div class="rate-name"><%= r_t.name %></div>
-              <div class="rate-number" data-toggle="tooltip" data-placement="top" title="Tooltip on top">1</div>
-              <div class="rate-number">2</div>
-              <div class="rate-number">3</div>
-              <div class="rate-number">4</div>
-              <div class="rate-number">5</div>
-              <div class="rate-number">6</div>
-              <div class="rate-number">7</div>
-              <div data-reviewTypeId="<%= r_t.id %>" class="rate-result">0</div>
-              <div class="clearfix"></div>
+        <div id="step-2-left-mobile">
+          <div id="step-2-left-title-mobile">
+            <div id="image-step-2-mobile">
+              <img class="center-block img-responsive image-step-2" src="/assets/review/2.png"  alt="" />
             </div>
+            <span id="image-text-step-2-mobile">Rate</span>
+            <div class="clearfix"></div>
+          </div>
+          <div id="box-total-number-mobile">
+            <span id="total-number-mobile"  class="total-number">0</span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div id="step-2-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
+          <div id="total-rate" class="center-block">
+            <h5 id="total-title">TOTAL</h5>
+            <h1 id="total-number" name="total-number" class="total-number"><%= (@reviewed.present?) ? @reviewed.totalpoint : 0 %></h1>
           </div>
 
-      <% end %>
 
-    </div>
-  </div>
-</div>
 
-<div id="step-3-container-fluid" class="container-fluid step-container-fluid">
-  <div id="step-3-container" class="container step-container">
-    <div id="step-3-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
-      <img class="center-block img-responsive" src="/assets/review/3.png"  alt="" />
-      <h3 class="center-block text-title">Comments</h3>
-      <h4 class="center-block text-details">This is some detail for this step</h4>
-      <h4 class="center-block text-details">if it needs it</h4>
-    </div>
+            <% if @reviewed_components.blank?   %>
+                <% @review_type.each do |r_t| %>
+                  <div class="form-group form-group-rate-mobile" style="position:relative">
+                    <div class="hover-tootip" id="idiididid_<%= r_t.id %>" style="display: none"></div>
+                    <div class="rate-control" >
+                      <div class="rate-name" lang="<%= r_t.id %>"><%= r_t.name %></div>
+                      <div class="rate-number" lang="<%= r_t.id %>">1</div>
+                      <div class="rate-number" lang="<%= r_t.id %>">2</div>
+                      <div class="rate-number" lang="<%= r_t.id %>">3</div>
+                      <div class="rate-number" lang="<%= r_t.id %>">4</div>
+                      <div class="rate-number" lang="<%= r_t.id %>">5</div>
+                      <div class="rate-number" lang="<%= r_t.id %>">6</div>
+                      <div class="rate-number" lang="<%= r_t.id %>">7</div>
+                      <div data-reviewTypeId="<%= r_t.id %>" class="rate-result">0</div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                <% end %>
+            <% else %>
+                <% @reviewed_components.each do |c| %>
+                  <div class="form-group form-group-rate-mobile" style="position:relative">
+                    <div class="rate-control">
+                      <div class="rate-name"><%= (c.review_type.present?) ? c.review_type.name : "Admin Deleted" %></div>
+                      <div class="rate-number">1</div>
+                      <div class="rate-number">2</div>
+                      <div class="rate-number">3</div>
+                      <div class="rate-number">4</div>
+                      <div class="rate-number">5</div>
+                      <div class="rate-number">6</div>
+                      <div class="rate-number">7</div>
+                      <div class="rate-result"><%= c.point %></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                <% end %>
+            <% end %>
 
-    <div id="step-3-left-mobile">
-      <div id="image-step-3-mobile">
-        <img class="center-block img-responsive" src="/assets/review/3.png"  alt="" />
+          </div>
+
+        </div>
       </div>
-      <span id="image-text-step-2-mobile">Comments</span>
-      <div class="clearfix"></div>
     </div>
 
-
-    <div id="step-3-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
-      <div id="form-group-comment" class="form-group">
-        <textarea id="txt-textarea-comment" name="txt-textarea-comment" class="txt-control txt-normal">
-        </textarea>
-        <div class="inputWrapper">
-          <input id="btn-attach-image" class="fileInput" type="file" />
+    <div id="step-3-container-fluid" class="container-fluid step-container-fluid">
+      <div id="step-3-container" class="container step-container">
+        <div id="step-3-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
+          <img class="center-block img-responsive" src="/assets/review/3.png"  alt="" />
+          <h3 class="center-block text-title">Comments</h3>
+          <h4 class="center-block text-details">This is some detail for this step</h4>
+          <h4 class="center-block text-details">if it needs it</h4>
         </div>
 
+        <div id="step-3-left-mobile">
+          <div id="image-step-3-mobile">
+            <img class="center-block img-responsive" src="/assets/review/3.png"  alt="" />
+          </div>
+          <span id="image-text-step-2-mobile">Comments</span>
+          <div class="clearfix"></div>
+        </div>
+
+
+        <div id="step-3-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
+          <div id="form-group-comment" class="form-group">
+            <textarea id="txt-textarea-comment" name="txt-textarea-comment" class="txt-control txt-normal">
+            </textarea>
+            <div class="inputWrapper">
+              <input id="btn-attach-image" class="fileInput" type="file" />
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div id="form-control-submit" class="center-block">
-  <button id="btn-talleeup" class="center-block">TALLEEUP!</button>
-</div>
+    <div id="form-control-submit" class="center-block">
+      <% if @isReviewed.blank? || !@isReviewed   %>
+          <button id="btn-talleeup" class="center-block">TALLEEUP!</button>
+      <% end %>
+    </div>
+
 <%end%>
+
 <script>
-  $(document).ready(function(){
+    $(document).ready(function(){
+        $('.rate-control').each(function () {
+            var numRate = $(this).find('.rate-result').text();
+            $(this).children('.rate-result').text(numRate);
+            $(this).children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+            $(this).children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
 
-     $('#btn-talleeup').click(function(){
+        });// end each
+    });// end ready
+</script>
 
-         var data_rate = {
-             review_components: [],
-             review: {
-                 user_id: 1,
-                 product_id: 4,
-                 totalpoint: $('#total-number').text()
-             },
-             comment: {
-                 content: $('#txt-textarea-comment').val()
-             }
-         }
+<script>
 
-         $('.rate-result').each(function(){
+    function valid(){
 
-             data_rate.review_components.push({
-                 review_type_id: $(this).attr('data-reviewTypeId'),
-                 point: $(this).text()
-             });
+        var isValid = true;
+        $('.rate-result').each(function(){
 
-         });
-
-         console.log(data_rate);
-
-         $.ajax({
-             type: "POST",
-             url: 'review_post',
-             contentType: "application/json; charset=utf-8",
-             dataType: 'json',
-             data: JSON.stringify(data_rate),
-             success: function(data, status)
-             {
-                console.log('success');
-
-                 $('#layer-review').show();
-                 $('#share-dialog').show();
-
-                 var body = $("html, body");
-                 body.animate({scrollTop:0}, '0', 'swing', function() {
-                 });
-
-                 $('#btn-talleeup').hide();
-             },
-             error: function(data, status)
-             {
-                 console.log('error');
-             }
-         });
-     });// end click
-
-  });
-        $("#reviews-select").change(function(){
-            var _id=$("#reviews-select").val();
-            var _data={idre:_id}
-            $.ajax({
-                type: "POST",
-                url: '/home/getchangeproduct',
-                contentType: "application/json; charset=utf-8",
-                dataType: 'json',
-                data: JSON.stringify(_data),
-                success: function(data, status)
-                {
-                    var _html="";
-                    for(var i=0;i< data.data.length;i++)
-                    {
-
-                        var _id=data.data[i].id;
-                        var _name=data.data[i].name;
-                        _html+="<option value='"+_id+"'>"+_name +"</option>";
-                    }
-                     $("#child-product").html(_html)
-
-                },
-                error: function(data, status)
-                {
-                    console.log('error');
-                }
-            });
+            if($(this).text() === "0")
+            {
+                isValid = false;
+                return false;
+            }
         });
+
+        if(isValid)
+        {
+            $('.image-step-2').attr('src', '/assets/review/check.png');
+        }
+        return isValid;
+    }
+
+    $(document).ready(function(){
+
+        $('#btn-talleeup').click(function(){
+            var _user = <%= current_user.id %>;
+            if(_user!="") {
+                if (!valid()) {
+                    alert('You must complete before you submit information!');
+                    return true;
+                }
+                var _idproduct = $("#child-product").val();
+                var data_rate = {
+                    review_components: [],
+                    review: {
+                        user_id: _user,
+                        product_id: _idproduct,
+                        totalpoint: $('#total-number').text()
+                    },
+                    comment: {
+                        content: $('#txt-textarea-comment').val()
+                    }
+                }
+
+                $('.rate-result').each(function () {
+
+                    data_rate.review_components.push({
+                        review_type_id: $(this).attr('data-reviewTypeId'),
+                        point: $(this).text()
+                    });
+
+                });
+
+                console.log(data_rate);
+
+                $.ajax({
+                    type: "POST",
+                    url: 'review_post',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    data: JSON.stringify(data_rate),
+                    success: function (data, status) {
+                        console.log('success');
+                        console.log(data);
+
+                        $('#layer-review').show();
+                        $('#share-dialog').show();
+
+                        var body = $("html, body");
+                        body.animate({scrollTop: 0}, '0', 'swing', function () {
+                        });
+
+                        $('#btn-talleeup').hide();
+                    },
+                    error: function (data, status) {
+                        console.log('error');
+                    }
+                });
+            }
+        });// end click
+
+
+    });
+    $("#reviews-select").change(function(){
+        var _id=$("#reviews-select").val();
+        var _data={idre:_id}
+        $.ajax({
+            type: "POST",
+            url: '/home/getchangeproduct',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            data: JSON.stringify(_data),
+            success: function(data, status)
+            {
+                var _html="";
+                for(var i=0;i< data.data.length;i++)
+                {
+
+                    var _id=data.data[i].id;
+                    var _name=data.data[i].name;
+                    _html+="<option value='"+_id+"'>"+_name +"</option>";
+                }
+                $("#child-product").html(_html)
+
+            },
+            error: function(data, status)
+            {
+                console.log('error');
+            }
+        });
+    });
 </script>

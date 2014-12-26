@@ -21,11 +21,11 @@
             <%else%>
                <div class="logo-header "></div>
             <%end%>
-            <%if device_type != :mobile %>
+          <!--  <%if device_type != :mobile %>
                 <a href="/home/locations"><div class="home-login-poniter"></div></a>
 
 
-                <%end%>
+                <%end%>-->
             <form  action="/home/search" >
               <%if device_type == :mobile %>
                 <div class="m-search-home">
@@ -100,7 +100,7 @@
         </div>
     <%end%>
     <div class="cl"></div>
-    <div class="menu-filter" id="menu-filter">
+    <div class="menu-filter" id="menu-filter" style="display: none">
       <div class="container">
         <div class="container-menu-filter">
           <%_ko=0%>

@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   get 'home/addSession'
   post 'home/addlike'
   post'home/getchangeproduct'
+  post'home/actionSendMail'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   # resources :users

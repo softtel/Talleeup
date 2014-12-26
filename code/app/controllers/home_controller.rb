@@ -86,15 +86,25 @@ class HomeController < ApplicationController
     end
 
     # add comment
-    Commentproduct.add(review.id, params[:comment][:content])
+    if (!params[:comment][:content].blank?)
+      Commentproduct.add(review.id, params[:comment][:content])
+    end
 
-    render json: Restaurant.all
+    render :json => { :data => true }
   end
 
   def review
-    @product = Product.find_by_id(params[:product_id])
-    @my_user_id = current_user.id
-    @myprofile = Profile.getProfile(@my_user_id)
+
+    @myprofile = Profile.getProfile(current_user.id)
+
+    if params[:product_id].present?
+      @product = Product.find_by_id(params[:product_id])
+      @isReviewed = @product.check_reviewed(current_user.id)
+      if(@isReviewed)
+        @reviewed = Review.getReviewed(current_user.id,  @product.id)
+        @reviewed_components = @reviewed.get_reviewed_components()
+      end
+    end
 
     @review_type = ReviewType.get_all
 
@@ -109,6 +119,7 @@ class HomeController < ApplicationController
   #hungnt
   #login
   def login
+
       @componant=Component.all
       #citycurrent = request.location.city
       #countrycrrent=request.location.country
@@ -204,5 +215,14 @@ class HomeController < ApplicationController
       Commentproduct.updatelike(params[:id])
       render :json => { :status => true }
   end
+  def actionSendMail
+    _html="";
+    _html+="";
+    _html+="You just received an invitation from a friend . You can click <a href='"+ request.host_with_port+params[:link]+"'> here</a> to see details:"
+    _html+=params[:message];
 
+    mail = UserNotifier.send_mail_toshare(params[:email],_html,"You just received an invitation from a friend")
+    mail.deliver
+    render :json => { :status => true }
+  end
 end

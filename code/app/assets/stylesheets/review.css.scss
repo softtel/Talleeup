@@ -661,6 +661,7 @@ button#btn-talleeup{
   color: #DFE3E6;
   font-size: 20px;
   z-index: 1;
+  cursor:pointer;
 }
 
 .rate-result{
@@ -685,4 +686,18 @@ button#btn-talleeup{
   color: #A9A9A9;
   font-size: 15px;
   font-weight: bolder;
+}
+.hover-tootip
+{
+  background: url('/assets/tooltip-review.png') no-repeat;
+  width:120px;
+  height: 43px;
+  color: white;
+  text-align: center;
+  padding-top: 8px;
+  font-size: 10pt;
+  font-weight: bold;
+  position: absolute;
+  top: -40px;
+  z-index: 9999;
 }
