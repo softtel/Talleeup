@@ -53,6 +53,9 @@ GEM
       sass (~> 3.2)
       thor
     builder (3.2.2)
+    ckeditor (4.1.1)
+      cocaine
+      orm_adapter (~> 0.5.0)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.4)
@@ -230,6 +233,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  ckeditor
   coffee-rails (~> 4.0.0)
   devise
   geocoder (~> 1.2.6)

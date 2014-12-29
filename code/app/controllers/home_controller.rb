@@ -64,6 +64,15 @@ class HomeController < ApplicationController
     render layout: "userprofile_layout"
   end
 
+   def upload_avatar
+     @profile = Profile.find(params[:profile][:id])
+     @profile.update(avatar: params[:profile][:avatar])
+     redirect_to :controller => 'home', :action => 'userprofile', :id => current_user.id
+
+   end
+
+
+
   def myprofile
 
     @user = current_user
@@ -87,12 +96,27 @@ class HomeController < ApplicationController
 
     # add comment
     if (!params[:comment][:content].blank?)
-      Commentproduct.add(review.id, params[:comment][:content])
+
+      #name=params[:comment][:filename].original_filename
+      #directory = "public/comment"
+      # create the file path
+      #path = File.join(directory, name)
+      # write the file
+      #File.open(path, "wb") { |f| f.write(params[:comment][:filename].read) }
+      Commentproduct.add(review.id, params[:comment][:content],params[:comment][:namefile])
     end
 
     render :json => { :data => true }
   end
-
+def uploadImgaes
+  name=params[:comment][:filename].original_filename
+  directory = "public/comment"
+  # create the file path
+  path = File.join(directory, name)
+  # write the file
+  File.open(path, "wb") { |f| f.write(params[:comment][:filename].read) }
+  render :json => { :data => true }
+end
   def review
 
     @myprofile = Profile.getProfile(current_user.id)
@@ -217,12 +241,26 @@ class HomeController < ApplicationController
   end
   def actionSendMail
     _html="";
-    _html+="";
-    _html+="You just received an invitation from a friend . You can click <a href='"+ request.host_with_port+params[:link]+"'> here</a> to see details:"
-    _html+=params[:message];
-
-    mail = UserNotifier.send_mail_toshare(params[:email],_html,"You just received an invitation from a friend")
+    _html+="<p>You just received an invitation from a friend . You can click  here</a> to see details:</p>"+request.host_with_port+params[:link];
+    _html+="<p>"+params[:message]+"</p>";
+    _email=""
+    if user_signed_in?
+      _email=User.where(id: current_user.id).first().email
+    end
+    mail = UserNotifier.send_mail_toshare(params[:email],"You just received an invitation from a friend",_html,_email)
     mail.deliver
     render :json => { :status => true }
   end
+
+
+   private
+  # Use callbacks to share common setup or constraints between actions.
+   def set_profile
+     @profile = Profile.find(params[:id])
+   end
+
+   # Never trust parameters from the scary internet, only allow the white list through.
+   def profile_params
+     params.require(:profile).permit(:id, :avatar)
+   end
 end

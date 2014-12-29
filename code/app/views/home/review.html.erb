@@ -50,7 +50,7 @@
   </div>
 </div>
 <!--
-<%= form_tag("/home/review", method: "post") do %>
+<%= form_tag("/home/review", method: "post",enctype: "multipart/form-data",multipart: true) do %>
     -->
     <div id="step-2-container-fluid" class="container-fluid step-container-fluid">
       <div id="step-2-container" class="container step-container">
@@ -199,6 +199,7 @@
     $(document).ready(function(){
 
         $('#btn-talleeup').click(function(){
+
             var _user = <%= current_user.id %>;
             if(_user!="") {
                 if (!valid()) {
@@ -206,6 +207,8 @@
                     return true;
                 }
                 var _idproduct = $("#child-product").val();
+                var _file=$("#btn-attach-image")[0].files[0];
+
                 var data_rate = {
                     review_components: [],
                     review: {
@@ -214,7 +217,9 @@
                         totalpoint: $('#total-number').text()
                     },
                     comment: {
-                        content: $('#txt-textarea-comment').val()
+                        content: $('#txt-textarea-comment').val(),
+                        filename:_file,
+                        namefile:_file.name
                     }
                 }
 
@@ -227,14 +232,17 @@
 
                 });
 
-                console.log(data_rate);
+                console.log(JSON.stringify(data_rate));
 
                 $.ajax({
                     type: "POST",
                     url: 'review_post',
                     contentType: "application/json; charset=utf-8",
+                    enctype: 'multipart/form-data',
                     dataType: 'json',
                     data: JSON.stringify(data_rate),
+
+                    multipart: true,
                     success: function (data, status) {
                         console.log('success');
                         console.log(data);

@@ -40,10 +40,10 @@
 
 
           <div class="button-review">
-            <input type="button" value="REVIEW" name="REVIEW">
+            <a href="/home/review">
+                <input type="button" value="REVIEW" name="REVIEW">
+            </a>
           </div>
-
-
 
             <% if user_signed_in? %>
               <a href="/home/userprofile?id=<%=current_user.id%>">
@@ -118,12 +118,48 @@
           <!--<div class="item-menu-top-header-bur"><a href="#" class="bur-addtolist">ADD TO LIST </a></div>-->
           <div class="no-line-bur"></div>
 
-          <div class="item-menu-top-header-bur"><a href="#" class="bur-share">SHARE </a></div>
+          <div class="item-menu-top-header-bur">
+            <a href="#" class="bur-share" data-toggle="modal" data-target="#myModal<%=params[:id] %>">SHARE </a>
+          </div>
 
           <div class="clearfix"></div>
 
         </div>
 
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal<%=params[:id] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="top:70px">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">Share Burgers</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Email:</label>
+              <input type="text" class="form-control" id="recipient-name-<%=params[:id]%>">
+              <span id="error-email-<%=params[:id]%>" style="color: red"></span>
+            </div>
+            <div class="form-group">
+              <label for="recipient-name" class="control-label">Link:</label>
+              <input type="text" value="/home/BurgerProfile/<%=params[:id]%>"  disabled="disabled" class="form-control" id="link-name-<%=params[:id]%>">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="control-label">Message:</label>
+              <textarea class="form-control" id="message-text-<%=params[:id]%>"></textarea>
+              <span id="error-message-<%=params[:id]%>" style="color: red"></span>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" onclick="sendmailaction(<%=params[:id]%>)" class="btn btn-primary">Send Email</button>
+          <span id="showloadding_<%=params[:id]%>" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+        </div>
       </div>
     </div>
   </div>

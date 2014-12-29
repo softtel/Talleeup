@@ -92,9 +92,15 @@
   $(document).ready(function(){
 
       responsive();
-
+      
       $(window).resize(function() {
           responsive();
+      });
+
+     $('#col-profile-user-image').hover(function(){
+           $('#form-change-avatar').show();
+      }, function(){
+          $('#form-change-avatar').hide();
       });
 
       $('#btn-follow').click(function(){

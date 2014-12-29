@@ -498,3 +498,51 @@ div.profile-main-title{
 .info-details a:hover{
   background-color: transparent;
 }
+
+#form-change-avatar{
+  display: none;
+  position: absolute;
+  right: 133px;
+  top: 92px;
+  width: 0px;
+  height: 0;
+}
+
+.inputWrapper-change-avatar {
+  height: 30px;
+  width: 32px;
+  //  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0px;
+  //  margin-left: 20px;
+  cursor:pointer;
+  /*Using a background color, but you can use a background image to represent a button*/
+  background: url(/assets/review/camera.png) 0px no-repeat;
+}
+.fileInput-change-avatar {
+  cursor:pointer;
+  height: 100%;
+  position:absolute;
+  top: 0;
+  right: 0;
+  z-index: 99;
+  background: url(/assets/review/camera.png) 0px no-repeat;
+  /*This makes the button huge. If you want a bigger button, increase the font size*/
+  /*Opacity settings for all browsers*/
+  opacity: 0;
+  -moz-opacity: 0;
+  filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)
+}
+
+#btn-change-avatar{
+  width: 32px;
+  height: 30px;
+  border: none;
+  background: url(/assets/review/camera.png) 0px no-repeat;
+  position: absolute;
+  top: 0px;
+  margin-left: 20px;
+  text-outline: 0;
+  cursor: pointer;
+}

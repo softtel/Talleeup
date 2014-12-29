@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
@@ -13,6 +14,8 @@ Rails.application.routes.draw do
   get 'home/search'
   get 'home/test_ajax'
   get 'home/userprofile'
+  post 'home/upload_avatar'
+  get 'home/upload_avatar'
   get 'home/geolocation'
   get 'home/myprofile'
   get 'home/review'

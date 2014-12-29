@@ -61,3 +61,4 @@ gem 'geokit-rails'
 gem "prototype-rails"
 
 gem 'pg_search'
+gem 'ckeditor'
