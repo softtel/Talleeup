@@ -68,7 +68,7 @@
               <div class="user-data">
 
                 <% item.get_reviewers.limit(5).each  do |review| %>
-                    <a href="/home/userprofile?id=1">
+                    <a href="/home/userprofile?id=<%=review.user_id%>">
                       <div class="item-img-user">
                         <%= image_tag(review.user.profile.avatar.url(:thumb),:width => 35, :height => 35,:class => 'img-circle') %>
                       </div></a>

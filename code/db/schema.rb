@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229124537) do
+ActiveRecord::Schema.define(version: 20141230101244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,18 @@ ActiveRecord::Schema.define(version: 20141229124537) do
     t.integer  "numlikes"
   end
 
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "product_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "images_file_name"
+    t.string   "images_content_type"
+    t.integer  "images_file_size"
+    t.datetime "images_updated_at"
+  end
+
   create_table "component_values", force: true do |t|
     t.string   "name"
     t.integer  "component_id"
@@ -147,6 +159,22 @@ ActiveRecord::Schema.define(version: 20141229124537) do
   create_table "follows", force: true do |t|
     t.integer  "user_id"
     t.integer  "followed_user"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "meta", force: true do |t|
+    t.string   "name"
+    t.string   "datatype"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "sort"
+  end
+
+  create_table "meta_users", force: true do |t|
+    t.text     "value"
+    t.integer  "user_id"
+    t.integer  "meta_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

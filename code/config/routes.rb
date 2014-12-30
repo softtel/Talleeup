@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   post 'home/index'
   post 'home/search'
   post 'home/follow'
+  post 'home/unfollow'
   get 'home/search'
   get 'home/test_ajax'
   get 'home/userprofile'
@@ -30,6 +31,8 @@ Rails.application.routes.draw do
   post 'home/addlike'
   post'home/getchangeproduct'
   post'home/actionSendMail'
+  post '/home/uploadImgaes'
+  post '/home/AddComemnt'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   # resources :users

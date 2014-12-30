@@ -517,7 +517,7 @@
     display: none;
   }
 
-  button#btn-seefull{
+  button.btn-seefull{
     margin-top: 20px;
   }
 
@@ -544,7 +544,7 @@
     width: 100% !important;
   }
 
-  #btn-register-submit, #btn-seefull{
+  #btn-register-submit, .btn-seefull{
     width: 94% !important;
   }
 }
@@ -690,7 +690,7 @@ div#register-container-fluid{
   margin-top: 10px;
 }
 
-#btn-signup, #btn-seefull, #btn-register-submit{
+#btn-signup, .btn-seefull, #btn-register-submit{
   width: 290px;
   height: 62px;
   font-size: 18px;
@@ -718,7 +718,7 @@ div#register-container-fluid{
   color: #145a8b;
 }
 
-#btn-seefull{
+.btn-seefull{
   color: #ffffff;
   background-color: #36C0DD;
   margin-top: 60px;

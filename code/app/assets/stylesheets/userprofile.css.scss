@@ -39,7 +39,7 @@
     font-size: 10px !important;
   }
 
-  button#btn-follow{
+  button.btn-follow{
     width: 100% !important;
   }
 }
@@ -202,7 +202,7 @@
     border-bottom: 1px solid #E5E9EC;
   }
 
-  button#btn-follow{
+  button.btn-follow{
     width: 80% !important;
   }
 
@@ -444,7 +444,7 @@ div.menu-item{
   text-align: center;
 }
 
-button#btn-follow{
+button.btn-follow{
   margin-top: 9px;
   width: 125px;
   height: 60px;
@@ -545,4 +545,8 @@ div.profile-main-title{
   margin-left: 20px;
   text-outline: 0;
   cursor: pointer;
+}
+
+#total-reviewed{
+  font-size: 12px !important;
 }

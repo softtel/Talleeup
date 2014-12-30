@@ -22,9 +22,14 @@ class HomeController < ApplicationController
   def follow
 
     Follow.add(current_user.id, params[:friend_id])
-    render :json => { :status => true } # send back any data if necessar
-    # render json: Restaurant.all
+    render :json => { :status => true }
   end
+
+   def unfollow
+
+     Follow.delete(current_user.id, params[:friend_id])
+     render :json => { :status => true }
+   end
 
 
   def search
@@ -44,21 +49,22 @@ class HomeController < ApplicationController
   def userprofile
 
     ### friend
-    friend_id = params[:id]
-    @friend = User.find_by_id(friend_id)
+    @friend = User.find_by_id(params[:id])
+
+    @isMyprofile = (@friend.id == current_user.id) ? true : false
 
     if @friend.nil?
       @friend = User.find_by_id(1)
     end
 
-    @profile = Profile.getProfile(friend_id)
+    @profile = Profile.getProfile(params[:id])
     limit = (params[:fulllist].nil?) ? 5 : 1000
-    @products = @friend.get_products_reviewed()
+    @products = @friend.get_products_reviewed(limit)
 
     ### user
     @user = current_user
     @myprofile = Profile.getProfile(current_user.id)
-    @isFollowed = @user.isFollowed(friend_id)
+    @isFollowed = @user.isFollowed(@friend.id)
 
     # layout
     render layout: "userprofile_layout"
@@ -81,7 +87,19 @@ class HomeController < ApplicationController
 
     render layout: "myprofile_layout"
   end
+  def AddComemnt
+    if user_signed_in?
+      if (!params[:content].blank?)
 
+        if params[:file].present?
+          Review.save(params[:file])
+
+        end
+        Comment.create(content:  params[:content],images: params[:file],product_id:params[:productid],user_id:current_user.id)
+      end
+    end
+    redirect_to :controller => 'home', :action => 'BurgerProfile', :id => params[:productid]
+  end
   def review_post
     # parsed_json = ActiveSupport::JSON.decode(params[:_json])
 
@@ -109,20 +127,29 @@ class HomeController < ApplicationController
     render :json => { :data => true }
   end
 def uploadImgaes
-  name=params[:comment][:filename].original_filename
+  name=params[:file].original_filename
   directory = "public/comment"
   # create the file path
   path = File.join(directory, name)
   # write the file
-  File.open(path, "wb") { |f| f.write(params[:comment][:filename].read) }
+  File.open(path, "wb") { |f| f.write(params[:file].read) }
   render :json => { :data => true }
 end
   def review
 
     @myprofile = Profile.getProfile(current_user.id)
+    @restaurant=Restaurant.all()
 
+    @restaurant_product=Product.where(restaurant_id: @restaurant.first().id)
     if params[:product_id].present?
       @product = Product.find_by_id(params[:product_id])
+      @isReviewed = @product.check_reviewed(current_user.id)
+      if(@isReviewed)
+        @reviewed = Review.getReviewed(current_user.id,  @product.id)
+        @reviewed_components = @reviewed.get_reviewed_components()
+      end
+    else
+      @product = Product.find_by_id(@restaurant_product.first().id)
       @isReviewed = @product.check_reviewed(current_user.id)
       if(@isReviewed)
         @reviewed = Review.getReviewed(current_user.id,  @product.id)
@@ -132,8 +159,7 @@ end
 
     @review_type = ReviewType.get_all
 
-    @restaurant=Restaurant.all()
-    @restaurant_product=Product.where(restaurant_id: @restaurant.first().id)
+
     render layout: "review_layout"
   end
   def getchangeproduct
@@ -201,6 +227,7 @@ end
         if user_signed_in?
           @profile=Profile.where(user_id: current_user.id).first()
         end
+        @comemntproduct=Comment.where(product_id: params[:id])
 
       render layout:"BurgerProfile/BurgerProfile"
   end

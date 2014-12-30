@@ -5,6 +5,7 @@ class Product < ActiveRecord::Base
   has_many :product_components
   has_many :reviews
   has_many :product_images, :dependent => :delete_all
+  has_many :comments
 
   validates :name, :images, :restaurant_id, presence: true
   validates :prices, presence: true, numericality: true

@@ -3,16 +3,18 @@
   <%= render "profileinfo" %>
 
   <div id="city-filter" class="row center-block">
-    BURGERS REVIEWED
+    BURGERS REVIEWED<span id="total-reviewed">(32)</span>
   </div>
   <!-- End city-filter -->
 
   <div class="row" id="main-body">
     <div id="list-products" class="col-md-12">
       <%= render partial: "product", collection: @products %>
-     <!-- <a href="/home/userprofile?id=<%= @friend.id %>&fulllist=true">
-      <button id="btn-seefull" class="center-block">SEE FULL LIST</button>
-      </a>-->
+
+      <a href="/home/userprofile?id=<%= @friend.id %>&fulllist=true">
+        <button class="center-block btn-seefull">SEE FULL LIST</button>
+      </a>
+
     </div>
     <!-- End list-product -->
   </div>

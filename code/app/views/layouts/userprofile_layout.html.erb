@@ -41,11 +41,9 @@
         <h2><%= @friend.get_numFollows() %></h2>
       </div>
       <div id="menu-item-follow" class="menu-item">
-          <% if(@isFollowed) %>
-              <button id="btn-follow" disabled> FOLLOWED</button>
-          <% else %>
-              <button data-friendId="<%= @friend.id %>" id="btn-follow"> FOLLOW</button>
-          <% end %>
+            <% display = (@isFollowed) ? 'style="display: inline"' : 'style="display: none"' %>
+            <button <% if(!@isFollowed)%> style="display: none" <% end %>  data-friendId="<%= @friend.id %>" class="btn-follow" id="btn-unfollow"> UNFOLLOW</button>
+            <button <% if(@isFollowed)%> style="display: none" <% end %> data-friendId="<%= @friend.id %>" class="btn-follow" id="btn-follow"> FOLLOW</button>
       </div>
       <div class="clearfix"></div>
     </div>
@@ -92,7 +90,7 @@
   $(document).ready(function(){
 
       responsive();
-      
+
       $(window).resize(function() {
           responsive();
       });
@@ -115,24 +113,50 @@
             contentType: "application/json; charset=utf-8",
             dataType: 'json',
             data: JSON.stringify(data),
-//            data: {friend_id: friendId},
             success: function(data, status)
             {
                 if(data['status'] == true)
                 {
-                    $('#btn-follow').text("FOLLOWED").attr('disabled','disabled');
-                    window.location=document.URL;
+                    $('#btn-follow').hide();
+                    $('#btn-unfollow').show();
                 }
-
-//                console.log('success');
             },
             error: function(data, status)
             {
                 console.log('error');
             }
-        });
-
+        });// end ajax
       });// end click
+
+      $('#btn-unfollow').click(function(){
+
+          var friendId = $(this).attr('data-friendId');
+          console.log(friendId);
+          data = {friend_id: friendId};
+
+          $.ajax({
+              type: "POST",
+              url: 'unfollow',
+              contentType: "application/json; charset=utf-8",
+              dataType: 'json',
+              data: JSON.stringify(data),
+              success: function(data, status)
+              {
+                  if(data['status'] == true)
+                  {
+                      $('#btn-unfollow').hide();
+                      $('#btn-follow').show();
+//                      $('#btn-follow').text("FOLLOWED").attr('disabled','disabled');
+//                      window.location=document.URL;
+                  }
+              },
+              error: function(data, status)
+              {
+                  console.log('error');
+              }
+          });// end ajax
+      });// end click
+
 
   });// end ready
 </script>

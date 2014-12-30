@@ -43,16 +43,22 @@
               <input type="button" value="REVIEW" name="REVIEW">
                   </a>
             </div>
-            <a href="/home/myprofile">
+
             <div class="button-profile">
               <% if user_signed_in? %>
-                  <%= image_tag(@profile.avatar.url(:thumb), :id=>"profile-user-image", :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
-
+                  <a href="/home/userprofile?id=<%=current_user.id%>">
+                    <%= image_tag(@profile.avatar.url(:thumb), :id=>"profile-user-image", :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
+                  </a>
               <%else%>
-                  <%= image_tag("/Uploads/avatar/avatar.png") %>
+                  <a href="/home/userprofile?id=">
+                    <%= image_tag("/Uploads/avatar/avatar.png") %>
+                  </a>
               <%end%>
             </div>
-                </a>
+            <%if user_signed_in? %>
+                <%= link_to('LOGOUT', destroy_user_session_path, :method => :delete,:class=>"pull-right",:id=>"btn-logout",:style=>"line-height:62px") %>
+
+            <%end%>
           </div>
 
 
