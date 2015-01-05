@@ -550,3 +550,31 @@ div.profile-main-title{
 #total-reviewed{
   font-size: 12px !important;
 }
+
+.meta-value{
+  float: left;
+  display: inline;
+}
+
+.icon-edit-meta, .icon-save-meta{
+  width: 25px;
+  cursor: pointer;
+}
+
+.icon-save-meta{
+  display: none;
+}
+
+.icon-save, .icon-edit{
+  cursor: pointer;
+}
+
+.icon-save{
+  display: none;
+  width: 30px;
+}
+
+.input-edit-content{
+  width: 200px;
+  display: inline;
+}

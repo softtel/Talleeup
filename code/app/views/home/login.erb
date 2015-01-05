@@ -108,32 +108,70 @@
                   <h4 class="modal-title" id="exampleModalLabel">Share Burgers</h4>
                 </div>
                 <div class="modal-body">
-                  <form>
-                    <div class="form-group">
-                      <label for="recipient-name" class="control-label">Email:</label>
-                      <input type="text" class="form-control" id="recipient-name-<%=item.id%>">
-                      <span id="error-email-<%=item.id%>" style="color: red"></span>
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#Email<%=item.id%>" aria-controls="Email" role="tab" data-toggle="tab">Email</a></li>
+                    <li role="presentation"><a href="#Facebook<%=item.id%>" aria-controls="Facebook" role="tab" data-toggle="tab">Facebook</a></li>
+                    <li role="presentation"><a href="#Twiter<%=item.id%>" aria-controls="Twiter" role="tab" data-toggle="tab">Twiter</a></li>
+
+                  </ul>
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="Email<%=item.id%>" style="padding-left: 10px;padding-top: 10px">
+                      <form>
+                        <div class="form-group">
+                          <label for="recipient-name" class="control-label">Email:</label>
+                          <input type="text" class="form-control" id="recipient-name-<%=item.id%>">
+                          <span id="error-email-<%=item.id%>" style="color: red"></span>
+                        </div>
+                        <div class="form-group">
+                          <label for="recipient-name" class="control-label">Link:</label>
+                          <input type="text" value="/home/BurgerProfile/<%=item.id%>"  disabled="disabled" class="form-control" id="link-name-<%=item.id%>">
+                        </div>
+                        <div class="form-group">
+                          <label for="message-text" class="control-label">Message:</label>
+                          <textarea class="form-control" id="message-text-<%=item.id%>"></textarea>
+                          <span id="error-message-<%=item.id%>" style="color: red"></span>
+                        </div>
+                      </form>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="sendmailaction(<%=item.id%>)" class="btn btn-primary">Send Email</button>
+                        <span id="showloadding_<%=item.id%>" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+                      </div>
+                      </div>
+                    <div role="tabpanel" class="tab-pane" id="Facebook<%=item.id%>" style="padding:20px;height: 400px">
+
+                      <div id="fb-root"></div>
+                      <script>
+
+                          (function(d, s, id) {
+                              var js, fjs = d.getElementsByTagName(s)[0];
+                              if (d.getElementById(id)) return;
+                              js = d.createElement(s); js.id = id;
+                              js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
+                              fjs.parentNode.insertBefore(js, fjs);
+                          }(document, 'script', 'facebook-jssdk'));</script>
+                      <div class="fb-send"  data-href="<%=request.original_url %>" data-width="300px" data-colorscheme="light"></div>
+                      </div>
+                    <div role="tabpanel" class="tab-pane" id="Twiter<%=item.id%>" style="padding: 20px">
+
+                      <a class="twitter-share-button"
+                         href="https://twitter.com/share"
+                         data-url="<%=request.original_url %>"
+                         data-counturl="<%=request.original_url %>"
+                         data-count="vertical">
+                        Tweet
+                      </a>
+                      <script type="text/javascript">
+                          window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+                      </script>
                     </div>
-                    <div class="form-group">
-                      <label for="recipient-name" class="control-label">Link:</label>
-                      <input type="text" value="/home/BurgerProfile/<%=item.id%>"  disabled="disabled" class="form-control" id="link-name-<%=item.id%>">
-                    </div>
-                    <div class="form-group">
-                      <label for="message-text" class="control-label">Message:</label>
-                      <textarea class="form-control" id="message-text-<%=item.id%>"></textarea>
-                      <span id="error-message-<%=item.id%>" style="color: red"></span>
-                    </div>
-                  </form>
+                  </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="button" onclick="sendmailaction(<%=item.id%>)" class="btn btn-primary">Send Email</button>
-                  <span id="showloadding_<%=item.id%>" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-                </div>
+
               </div>
             </div>
           </div>
-   <%end%>
+      <%end%>
 
 <%end%>
 <div style="width: 100%;height: 50px;clear: left"></div>

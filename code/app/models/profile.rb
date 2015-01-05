@@ -12,4 +12,7 @@ class Profile < ActiveRecord::Base
     return Profile.find_by user_id: user_id
   end
 
+  def update_profile(content)
+      self.update(address: content)
+  end
 end

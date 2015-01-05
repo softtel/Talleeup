@@ -2,39 +2,27 @@
   <h1 id="main-title-body">PROFILE INFO</h1>
   <div id="main-bar-color" class="center-block"></div>
 
-  <div class="info-details row">
-    <h4 class="pull-left">Country</h4>
-    <h4 class="pull-right">
-      <% if(@profile.city && @profile.city.country) %>
-        <%= @profile.city.country.name %>
-      <% end %>
-    </h4>
-  </div>
-  <div class="info-details row">
-    <h4 class="pull-left">City</h4>
-    <h4 class="pull-right">
-      <% if(@profile.city) %>
-          <%= @profile.city.name %>
-      <% end %>
-    </h4>
-  </div>
-  <div class="info-details row">
-    <h4 class="pull-left">Twitter</h4>
-    <h4 class="pull-right">
-      <a href="#"><%= @profile.social %></a>
-    </h4>
-  </div>
-  <div class="info-details row">
-    <h4 class="pull-left">Favorite Burger</h4>
-    <h4 class="pull-right"><a href="#">Juicy Lucy</a></h4>
-  </div>
-  <div class="info-details row">
-    <h4 class="pull-left">Favorite Resturant</h4>
-    <h4 class="pull-right"><a href="#">Circle 7 Ranch</a></h4>
-  </div>
-  <div id="info-details-age" class="info-details row">
-    <h4 class="pull-left">Age</h4>
-    <h4 class="pull-right"><%= @profile.age %></h4>
-  </div>
+  <% @meta.each do |m| %>
+      <% user_meta = m.get_meta_user(@friend.id) %>
+      <div class="info-details row">
+        <h4 class="pull-left"><%= m.name %></h4>
+        <h4 class="pull-right">
+
+          <div data-usermetaid="<%= user_meta.id %>" class="meta-value">
+            <% if m.datatype == "url"%>
+               <a class="value" href="<%= user_meta.value %>"></a>
+            <% else %>
+               <span class="value"><%= user_meta.value %></span>
+            <% end %>
+          </div>
+
+          <% if @isMyprofile %>
+              <img class="icon-edit-meta" src="/assets/icon-edit.png" />
+              <img class="icon-save-meta" src="/assets/icon-save.png" />
+          <% end %>
+
+        </h4>
+      </div>
+  <% end %>
 </div>
 <!--End main-title-->

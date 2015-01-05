@@ -57,7 +57,11 @@ class HomeController < ApplicationController
       @friend = User.find_by_id(1)
     end
 
+    # profile
     @profile = Profile.getProfile(params[:id])
+    @meta = Meta.get_meta
+
+    # product reviewed
     limit = (params[:fulllist].nil?) ? 5 : 1000
     @products = @friend.get_products_reviewed(limit)
 
@@ -70,11 +74,32 @@ class HomeController < ApplicationController
     render layout: "userprofile_layout"
   end
 
+   def news
+     ### friend
+     @friend = current_user
+
+     @isMyprofile = false
+
+     # profile
+     @profile = current_user.profile
+
+     # reviews
+     limit = (params[:fulllist].nil?) ? 5 : 1000
+     @reviews = @friend.get_news(limit)
+
+     ### user
+     @user = current_user
+     @myprofile = Profile.getProfile(current_user.id)
+     @isFollowed = @user.isFollowed(@friend.id)
+
+     # layout
+     render layout: "userprofile_layout"
+   end
+
    def upload_avatar
      @profile = Profile.find(params[:profile][:id])
      @profile.update(avatar: params[:profile][:avatar])
      redirect_to :controller => 'home', :action => 'userprofile', :id => current_user.id
-
    end
 
 
@@ -100,6 +125,22 @@ class HomeController < ApplicationController
     end
     redirect_to :controller => 'home', :action => 'BurgerProfile', :id => params[:productid]
   end
+
+  def user_meta
+    MetaUser.update_profile(params[:id], params[:value])
+    render :json => { :data => true }
+  end
+
+  def update_profile
+    if params[:column_name] == "address"
+      profile = current_user.profile
+      profile.update_profile(params[:content])
+    else
+      current_user.update(fullname: params[:content])
+    end
+    render :json => { :data => true }
+  end
+
   def review_post
     # parsed_json = ActiveSupport::JSON.decode(params[:_json])
 
@@ -278,7 +319,6 @@ end
     mail.deliver
     render :json => { :status => true }
   end
-
 
    private
   # Use callbacks to share common setup or constraints between actions.

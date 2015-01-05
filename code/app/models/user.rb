@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :reviews
   has_many :follows
   has_many :comments
+  has_many :meta_users
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -56,6 +57,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def get_news(limit = 1000)
+    return Review.find_by_sql("SELECT reviews.*
+                                FROM (SELECT followed_user FROM follows WHERE user_id = #{self.id}) as listUserIdFollowed
+                                JOIN reviews ON listUserIdFollowed.followed_user = user_id
+                                ORDER BY reviews.id DESC
+                                LIMIT #{limit}")
+  end
 
   def get_products_reviewed(limit = 1000)
     return Product.joins(:reviews).where(reviews: {user_id: self.id}).limit(limit).distinct

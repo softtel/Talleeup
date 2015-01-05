@@ -145,7 +145,7 @@
         <div id="step-3-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
           <div id="form-group-comment" class="form-group">
             <textarea id="txt-textarea-comment" style="padding:0px" name="txt-textarea-comment" class="txt-control txt-normal">
-              <%=@reviewed.getComment%>
+              <%=(@reviewed.present?) ? @reviewed.getComment : ""%>
             </textarea>
             <div class="inputWrapper">
               <input id="btn-attach-image" class="fileInput" type="file" />
@@ -164,17 +164,7 @@
 
 <%end%>
 
-<script>
-    $(document).ready(function(){
-        $('.rate-control').each(function () {
-            var numRate = $(this).find('.rate-result').text();
-            $(this).children('.rate-result').text(numRate);
-            $(this).children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
-            $(this).children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
 
-        });// end each
-    });// end ready
-</script>
 
 <script>
 
@@ -199,6 +189,13 @@
 
     $(document).ready(function(){
 
+        $('.rate-control').each(function () {
+            var numRate = $(this).find('.rate-result').text();
+            $(this).children('.rate-result').text(numRate);
+            $(this).children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+            $(this).children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+
+        });// end each
         $('#btn-talleeup').click(function(e){
 
             var _user = <%= current_user.id %>;
@@ -278,7 +275,6 @@
                 });
             }
         });// end click
-
 
     });
     $("#reviews-select").change(function(){

@@ -34,13 +34,13 @@
       <p class="product-reviews-score">
 
 
-        <% if action_name==='userprofile' %>
-             <span class="score"><%=  product.get_review_score.round(1) %></span>
-             <span class="min-score-review">/<%=product.getMinReview%></span>
-             <span class="max-score-review">/<%=product.getMaxReview%></span>
+        <% if action_name==='index' %>
+            <span class="score"><%=  product.get_review_score.round(1) %></span>
+            <span class="max-score-review">/<%=product.getMaxReview%></span>
          <%else%>
-             <span class="score"><%=  product.get_review_score.round(1) %></span>
-             <span class="max-score-review">/<%=product.getMaxReview%></span>
+            <span class="score"><%=  product.get_review_score.round(1) %></span>
+            <span class="min-score-review">/<%=product.getMinReview%></span>
+            <span class="max-score-review">/<%=product.getMaxReview%></span>
         <%end%>
 
       </p>
@@ -97,28 +97,66 @@
           <h4 class="modal-title" id="exampleModalLabel">Share Burgers</h4>
         </div>
         <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="control-label">Email:</label>
-              <input type="text" class="form-control" id="recipient-name-<%=product.id%>">
-              <span id="error-email-<%=product.id%>" style="color: red"></span>
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#Email<%=product.id%>" aria-controls="Email" role="tab" data-toggle="tab">Email</a></li>
+            <li role="presentation"><a href="#Facebook<%=product.id%>" aria-controls="Facebook" role="tab" data-toggle="tab">Facebook</a></li>
+            <li role="presentation"><a href="#Twiter<%=product.id%>" aria-controls="Twiter" role="tab" data-toggle="tab">Twiter</a></li>
+
+          </ul>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="Email<%=product.id%>" style="padding-left: 10px;padding-top: 10px">
+              <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="control-label">Email:</label>
+                  <input type="text" class="form-control" id="recipient-name-<%=product.id%>">
+                  <span id="error-email-<%=product.id%>" style="color: red"></span>
+                </div>
+                <div class="form-group">
+                  <label for="recipient-name" class="control-label">Link:</label>
+                  <input type="text" value="/home/BurgerProfile/<%=product.id%>"  disabled="disabled" class="form-control" id="link-name-<%=product.id%>">
+                </div>
+                <div class="form-group">
+                  <label for="message-text" class="control-label">Message:</label>
+                  <textarea class="form-control" id="message-text-<%=product.id%>"></textarea>
+                  <span id="error-message-<%=product.id%>" style="color: red"></span>
+                </div>
+              </form>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="sendmailaction(<%=product.id%>)" class="btn btn-primary">Send Email</button>
+                <span id="showloadding_<%=product.id%>" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+              </div>
             </div>
-            <div class="form-group">
-              <label for="recipient-name" class="control-label">Link:</label>
-              <input type="text" value="/home/BurgerProfile/<%=product.id%>"  disabled="disabled" class="form-control" id="link-name-<%=product.id%>">
+            <div role="tabpanel" class="tab-pane" id="Facebook<%=product.id%>" style="padding:20px;height: 400px">
+
+              <div id="fb-root"></div>
+              <script>
+
+                  (function(d, s, id) {
+                      var js, fjs = d.getElementsByTagName(s)[0];
+                      if (d.getElementById(id)) return;
+                      js = d.createElement(s); js.id = id;
+                      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
+                      fjs.parentNode.insertBefore(js, fjs);
+                  }(document, 'script', 'facebook-jssdk'));</script>
+              <div class="fb-send"  data-href="<%=request.original_url %>" data-width="300px" data-colorscheme="light"></div>
             </div>
-            <div class="form-group">
-              <label for="message-text" class="control-label">Message:</label>
-              <textarea class="form-control" id="message-text-<%=product.id%>"></textarea>
-              <span id="error-message-<%=product.id%>" style="color: red"></span>
+            <div role="tabpanel" class="tab-pane" id="Twiter<%=product.id%>" style="padding: 20px">
+
+              <a class="twitter-share-button"
+                 href="https://twitter.com/share"
+                 data-url="<%=request.original_url %>"
+                 data-counturl="<%=request.original_url %>"
+                 data-count="vertical">
+                Tweet
+              </a>
+              <script type="text/javascript">
+                  window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+              </script>
             </div>
-          </form>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" onclick="sendmailaction(<%=product.id%>)" class="btn btn-primary">Send Email</button>
-          <span id="showloadding_<%=product.id%>" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-        </div>
+
       </div>
     </div>
   </div>

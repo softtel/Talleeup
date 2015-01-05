@@ -6,6 +6,8 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
+
+
 <body style="background: #fff !important;">
 <header>
 
@@ -18,7 +20,7 @@
               <div class="m-logo-header"></div>
 
           <%else%>
-              <div class="logo-header "></div>
+              <a href="http://127.0.0.1:3000/"><div class="logo-header "></div></a>
           <%end%>
          <!-- <%if device_type != :mobile %>
               <a href="/home/locations"> <div class="home-login-poniter"></div></a>
@@ -168,19 +170,65 @@
                   <span id="error-message-<%=params[:id]%>" style="color: red"></span>
                 </div>
               </form>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="sendmailaction(<%=params[:id]%>)" class="btn btn-primary">Send Email</button>
+                <span id="showloadding_<%=params[:id]%>" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+              </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="Facebook" style="padding:20px;height: 400px">
+
+              <div id="fb-root"></div>
+              <script>
+
+                  (function(d, s, id) {
+                  var js, fjs = d.getElementsByTagName(s)[0];
+                  if (d.getElementById(id)) return;
+                  js = d.createElement(s); js.id = id;
+                  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
+                  fjs.parentNode.insertBefore(js, fjs);
+              }(document, 'script', 'facebook-jssdk'));</script>
+              <div class="fb-send"  data-href="<%=request.original_url %>" data-width="300px" data-colorscheme="light"></div>
+
+             <!-- <form>
+                <div class="form-group">
+                  <label for="recipient-name" class="control-label">To:</label>
+                  <input type="text" class="form-control" id="recipient-name-<%=params[:id]%>">
+                  <span id="error-email-<%=params[:id]%>" style="color: red"></span>
+
+                </div>
+
+                <div class="form-group">
+                  <label for="message-text" class="control-label">Message:</label>
+                  <textarea class="form-control" id="message-text-<%=params[:id]%>"></textarea>
+                  <span id="error-message-<%=params[:id]%>" style="color: red"></span>
+                </div>
+              </form>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="sendmailaction(<%=params[:id]%>)" class="btn btn-primary">Send Message</button>
+                <span id="showloadding_<%=params[:id]%>" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
+              </div>-->
 
             </div>
-            <div role="tabpanel" class="tab-pane" id="Facebook">...</div>
-            <div role="tabpanel" class="tab-pane" id="Twiter">...</div>
+            <div role="tabpanel" class="tab-pane" id="Twiter" style="padding: 20px">
+
+              <a class="twitter-share-button"
+                 href="https://twitter.com/share"
+                 data-url="<%=request.original_url %>"
+                 data-counturl="https://dev.twitter.com/web/tweet-button"
+                 data-count="vertical">
+                Tweet
+              </a>
+              <script type="text/javascript">
+                  window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+              </script>
+            </div>
 
           </div>
 
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" onclick="sendmailaction(<%=params[:id]%>)" class="btn btn-primary">Send Email</button>
-          <span id="showloadding_<%=params[:id]%>" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-        </div>
+
       </div>
     </div>
   </div>
