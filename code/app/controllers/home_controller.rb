@@ -93,7 +93,7 @@ class HomeController < ApplicationController
      @isFollowed = @user.isFollowed(@friend.id)
 
      # layout
-     render layout: "userprofile_layout"
+     render layout: "news_layout"
    end
 
    def upload_avatar
@@ -185,12 +185,14 @@ end
     if params[:product_id].present?
       @product = Product.find_by_id(params[:product_id])
       @isReviewed = @product.check_reviewed(current_user.id)
+      @disbale="disabled"
       if(@isReviewed)
         @reviewed = Review.getReviewed(current_user.id,  @product.id)
         @reviewed_components = @reviewed.get_reviewed_components()
       end
     else
       @product = Product.find_by_id(@restaurant_product.first().id)
+      @disbale=""
       @isReviewed = @product.check_reviewed(current_user.id)
       if(@isReviewed)
         @reviewed = Review.getReviewed(current_user.id,  @product.id)

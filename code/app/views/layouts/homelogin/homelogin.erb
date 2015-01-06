@@ -94,6 +94,7 @@
             <div class="item-menu-top-header"><a href="#" >another filter</a> </div>
             <%end%>-->
             <div class="item-menu-top-header" onclick="hovermenu()" ><a href="javascript:void(0)" >Filter</a></div>
+            <div style="float: left;width: 50px;height: 55px;border-right: 1px solid #ccc;"></div>
             <div class="item-menu-top-header-filter" id="show-data-select">
               <%if @listvalue.present?%>
                   <%@listvalue.each do |item|%>
@@ -108,7 +109,15 @@
         </div>
     <%end%>
     <div class="cl"></div>
-    <div class="menu-filter" id="menu-filter" style="display: none">
+
+    <%if @listvalue.present?%>
+        <%_show="display:block" %>
+    <%else%>
+        <%_show="display:none" %>
+    <%end%>
+
+
+    <div class="menu-filter" id="menu-filter" style="<%=_show%>">
       <div class="container">
         <div class="container-menu-filter">
           <%_ko=0%>
@@ -117,8 +126,15 @@
                 <div class="menu-text-file"><%=item.name%></div>
                 <div class="menu-item-filter">
                   <%item.getvalue.each do |k|%>
-                      <div onclick="additem(<%=k.id%>)" id="item-component_<%=k.id%>" class="item-nemu-text"><%=k.name%></div>
-
+                      <%_select=""%>
+                      <%if @listvalue.present?%>
+                          <%@listvalue.each do |hokk|%>
+                              <% if k.id==hokk.id %>
+                                    <% _select='class=check-active-select' %>
+                              <%end%>
+                          <%end%>
+                      <%end%>
+                       <div <%=_select%>  onclick="additem(<%=k.id%>)" id="item-component_<%=k.id%>" class="item-nemu-text"><%=k.name%></div>
                   <%end%>
                 </div>
               </div>

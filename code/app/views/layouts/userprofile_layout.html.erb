@@ -40,11 +40,17 @@
         <h5>FOLLOWERS</h5>
         <h2><%= @friend.get_numFollows() %></h2>
       </div>
+
+      <% if( @isMyprofile == false) %>
+
       <div id="menu-item-follow" class="menu-item">
             <% display = (@isFollowed) ? 'style="display: inline"' : 'style="display: none"' %>
             <button <% if(!@isFollowed)%> style="display: none" <% end %>  data-friendId="<%= @friend.id %>" class="btn-follow" id="btn-unfollow"> UNFOLLOW</button>
             <button <% if(@isFollowed)%> style="display: none" <% end %> data-friendId="<%= @friend.id %>" class="btn-follow" id="btn-follow"> FOLLOW</button>
       </div>
+
+       <% end %>
+
       <div class="clearfix"></div>
     </div>
 </div>

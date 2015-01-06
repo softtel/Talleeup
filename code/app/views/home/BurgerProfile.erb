@@ -249,7 +249,7 @@
           <%= image_tag(item.user.profile.avatar.url(:thumb),:width => 70, :height => 70,:class => 'img-circle') %>
         </div>
         <div class="item-text-reviews-comment">
-          <div class="item-name-reviews-comment"><%=item.user.profile.lastname %> <%=item.user.profile.firstname%></div>
+          <div class="item-name-reviews-comment"><%=item.user.fullname %></div>
           <div class="item-clock-comment">
                 <%=item.get_comment_createat.to_formatted_s(:db)%>
           </div>
@@ -281,7 +281,7 @@
               <%= image_tag(chchch.user.profile.avatar.url(:thumb),:width => 70, :height => 70,:class => 'img-circle') %>
             </div>
             <div class="item-text-reviews-comment">
-              <div class="item-name-reviews-comment"><%=chchch.user.profile.lastname %> <%=chchch.user.profile.firstname%></div>
+              <div class="item-name-reviews-comment"><%=chchch.user.fullname %></div>
               <div class="item-clock-comment">
                 <%=chchch.created_at.to_formatted_s(:db)%>
               </div>

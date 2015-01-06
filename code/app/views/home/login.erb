@@ -15,12 +15,24 @@
 <div class="conettn-body">
 <%if device_type == :mobile %>
     <% @data.each do |item| %>
+          <%
+             if current_user.blank?
+               is_reviewed = false
+             else
+               is_reviewed = item.check_reviewed(current_user.id)
+             end
+          %>
         <div class="m-content-body-item">
           <div class="m-item-conettn-body">
             <a href="/home/BurgerProfile/<%=item.id %>">
               <div class="m-item-img" style="position: relative">
                 <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'border-radius:10px') %>
               </div>
+              <% if(is_reviewed) %>
+
+                    <div class="layer-product-image"></div>
+
+              <% end %>
             </a>
             <div class="item-body">
               <div class="item-reviews">
@@ -49,13 +61,23 @@
 
 <%else%>
     <% @data.each do |item| %>
+          <%
+             if current_user.blank?
+               is_reviewed = false
+             else
+               is_reviewed = item.check_reviewed(current_user.id)
+             end
+          %>
     <div class="content-body-item">
       <div class="item-conettn-body">
         <a href="/home/BurgerProfile/<%=item.id %>">
           <div class="item-img" style="position: relative">
             <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'border-radius:10px') %>
-            <!--<div class="tim-hover">
-            </div>-->
+            <% if(is_reviewed) %>
+
+                  <div class="layer-product-image" style="height: 100% !important;"></div>
+
+            <% end %>
           </div>
         </a>
         <div class="item-body">
@@ -87,7 +109,14 @@
           </div>
           <div class="user-review-toolbal">
             <div class="content-body-share">
-              <a href="/home/review?product_id=<%=item.id %>"><div class="text-review">Reviews</div></a>
+
+              <a href="/home/review?product_id=<%=item.id %>">
+                <div class="text-review" style="position:relative;">
+                  <% if(is_reviewed) %>
+                      <span class="icon"></span>
+                  <% end %>
+                Reviews
+              </div></a>
               <div class="text-review-share">
                 <button type="button" style="background: none;border: none;text-transform: uppercase"  data-toggle="modal" data-target="#myModal<%=item.id %>">
                   share

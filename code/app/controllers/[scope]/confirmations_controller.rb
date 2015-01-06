@@ -25,4 +25,14 @@ class [scope]::ConfirmationsController < Devise::ConfirmationsController
   # def after_confirmation_path_for(resource_name, resource)
   #   super(resource_name, resource)
   # end
+  # The path used after confirmation.
+  # def after_confirmation_path_for(resource_name, resource)
+  #   if signed_in?(resource_name)
+  #     # signed_in_root_path(resource)
+  #     root_path
+  #   else
+  #     # new_session_path(resource_name)
+  #     root_path
+  #   end
+  # end
 end

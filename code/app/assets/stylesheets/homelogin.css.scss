@@ -233,14 +233,14 @@
 {
   float: left;
   width: 100%;
-  height: 100px;
+  height: 90px;
 }
 .number-reviews
 {
   width: 32%;
   float: left;
   color: #36c0de;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 58px;
   height: 82px;
   line-height: 66px;
@@ -292,7 +292,7 @@
   float: left;
   width: 100%;
   padding-left: 15px;
-  padding-top :10px;
+
 }
 title-product-reviews a:hover
 {
@@ -1197,11 +1197,15 @@ and (orientation : landscape)
 {
   clear: both;
 }
+.menu-filter
+{
+  background: #36c0de;
+}
 .container-menu-filter
 {
   width: 100%;
   float: left;
-  background: #36c0de;
+
 }
 .container-item
 {
@@ -1231,13 +1235,11 @@ and (orientation : landscape)
 {
   float: left;
   width: auto;
-  padding-left: 8px;
-  padding-right: 8px;
-
-
+  padding-left: 15px;
+  padding-right: 15px;
   background: #36c0de;
-  height: 30px;
-  line-height: 28px;
+  height: 27px;
+  line-height: 24px;
   border-radius: 7px;
 
 }
@@ -1288,4 +1290,15 @@ and (orientation : landscape)
   to {
     transform: scale(1) rotate(360deg);
   }
+}
+.check-active-select
+{
+  background-image: image-url("check-active.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  width:14px ;
+  height: 14px;
+  padding-left: 22px;
+  line-height: 13px;
+  color: white;
 }

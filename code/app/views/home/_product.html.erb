@@ -15,7 +15,7 @@
 
   <a href="/home/BurgerProfile/<%=product.id %>">
     <div class="col-md-4 col-sm-4 col-xs-4 product-image">
-        <%= image_tag(product.images.url(:medium), class: 'img-responsive') %>
+        <%= image_tag(product.images.url(:medium), class: 'img-responsive img-product') %>
         <div class="mobile-btn-group center-block">
           <a href="/home/review?product_id=<%= product.id %>" class="link-mobile-button"><button class="mobile-button center-block">REVIEW</button></a>
           <a href="/home/BurgerProfile/<%=product.id %>" class="link-mobile-button"><button class="mobile-button center-block">SHARE</button></a>

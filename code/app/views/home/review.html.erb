@@ -12,7 +12,7 @@
       <div class="form-group form-group-mobile form-group-mobile-top">
 
 
-        <select id="reviews-select" class="reviews-select" >
+        <select <%=@disbale%> id="reviews-select" class="reviews-select" >
           <%=@restaurant.each do |item| %>
               <%
                  _select=""
@@ -31,7 +31,7 @@
       <div class="form-group form-group-mobile">
 
 
-        <select id="child-product" class="reviews-select">
+        <select <%=@disbale%> id="child-product" class="reviews-select">
           <%=@restaurant_product.each do |child|%>
               <%
                  _selectdd=""
@@ -189,94 +189,123 @@
 
     $(document).ready(function(){
 
-        $('.rate-control').each(function () {
-            var numRate = $(this).find('.rate-result').text();
-            $(this).children('.rate-result').text(numRate);
-            $(this).children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
-            $(this).children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
 
-        });// end each
-        $('#btn-talleeup').click(function(e){
 
-            var _user = <%= current_user.id %>;
-            if(_user!="") {
-                if (!valid()) {
-                    alert('You must complete before you submit information!');
-                    return true;
+        var _id=$("#reviews-select").val();
+        var _data={idre:_id}
+        $.ajax({
+            type: "POST",
+            url: '/home/getchangeproduct',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            data: JSON.stringify(_data),
+            success: function(data, status)
+            {
+                var _html="";
+                for(var i=0;i< data.data.length;i++)
+                {
+
+                    var _id=data.data[i].id;
+                    var _name=data.data[i].name;
+                    _html+="<option value='"+_id+"'>"+_name +"</option>";
                 }
-                var _idproduct = $("#child-product").val();
-                var _file=$("#btn-attach-image")[0].files[0];
+                $("#child-product").html(_html)
+
+            },
+            error: function(data, status)
+            {
+                console.log('error');
+            }
+        });
+    });
+    $('.rate-control').each(function () {
+        var numRate = $(this).find('.rate-result').text();
+        $(this).children('.rate-result').text(numRate);
+        $(this).children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+        $(this).children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+
+    });// end each
+    $('#btn-talleeup').click(function(e){
+
+        var _user = <%= current_user.id %>;
+        if(_user!="") {
+            if (!valid()) {
+                alert('You must complete before you submit information!');
+                return true;
+            }
+            var _idproduct = $("#child-product").val();
+            var _file=$("#btn-attach-image")[0].files[0];
+            var _daatt=$("#btn-attach-image").val();
+            var _namefile=""
+            if(_daatt!="") {
+
 
                 var data, xhr;
 
                 data = new FormData();
-                data.append( 'file', $("#btn-attach-image")[0].files[0]);
-                data.append( 'authenticity_token', '<%= form_authenticity_token%>');
+                data.append('file', $("#btn-attach-image")[0].files[0]);
+                data.append('authenticity_token', '<%= form_authenticity_token%>');
 
                 xhr = new XMLHttpRequest();
 
-                xhr.open( 'POST', '/home/uploadImgaes', true );
+                xhr.open('POST', '/home/uploadImgaes', true);
 
-                xhr.onreadystatechange = function ( response ) {};
+                xhr.onreadystatechange = function (response) {
+                };
 
-                xhr.send(data );
+                xhr.send(data);
                 e.preventDefault();
+                _namefile=_file.name
+            }
+            var data_rate = {
+                review_components: [],
+                review: {
+                    user_id: _user,
+                    product_id: _idproduct,
+                    totalpoint: $('#total-number').text()
+                },
+                comment: {
+                    content: $('#txt-textarea-comment').val(),
 
-                var data_rate = {
-                    review_components: [],
-                    review: {
-                        user_id: _user,
-                        product_id: _idproduct,
-                        totalpoint: $('#total-number').text()
-                    },
-                    comment: {
-                        content: $('#txt-textarea-comment').val(),
-
-                        namefile:_file.name
-                    }
+                    namefile:_namefile
                 }
+            }
+            $('.rate-result').each(function () {
 
-                $('.rate-result').each(function () {
+                data_rate.review_components.push({
+                    review_type_id: $(this).attr('data-reviewTypeId'),
+                    point: $(this).text()
+                });
 
-                    data_rate.review_components.push({
-                        review_type_id: $(this).attr('data-reviewTypeId'),
-                        point: $(this).text()
+            });
+            $.ajax({
+                type: "POST",
+                url: 'review_post',
+                contentType: "application/json; charset=utf-8",
+                enctype: 'multipart/form-data',
+                dataType: 'json',
+                data: JSON.stringify(data_rate),
+
+                multipart: true,
+                success: function (data, status) {
+                    console.log('success');
+                    console.log(data);
+
+                    $('#layer-review').show();
+                    $('#share-dialog').show();
+
+                    var body = $("html, body");
+                    body.animate({scrollTop: 0}, '0', 'swing', function () {
                     });
 
-                });
-
-                console.log(JSON.stringify(data_rate));
-
-                $.ajax({
-                    type: "POST",
-                    url: 'review_post',
-                    contentType: "application/json; charset=utf-8",
-                    enctype: 'multipart/form-data',
-                    dataType: 'json',
-                    data: JSON.stringify(data_rate),
-
-                    multipart: true,
-                    success: function (data, status) {
-                        console.log('success');
-                        console.log(data);
-
-                        $('#layer-review').show();
-                        $('#share-dialog').show();
-
-                        var body = $("html, body");
-                        body.animate({scrollTop: 0}, '0', 'swing', function () {
-                        });
-
-                        $('#btn-talleeup').hide();
-                    },
-                    error: function (data, status) {
-                        console.log('error');
-                    }
-                });
-            }
-        });// end click
-
-    });
+                    $('#btn-talleeup').hide();
+                },
+                error: function (data, status) {
+                    console.log('error');
+                }
+            });
+        }
+    });// end click
     $("#reviews-select").change(function(){
         var _id=$("#reviews-select").val();
         var _data={idre:_id}

@@ -17,8 +17,8 @@
           </div>
 
           <% if @isMyprofile %>
-              <img class="icon-edit-meta" src="/assets/icon-edit.png" />
-              <img class="icon-save-meta" src="/assets/icon-save.png" />
+              <img id="icon-edit-meta-<%= user_meta.id %>" class="icon-edit-meta" onclick="icon_edit_meta(this.id)" src="/assets/icon-edit.png" />
+              <img id="icon-save-meta-<%= user_meta.id %>" class="icon-save-meta" onclick="icon_save_meta(this.id)" src="/assets/icon-save.png" />
           <% end %>
 
         </h4>
