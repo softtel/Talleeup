@@ -19,7 +19,7 @@
                 <div class="m-logo-header"></div>
 
             <%else%>
-              <a href="http://127.0.0.1:3000/"> <div class="logo-header "></div></a>
+              <a href="/home/index/"> <div class="logo-header "></div></a>
             <%end%>
           <!--  <%if device_type != :mobile %>
                 <a href="/home/locations"><div class="home-login-poniter"></div></a>
@@ -56,7 +56,7 @@
               <%end%>
             </div>
             <%if user_signed_in? %>
-                <%= link_to('LOGOUT', destroy_user_session_path, :method => :delete,:class=>"pull-right",:id=>"btn-logout",:style=>"line-height:62px") %>
+                <%= link_to(image_tag("logout.png"), destroy_user_session_path, :method => :delete, :id=>"btnlogout") %>
 
             <%end%>
           </div>

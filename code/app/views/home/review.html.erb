@@ -12,7 +12,7 @@
       <div class="form-group form-group-mobile form-group-mobile-top">
 
 
-        <select <%=@disbale%> id="reviews-select" class="reviews-select" >
+        <select <%=@disbale%> id="reviews-select" class="txt-control txt-success txt-control-mobile-top">
           <%=@restaurant.each do |item| %>
               <%
                  _select=""
@@ -25,13 +25,15 @@
               <option <%=_select%> value="<%=item.id %>"><%=item.name%></option>
           <%end%>
         </select>
+
+
         <img src="/assets/review/valid.png" />
       </div>
 
       <div class="form-group form-group-mobile">
 
 
-        <select <%=@disbale%> id="child-product" class="reviews-select">
+        <select <%=@disbale%>  class="txt-control txt-success txt-normal txt-control-mobile-bottom">
           <%=@restaurant_product.each do |child|%>
               <%
                  _selectdd=""
@@ -44,6 +46,10 @@
               <option <%= _selectdd %> value="<%=child.id %>"><%=child.name%></option>
           <%end%>
         </select>
+
+
+        <!--<input placeholder="Name Of Burger" class="txt-control txt-success txt-normal txt-control-mobile-bottom" value="" />-->
+
         <img src="/assets/review/valid.png" />
       </div>
     </div>
@@ -144,9 +150,7 @@
 
         <div id="step-3-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
           <div id="form-group-comment" class="form-group">
-            <textarea id="txt-textarea-comment" style="padding:0px" name="txt-textarea-comment" class="txt-control txt-normal">
-              <%=(@reviewed.present?) ? @reviewed.getComment : ""%>
-            </textarea>
+            <textarea id="txt-textarea-comment" name="txt-textarea-comment" class="txt-control txt-normal"><% if (@reviewed.present?) %> <%= @reviewed.getComment %> <% end %></textarea>
             <div class="inputWrapper">
               <input id="btn-attach-image" class="fileInput" type="file" />
             </div>

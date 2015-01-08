@@ -44,15 +44,21 @@
   }
 }
 
+@media (max-width: 930px) {
+  div#col-logo {
+    width: 250px;
+  }
+}
+
 @media (max-width: 862px) {
   div#col-logo {
-    width: 280px;
+    width: 220px;
   }
 }
 
 @media (max-width: 807px) {
   div#col-logo {
-    width: 280px;
+    width: 210px;
   }
 
   div#col-form-search{
@@ -102,13 +108,17 @@
 
 @media (max-width: 690px) {
   div#col-logo {
-    width: 240px;
+    width: 180px;
   }
 }
 
 @media (max-width: 650px) {
   div#col-logo {
-    width: 200px;
+//    width: 150px;
+  }
+
+  #btnlogout{
+    right: 0px !important;
   }
 }
 
@@ -120,6 +130,14 @@
 
   div#col-form-search {
     width: 175px;
+  }
+
+  button#btn-review-top{
+    width: 80px !important;
+  }
+
+  #col-review{
+    width: 90px !important;
   }
 }
 
@@ -228,6 +246,20 @@
   .info-details {
     margin: 0px 22px;
   }
+
+  #wrapper-profile-fullname{
+    margin-top: 10px !important;
+    margin-bottom: 5px !important;
+  }
+
+  #wrapper-profile-address{
+    margin: 0px !important;
+  }
+
+  #profile-fullname{
+    font-size: 30px;
+  }
+
 }
 
 @media (max-width: 405px) {
@@ -249,6 +281,15 @@
   div#col-logo{
     width: 85px;
   }
+
+  #wrapper-profile-fullname{
+    margin: 0px !important;
+  }
+
+  #profile-fullname{
+    font-size: 25px !important;
+  }
+
 }
 
 @media (max-width: 354px) {
@@ -284,6 +325,7 @@
     padding-right: 0px;
     border-radius: 0px;
     background-color: #145A8B;
+    position: relative !important;
 }
 
 div#navbar-container{
@@ -352,7 +394,7 @@ input#txt-search{
     width: 27px;
     position: absolute;
     bottom: 3px;
-    right: 18px;
+    right: 38px;
     background: url(/assets/userprofile/icon-search.png) 5px no-repeat;
     background-color: transparent;
     border: 0;
@@ -577,4 +619,15 @@ div.profile-main-title{
 .input-edit-content{
   width: 200px;
   display: inline;
+}
+
+#btnlogout{
+  position: absolute;
+  top: 35px;
+  right: 20px;
+}
+
+#btnlogout :hover{
+  background-color: #145A8B;
+//  color: red;
 }

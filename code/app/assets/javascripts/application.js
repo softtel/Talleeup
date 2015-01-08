@@ -18,8 +18,6 @@
 //= require ./sites/popover
 //= require_directory ./sites
 //= require ckeditor/init
-
-
 $(function(){
     $.ajaxSetup({
         beforeSend: function( xhr ) {

@@ -36,9 +36,7 @@ class ApplicationController < ActionController::Base
   def device_type
     request.env['mobvious.device_type']
   end
-  def _root
-    return "http://127.0.0.1:3000/"
-  end
+
 
 
 end

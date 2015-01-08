@@ -9,6 +9,7 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places,visualization&sensor=false"></script>
 </head>
 <body>
 
@@ -58,11 +59,10 @@
   <div id="header-content" class="container">
 
     <%if user_signed_in? %>
-        <%= link_to('LOGOUT', destroy_user_session_path, :method => :delete,:class=>"pull-right",:id=>"btn-logout",:style=>"line-height:62px") %>
-
-        <%else%>
+        <%= link_to(image_tag("logout.png"), destroy_user_session_path, :method => :delete, :id=>"btnlogout") %>
+    <%else%>
         <button id="btn-login" class="pull-right">LOGIN</button>
-     <%end%>
+    <%end%>
 
     <div id="header-top" class="row">
 

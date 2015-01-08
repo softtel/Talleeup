@@ -7,11 +7,49 @@ class HomeController < ApplicationController
   def index
 
     # @cityDetected = request.location.city
+    _ip=request.remote_ip
+    @getLocation=Location.where(ip: _ip).order("id DESC")
 
-    city_id = (params[:city_id].nil?) ? 1 : params[:city_id]
+    if !@getLocation.blank? && !request.post?
+      _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
+      _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
+      if !_detectcountry.blank?
+        _detectcountryid=_detectcountry.first().id
+        @cities=City.where(country_id: _detectcountryid)
+        if !_dectechcity.blank?
+          city_id=_dectechcity.first().id
+        else
+          city_id=@cities.first().id
+        end
+
+      else
+        country=Country.all.order("name ASC")
+        countryid=country.first().id
+        @cities=City.where(country_id:countryid)
+        city_id=@cities.first().id
+      end
+    else if @getLocation.blank? && request.post?
+           city_id=params[:city_id]
+           countryid=City.where(id: city_id).first().country_id
+           @cities=City.where(country_id:countryid)
+
+         else if !@getLocation.blank? && request.post?
+                city_id=params[:city_id]
+                countryid=City.where(id: city_id).first().country_id
+                @cities=City.where(country_id:countryid)
+              else
+
+                country=Country.all.order("name ASC")
+                countryid=country.first().id
+                @cities=City.where(country_id:countryid)
+                city_id=@cities.first().id
+              end
+
+         end
+
+    end
     @current_city = City.find_by_id(city_id)
 
-    @cities = City.all
     # country = request.location.country_code
 
     @products = Product.get_products(city_id, 5)
@@ -211,18 +249,54 @@ end
   end
   #hungnt
   #login
+  def ArrayStrign(str)
+      #data=Array["a","A","e","E","o","O","u","U","i","I","d","D","y","Y","á","à","ạ","ả","ã","â","ấ","ầ","ậ","ẩ","ẫ","ă","ắ","ằ","ặ","ẳ","ẵ"]
+     #data=Array["aAeEoOuUiIdDyY","áàạảãâấầậẩẫăắằặẳẵ","ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ","éèẹẻẽêếềệểễ","ÉÈẸẺẼÊẾỀỆỂỄ","óòọỏõôốồộổỗơớờợởỡ","ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+           # "úùụủũưứừựửữ","ÚÙỤỦŨƯỨỪỰỬỮ","íìịỉĩ","ÍÌỊỈĨ","đ","Đ","ýỳỵỷỹ","ÝỲỴỶỸ"]
+     #for i=1 in array.length
+          #for j =0 in array[i].length
+            #str=str.gsub(array[i][j],array[0][i - 1])
+          #end
+     #end
+    return str
+   end
   def login
 
+      _ip=request.remote_ip
       @componant=Component.all
+      @getLocation=Location.where(ip: _ip).order("id DESC")
+      if !@getLocation.blank?
+          _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
+          _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
+          if !_detectcountry.blank?
+            _detectcountryid=_detectcountry.first().id
+            @location=City.where(country_id: _detectcountryid)
+            if !_dectechcity.blank?
+              @city_id=_dectechcity.first().id
+            else
+              @city_id=@location.first().id
+            end
+          else
+            country=Country.all.order("name ASC")
+            countryid=country.first().id
+            @location=City.where(country_id:countryid)
+            @city_id=@location.first().id
+          end
+      else
+        country=Country.all.order("name ASC")
+        countryid=country.first().id
+        @location=City.where(country_id:countryid)
+        @city_id=@location.first().id
+      end
+
       #citycurrent = request.location.city
       #countrycrrent=request.location.country
       #if countrycrrent.nil?
         #countryid=Country.find_by_name(countrycrrent).id
       #else
-        country=Country.all.order("name ASC")
-        countryid=country.first().id
+
      # end
-      @location=City.where(country_id:countryid)
+
       #@location=City.all
       if request.post?
 
@@ -250,6 +324,7 @@ end
           @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @location.first().id})
         #end
       end
+      @cueeentr=City.find_by_id(@city_id)
       @profile=Profile.where(user_id: current_user.id).first()
       render layout: "homelogin/homelogin"
   end
@@ -321,7 +396,18 @@ end
     mail.deliver
     render :json => { :status => true }
   end
+  def addlocation
+     _city=params[:city]
+     _country=params[:country]
+     _address=params[:address]
+     _ip=params[:ip]
+     _check=Location.where(ip: _ip)
+     if _check.blank?
+       Location.Add(0,_country,_city,_address,_ip)
+     end
 
+     render :json => { :status => true }
+   end
    private
   # Use callbacks to share common setup or constraints between actions.
    def set_profile
@@ -332,4 +418,5 @@ end
    def profile_params
      params.require(:profile).permit(:id, :avatar)
    end
+
 end

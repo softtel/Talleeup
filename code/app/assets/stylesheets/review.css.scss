@@ -11,7 +11,7 @@ $width-txt-control: 500px;
     margin-right: 0px;
   }
 
-  input.txt-control, div.rate-control{
+  select.txt-control, div.rate-control{
     width: 415px;
   }
 
@@ -54,7 +54,7 @@ $width-txt-control: 500px;
 }
 
 @media (max-width: 715px) {
-  input.txt-control, div.rate-control{
+  select.txt-control, div.rate-control{
     width: 375px;
   }
 
@@ -64,7 +64,7 @@ $width-txt-control: 500px;
 }
 
 @media (max-width: 655px) {
-  input.txt-control, div.rate-control{
+  select.txt-control, div.rate-control{
     width: 320px;
   }
 
@@ -88,7 +88,7 @@ $width-txt-control: 500px;
 }
 
 @media (max-width: 548px) {
-  input.txt-control, div.rate-control {
+  select.txt-control, div.rate-control {
     width: 290px;
   }
 
@@ -98,7 +98,7 @@ $width-txt-control: 500px;
 }
 
 @media (max-width: 505px) {
-  input.txt-control, div.rate-control {
+  select.txt-control, div.rate-control {
     width: 250px;
   }
 
@@ -131,7 +131,7 @@ $width-txt-control: 500px;
 
   div#step-1-left{
     height: 122px !important;
-//    border: 1px solid red;
+    //    border: 1px solid red;
   }
 
   div.step-right{
@@ -139,7 +139,7 @@ $width-txt-control: 500px;
     padding-left: 0px !important;
     padding-right: 0px !important;
     margin: 0px !important;
-//    border: 1px solid red;
+    //    border: 1px solid red;
     background-color: #E1E6EA;
   }
 
@@ -155,7 +155,7 @@ $width-txt-control: 500px;
     border-bottom: 2px solid #B2B2B2 !important;
   }
 
-  input.txt-control{
+  select.txt-control{
     border: 0px;
     background-color: #E1E6EA;
     border-radius: 0px;
@@ -221,13 +221,13 @@ $width-txt-control: 500px;
     border-radius: 0px;
   }
 
-//  .txt-control-mobile-top{
-//    border-bottom: 1px solid #B2B2B2 !important;
-//  }
-//
-//  .txt-control-mobile-bottom{
-//    border-top: 1px solid #B2B2B2 !important;
-//  }
+  //  .txt-control-mobile-top{
+  //    border-bottom: 1px solid #B2B2B2 !important;
+  //  }
+  //
+  //  .txt-control-mobile-bottom{
+  //    border-top: 1px solid #B2B2B2 !important;
+  //  }
 
   #step-3-container{
     background-color: #ffffff;
@@ -254,7 +254,7 @@ $width-txt-control: 500px;
     width: 100%;
     border: none;
     border-radius: 0px;
-//    height: 100%;
+    //    height: 100%;
   }
 
 }
@@ -376,14 +376,14 @@ $width-txt-control: 500px;
 }
 
 #step-1-container-fluid{
-//  border: 1px solid red;
+  //  border: 1px solid red;
   border-bottom: solid 1px #B2B2B2;
   padding-top: 45px;
   padding-bottom: 45px;
 }
 
 #step-1-container{
-//  border: 1px solid red;
+  //  border: 1px solid red;
   padding-right: 0px;
 }
 
@@ -412,7 +412,7 @@ $width-txt-control: 500px;
 }
 
 .txt-control{
-//  margin-left: 30px;
+  //  margin-left: 30px;
   height: 60px;
   width: $width-txt-control;
   border: 2px solid #88898B;
@@ -442,14 +442,14 @@ img#step-1-image-mobile{
 }
 
 #step-2-container-fluid{
-//  border: 1px solid red;
+  //  border: 1px solid red;
   border-bottom: solid 1px #B2B2B2;
   padding-top: 35px;
   padding-bottom: 45px;
 }
 
 #step-2-container{
-//  border: 1px solid red;
+  //  border: 1px solid red;
   padding: 0px;
   padding-bottom: 35px;
 }
@@ -474,7 +474,7 @@ img#step-1-image-mobile{
 }
 
 #image-step-2-mobile{
-//  margin-top: 6px;
+  //  margin-top: 6px;
   padding-top: 5px;
   width: 25%;
   height: 100%;
@@ -485,8 +485,8 @@ img#step-1-image-mobile{
 #image-text-step-2-mobile{
   width: 100px;
   height: 60px;
-//  background-color: red;
-//  border: 1px solid red;
+  //  background-color: red;
+  //  border: 1px solid red;
   float: left;
 }
 
@@ -503,14 +503,14 @@ img#step-1-image-mobile{
   width: 100%;
   height: 60px;
   padding-top: 6px;
-//  margin-bottom: -4px;
+  //  margin-bottom: -4px;
   background-color: #ffffff;
 }
 
 #image-step-3-mobile{
   width: 20%;
   float: left;
-//  height: 60px;
+  //  height: 60px;
   background-color: #ffffff;
 }
 
@@ -554,7 +554,7 @@ div#total-rate{
 }
 
 #form-group-comment{
-//  border: 1px solid red;
+  //  border: 1px solid red;
   position: relative;
 }
 
@@ -566,11 +566,11 @@ div#total-rate{
 .inputWrapper {
   height: 30px;
   width: 32px;
-//  overflow: hidden;
+  //  overflow: hidden;
   position: absolute;
   top: 0;
   right: 100px;
-//  margin-left: 20px;
+  //  margin-left: 20px;
   cursor:pointer;
   /*Using a background color, but you can use a background image to represent a button*/
   background: url(/assets/review/camera.png) 0px no-repeat;
@@ -634,7 +634,7 @@ button#btn-talleeup{
 }
 
 .rate-name{
-//  height: 100%;
+  //  height: 100%;
   background-color: transparent;
   width: auto;
   position: absolute;
@@ -656,7 +656,7 @@ button#btn-talleeup{
   height: 100%;
   line-height: 60px;
   text-align: center;
-//  border: 1px solid red;
+  //  border: 1px solid red;
   background-color: #DFE3E6;
   color: #DFE3E6;
   font-size: 20px;
