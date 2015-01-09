@@ -47,7 +47,7 @@
             <div class="button-profile">
               <% if user_signed_in? %>
                   <a href="/home/userprofile?id=<%=current_user.id%>">
-                    <%= image_tag(@profile.avatar.url(:thumb), :id=>"profile-user-image", :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
+                    <%= image_tag(@profile.avatar.url(:thumb), :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
                   </a>
               <%else%>
                   <a href="/home/userprofile?id=">
@@ -93,13 +93,14 @@
             <div class="item-menu-top-header"><a href="#" >this filter </a></div>
             <div class="item-menu-top-header"><a href="#" >another filter</a> </div>
             <%end%>-->
-            <div class="item-menu-top-header" onclick="hovermenu()" ><a href="javascript:void(0)" >Filter</a></div>
+            <div class="item-menu-top-header" onclick="hovermenu()" ><a href="javascript:void(0)" >Filter <%=@kkk%></a></div>
             <div style="float: left;width: 50px;height: 55px;border-right: 1px solid #ccc;"></div>
             <div class="item-menu-top-header-filter" id="show-data-select">
               <%if @listvalue.present?%>
                   <%@listvalue.each do |item|%>
                       <div class='item-nnnn' id='remove-id-<%=item.id%>'>
                         <div class='cls-input-auto' ><div class='text-select-item'><%=item.name%></div><div onclick='closeritem(<%=item.id%>)' class='cls-close-menu'>x</div></div>
+
                       </div>
                   <%end%>
               <%end%>
@@ -109,7 +110,7 @@
         </div>
     <%end%>
     <div class="cl"></div>
-
+    <input type="hidden" id="idcitycureent" value="<%=@city_id%>">
     <%if @listvalue.present?%>
         <%_show="display:block" %>
     <%else%>

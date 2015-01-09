@@ -49,7 +49,7 @@
             <% if user_signed_in? %>
               <a href="/home/userprofile?id=<%=current_user.id%>">
                 <div class="button-profile">
-                <%= image_tag(@profile.avatar.url(:thumb), :id=>"profile-user-image", :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
+                <%= image_tag(@profile.avatar.url(:thumb), :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
                 </div>
                   </a>
               <%else%>

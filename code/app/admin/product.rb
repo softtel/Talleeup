@@ -20,11 +20,13 @@ ActiveAdmin.register Product do
       end
     end
 
-    column 'Upload' do |p|
+    column 'Thumb nails' do |p|
       link_to('images', upload_admin_product_path(:id => p.id))
-
     end
 
+    column 'Components' do |p|
+      link_to('components', components_admin_product_path(:id => p.id))
+    end
 
     actions
 
@@ -63,50 +65,42 @@ ActiveAdmin.register Product do
         end
       end
     end
-    render "product_components"
   end
 
 
-  #-------------------------------------------
+  #--------------------- product image ----------------------
   member_action :uploadpost, :method=>:post do
-
   end
 
   member_action :upload, :method=>:get do
-
   end
 
-  # member_action :delete, :method=>:delete do
   member_action :delete, :method=>:get do
-
   end
 
+  #--------------------- product component ----------------------
+  member_action :add_component, :method=>:post do
+  end
 
+  member_action :components, :method=>:get do
+  end
+
+  member_action :delete_component, :method=>:get do
+  end
+
+  #--------------------- controllers ----------------------
   controller do
 
     def uploadpost
-
-      logger.debug "--------------------".inspect
-      logger.debug params[:product_image].inspect
-      logger.debug params[:product_image][:product_id].inspect
-      logger.debug params[:product_image][:image].inspect
-      logger.debug "--------------------".inspect
       @product_image = ProductImage.new(product_id: params[:product_image][:product_id], image: params[:product_image][:image])
-
-      logger.debug "--------------------".inspect
-      logger.debug @product_image.inspect
-      logger.debug "--------------------".inspect
-
       @product_image.save
-        # render :action => 'upload'
-        redirect_to :action => "upload", :id => @product_image.product_id
+      redirect_to :action => "upload", :id => @product_image.product_id
     end
 
     def upload
       @products = Product.all
       @product_image = ProductImage.new(product_id: params[:id])
       @images = Product.find(params[:id]).product_images
-      # renders view 'app/views/admin/products/upload.html.erb'
     end
 
     def delete
@@ -115,11 +109,27 @@ ActiveAdmin.register Product do
       redirect_to :action => "upload", :id => @product_image.product_id
     end
 
-
     def productimage_params
       params.require(:productimage).permit(:product_id, :image)
     end
 
+#--------------------- components ----------------------
+    def add_component
+      @product_component = ProductComponent.create(product_id: params[:product_component][:product_id], component_value_id: params[:product_component][:component_value_id])
+      redirect_to :action => "components", :id => @product_component.product_id
+    end
+
+    def components
+      @components = ProductComponent.where(product_id: params[:id])
+      @component_values = ComponentValue.all
+      @product_component = ProductComponent.new(product_id: params[:id])
+    end
+
+    def delete_component
+      @product_component = ProductComponent.find(params[:id])
+      @product_component.destroy
+      redirect_to :action => "components", :id => @product_component.product_id
+    end
   end
 
 end

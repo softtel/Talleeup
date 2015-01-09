@@ -2,10 +2,10 @@ class Product < ActiveRecord::Base
 
   belongs_to :restaurant
   belongs_to :category
-  has_many :product_components
-  has_many :reviews
-  has_many :product_images, :dependent => :delete_all
-  has_many :comments
+  has_many :product_components, :dependent => :destroy
+  has_many :reviews, :dependent => :destroy
+  has_many :product_images, :dependent => :destroy
+  has_many :comments, :dependent => :destroy
 
   validates :name, :images, :restaurant_id, presence: true
   validates :prices, presence: true, numericality: true

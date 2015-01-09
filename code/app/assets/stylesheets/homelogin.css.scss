@@ -46,9 +46,9 @@
 .search-home input[type="text"]
 {
   border :2px solid #36c0de;
-  width: 100%;
+  width: 66%;
   border-radius: 6px;
-  height: 40px;
+  height: 50px;
   background: #145a8b;
 
   background-color: #145a8b;
@@ -63,8 +63,8 @@
   background-color: transparent;
   background-repeat:no-repeat;
   background-position: right;
-  top: 10px;
-  right: 0px;
+  top: 13px;
+  right: 128px;
   content: "";
   width: 22px;
   height: 22px;
@@ -294,7 +294,7 @@
   padding-left: 15px;
 
 }
-title-product-reviews a:hover
+.title-product-reviews a:hover
 {
   text-decoration: none;
 }
@@ -507,7 +507,10 @@ and (orientation : portrait) {
     width: 37%;
     float: left;
   }
-
+  #btnlogout
+  {
+    top:14px;
+  }
   .container > .navbar-header {
     margin-right: 0px !important;
     margin-left: 0px !important;
@@ -515,6 +518,10 @@ and (orientation : portrait) {
   .item-body {
     width: 63%;
     float: left;
+  }
+  .user-reviews
+  {
+    padding-left: 36px;
   }
   .number-reviews {
     width: 32%;
@@ -571,7 +578,7 @@ and (orientation : portrait) {
     margin-top: 14px;
   }
   .search-home {
-    margin-top: 10px;
+    margin-top: 4px;
   }
   .button-review {
     margin-top: 10px;
@@ -603,6 +610,10 @@ and (orientation : portrait) {
   {
     line-height: 53px;
   }
+  .button-search-submit
+  {
+    right: 100px;
+  }
 
 }
 
@@ -615,7 +626,14 @@ and (orientation : landscape) {
     width: 28.5%;
     float: left;
   }
-
+  #btnlogout
+  {
+    top:14px;
+  }
+  .user-reviews
+  {
+    padding-left: 36px;
+  }
   .container > .navbar-header {
     margin-right: 0px !important;
     margin-left: 0px !important;
@@ -675,10 +693,14 @@ and (orientation : landscape) {
     margin-top: 14px;
   }
   .search-home {
-    margin-top: 10px;
+    margin-top: 4px;
   }
   .button-review {
     margin-top: 10px;
+  }
+  .button-search-submit
+  {
+    right: 100px;
   }
   .button-profile {
     margin-top: 10px;
@@ -1170,6 +1192,30 @@ and (orientation : landscape)
     font-size: 17pt;
   }
 }
+/*
+@media only screen
+and (min-device-width : 400px)
+
+and (orientation : portrait) {
+  .button-review
+  {
+    padding-left: 20px;
+
+  }
+  .button-profile
+  {
+    padding-left: 20px;
+  }
+  .m-search-home
+  {
+    width: 11%;
+  }
+
+}
+
+*/
+
+
 .style_select
 {
   background: transparent;
@@ -1301,4 +1347,8 @@ and (orientation : landscape)
   padding-left: 22px;
   line-height: 13px;
   color: white;
+}
+.m-item-conettn-body
+{
+  position: relative;
 }

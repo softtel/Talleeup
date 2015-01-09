@@ -230,6 +230,59 @@ $("#btn-register-submit").click(function(){
 </script>
 
 <script>
+  $(document).ready(function(){
+      navigator.geolocation.getCurrentPosition(function (position) {
+          var geocoder = new google.maps.Geocoder();
+          var latLng   = new google.maps.LatLng(
+                  position.coords.latitude, position.coords.longitude);
+          geocoder.geocode({
+              'latLng': latLng
+          }, function (results, status) {
+              _city="";
+              _country="";
+              _address=results[0]["formatted_address"]
+              for (var i = 0; i < results[0].address_components.length; i++) {
+                  var address = results[0].address_components[i];
+
+                  if(address.types[0]=="administrative_area_level_1")
+                  {
+                      _city=address.long_name;
+
+                  }
+                  if(address.types[0]=="country")
+                  {
+                      _country=address.long_name
+
+                  }
+
+              }
+              $.get("http://ipinfo.io", function(response) {
+                  var data = {city:_city,country:_country,address:_address,ip:response.ip};
+
+                  $.ajax({
+                      type: "POST",
+                      url: '/home/addlocation',
+                      contentType: "application/json; charset=utf-8",
+                      dataType: 'json',
+                      data: JSON.stringify(data),
+                      success: function(data, status)
+                      {
+
+                          console.log('success');
+
+                      },
+                      error: function(data, status)
+                      {
+                          console.log('error');
+                      }
+                  });
+
+
+              }, "jsonp");
+
+          });
+      });
+  })
     // this is the id of the form
    // $("#login-form").submit(function() {
 

@@ -265,7 +265,8 @@ end
       _ip=request.remote_ip
       @componant=Component.all
       @getLocation=Location.where(ip: _ip).order("id DESC")
-      if !@getLocation.blank?
+      # lay location duoc va khong post
+      if !@getLocation.blank? && !request.post?
           _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
           _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
           if !_detectcountry.blank?
@@ -282,11 +283,94 @@ end
             @location=City.where(country_id:countryid)
             @city_id=@location.first().id
           end
+          @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
+        #end lay location duoc va khong post
       else
-        country=Country.all.order("name ASC")
-        countryid=country.first().id
-        @location=City.where(country_id:countryid)
-        @city_id=@location.first().id
+        # khong lay location duoc va post
+        if @getLocation.blank? && request.post?
+          @city_id=params[:city_id]
+          @city = City.find_by_id(@city_id)
+          if @city.present? && !params[:idcomponennt].present?
+            @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
+            countryid=City.where(id: @city_id).first().country_id
+            @location=City.where(country_id:countryid)
+          else
+            if @city.present? && params[:idcomponennt].present?
+              @kk=params[:idcomponennt]
+              @icomponent=params[:idcomponennt].split(/;/)
+              @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id},product_components:{component_value_id: @icomponent})
+              @listvalue=ComponentValue.where(id: @icomponent)
+
+              countryid=City.where(id: @city_id).first().country_id
+              @location=City.where(country_id:countryid)
+
+            else
+              @kk=params[:idcomponennt]
+              @icomponent=params[:idcomponennt].split(/;/)
+              @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: params[:idcitycureent]},product_components:{component_value_id: @icomponent})
+              @listvalue=ComponentValue.where(id: @icomponent)
+
+              country=Country.all.order("name ASC")
+              countryid=country.first().id
+              @location=City.where(country_id:countryid)
+
+            end
+          end
+          # end khong lay location duoc va post
+        else
+          # lay location duoc va post
+          if !@getLocation.blank? && request.post?
+            @city_id=params[:city_id]
+            @city = City.find_by_id(@city_id)
+            if @city.present? && !params[:idcomponennt].present?
+              @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
+              countryid=City.where(id: @city_id).first().country_id
+              @location=City.where(country_id:countryid)
+            else
+              if @city.present? && params[:idcomponennt].present?
+                @kk=params[:idcomponennt]
+                @icomponent=params[:idcomponennt].split(/;/)
+                @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id},product_components:{component_value_id: @icomponent})
+                @listvalue=ComponentValue.where(id: @icomponent)
+
+                countryid=City.where(id: @city_id).first().country_id
+                @location=City.where(country_id:countryid)
+              else
+                @kk=params[:idcomponennt]
+                @icomponent=params[:idcomponennt].split(/;/)
+                @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: params[:idcitycureent]},product_components:{component_value_id: @icomponent})
+                @listvalue=ComponentValue.where(id: @icomponent)
+
+                _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
+                _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
+                if !_detectcountry.blank?
+                  _detectcountryid=_detectcountry.first().id
+                  @location=City.where(country_id: _detectcountryid)
+                  if !_dectechcity.blank?
+                    @city_id=_dectechcity.first().id
+                  else
+                    @city_id=@location.first().id
+                  end
+
+                end
+              end
+            end
+            # end lay location duoc va post
+          else
+            # khong lay va khong post
+            #if !@getLocation.blank? && !request.post?
+              country=Country.all.order("name ASC")
+              countryid=country.first().id
+              @location=City.where(country_id:countryid)
+              @city_id=@location.first().id
+              @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id})
+
+            #end
+
+          end
+
+        end
+
       end
 
       #citycurrent = request.location.city
@@ -298,32 +382,33 @@ end
      # end
 
       #@location=City.all
-      if request.post?
+      #if request.post?
 
-        @city_id=params[:city_id]
-        @city = City.find_by_id(@city_id)
-        if @city.present?
-            @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
-        else
-          @kk=params[:idcomponennt]
-          @icomponent=params[:idcomponennt].split(/;/)
-          @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(product_components:{component_value_id: @icomponent})
-          @listvalue=ComponentValue.where(id: @icomponent)
+        #@city_id=params[:city_id]
+        #@city = City.find_by_id(@city_id)
+        #if @city.present?
+            #@data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
+
+        #else
+          #@kk=params[:idcomponennt]
+          #@icomponent=params[:idcomponennt].split(/;/)
+          #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(product_components:{component_value_id: @icomponent})
+          #@listvalue=ComponentValue.where(id: @icomponent)
             
-        end
+        #end
 
 
 
-      else
+      #else
         #if citycurrent.nil?
           #locationcureent=City.find_by_name(citycurrent)
           #@city_id=locationcureent.id
           #@city = City.find_by_id(@city_id)
          # @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
         #else
-          @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @location.first().id})
+          #@data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @location.first().id})
         #end
-      end
+      #end
       @cueeentr=City.find_by_id(@city_id)
       @profile=Profile.where(user_id: current_user.id).first()
       render layout: "homelogin/homelogin"

@@ -33,7 +33,7 @@
       <div class="form-group form-group-mobile">
 
 
-        <select <%=@disbale%>  class="txt-control txt-success txt-normal txt-control-mobile-bottom">
+        <select <%=@disbale%> id="child-product"  class="txt-control txt-success txt-normal txt-control-mobile-bottom">
           <%=@restaurant_product.each do |child|%>
               <%
                  _selectdd=""
@@ -322,6 +322,7 @@
             success: function(data, status)
             {
                 var _html="";
+
                 for(var i=0;i< data.data.length;i++)
                 {
 

@@ -45,8 +45,8 @@
 
       <div id="menu-item-follow" class="menu-item">
             <% display = (@isFollowed) ? 'style="display: inline"' : 'style="display: none"' %>
-            <button <% if(!@isFollowed)%> style="display: none" <% end %>  data-friendId="<%= @friend.id %>" class="btn-follow" id="btn-unfollow"> UNFOLLOW</button>
-            <button <% if(@isFollowed)%> style="display: none" <% end %> data-friendId="<%= @friend.id %>" class="btn-follow" id="btn-follow"> FOLLOW</button>
+            <button <% if(!@isFollowed)%> style="display: none" <% end %>  data-friendId="<%= @friend.id %>" class="btn-follow" id="btn-unfollow" onclick="unfollow()"> UNFOLLOW</button>
+            <button <% if(@isFollowed)%> style="display: none" <% end %> data-friendId="<%= @friend.id %>" class="btn-follow" id="btn-follow" onclick="follow()"> FOLLOW</button>
       </div>
 
        <% end %>
@@ -61,12 +61,6 @@
 </div>
 <!-- End main-container -->
 
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -106,63 +100,6 @@
       }, function(){
           $('#form-change-avatar').hide();
       });
-
-      $('#btn-follow').click(function(){
-
-        var friendId = $(this).attr('data-friendId');
-        console.log(friendId);
-        data = {friend_id: friendId};
-
-        $.ajax({
-            type: "POST",
-            url: 'follow',
-            contentType: "application/json; charset=utf-8",
-            dataType: 'json',
-            data: JSON.stringify(data),
-            success: function(data, status)
-            {
-                if(data['status'] == true)
-                {
-                    $('#btn-follow').hide();
-                    $('#btn-unfollow').show();
-                }
-            },
-            error: function(data, status)
-            {
-                console.log('error');
-            }
-        });// end ajax
-      });// end click
-
-      $('#btn-unfollow').click(function(){
-
-          var friendId = $(this).attr('data-friendId');
-          console.log(friendId);
-          data = {friend_id: friendId};
-
-          $.ajax({
-              type: "POST",
-              url: 'unfollow',
-              contentType: "application/json; charset=utf-8",
-              dataType: 'json',
-              data: JSON.stringify(data),
-              success: function(data, status)
-              {
-                  if(data['status'] == true)
-                  {
-                      $('#btn-unfollow').hide();
-                      $('#btn-follow').show();
-//                      $('#btn-follow').text("FOLLOWED").attr('disabled','disabled');
-//                      window.location=document.URL;
-                  }
-              },
-              error: function(data, status)
-              {
-                  console.log('error');
-              }
-          });// end ajax
-      });// end click
-
 
   });// end ready
 </script>
