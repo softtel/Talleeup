@@ -21,7 +21,7 @@
             <%else%>
               <a href="/home/index/"> <div class="logo-header "></div></a>
             <%end%>
-          <!--  <%if device_type != :mobile %>
+          <!--  <%if device_type != :mobile %>ss
                 <a href="/home/locations"><div class="home-login-poniter"></div></a>
 
 
@@ -29,8 +29,41 @@
             <form  action="/home/search" >
               <%if device_type == :mobile %>
                 <div class="m-search-home">
-                    <input  type="button"/>
+                    <input  type="button"  data-toggle="modal" data-target="#myModalSearch"/>
+
                 </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModalSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content" style="top:70px">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="exampleModalLabel">Search Burgers</h4>
+                        </div>
+                        <div class="modal-body">
+
+
+                            <div role="tabpanel" class="tab-pane active" id="Email" style="padding-left: 10px;padding-top: 10px">
+                              <form action="/home/search" method="post">
+                                <div class="form-group">
+                                  <label for="recipient-name" class="control-label">KeyWord:</label>
+                                  <input type="text" name="keyword" class="form-control" id="recipient-name">
+                                  <span id="error-email" style="color: red"></span>
+                                </div>
+
+                              </form>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit"  class="btn btn-primary">Search</button>
+
+                              </div>
+                            </div>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
               <%else%>
                 <div class="search-home">
                   <input placeholder="search" name="keyword" type="text"/>
@@ -94,7 +127,7 @@
             <div class="item-menu-top-header"><a href="#" >another filter</a> </div>
             <%end%>-->
             <div class="item-menu-top-header" onclick="hovermenu()" ><a href="javascript:void(0)" >Filter <%=@kkk%></a></div>
-            <div style="float: left;width: 50px;height: 55px;border-right: 1px solid #ccc;"></div>
+            <div class="fiter-line" style="float: left;width: 50px;height: 55px;border-right: 1px solid #ccc;"></div>
             <div class="item-menu-top-header-filter" id="show-data-select">
               <%if @listvalue.present?%>
                   <%@listvalue.each do |item|%>
@@ -123,7 +156,13 @@
         <div class="container-menu-filter">
           <%_ko=0%>
           <%@componant.each do |item|%>
-              <div class="container-item">
+              <%_witdht=100%>
+              <%if device_type == :mobile %>
+                <%_k=_witdht/3%>
+              <%else%>
+                  <%_k=_witdht/4%>
+              <%end%>
+              <div class="container-item" style="width: <%=_k%>%">
                 <div class="menu-text-file"><%=item.name%></div>
                 <div class="menu-item-filter">
                   <%item.getvalue.each do |k|%>
@@ -139,10 +178,18 @@
                   <%end%>
                 </div>
               </div>
-              <%_ko=_ko+1%>
-              <%if(_ko%4==0)%>
-                <div class="clearfix"></div>
+
+              <%if device_type == :mobile %>
+                  <%if((_ko+1)%3==0)%>
+                      <div class="clearfix"></div>
+                  <%end%>
+              <%else%>
+                  <%if((_ko+1)%4==0)%>
+                      <div class="clearfix"></div>
+                  <%end%>
+
               <%end%>
+              <%_ko=_ko+1%>
           <%end%>
 
 

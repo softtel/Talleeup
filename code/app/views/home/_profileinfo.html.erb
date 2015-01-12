@@ -8,9 +8,9 @@
         <h4 class="pull-left"><%= m.name %></h4>
         <h4 class="pull-right">
 
-          <div data-usermetaid="<%= user_meta.id %>" class="meta-value">
+          <div data-datatype="<%= user_meta.meta.datatype %>" data-usermetaid="<%= user_meta.id %>" class="meta-value">
             <% if m.datatype == "url"%>
-               <a class="value" href="<%= user_meta.value %>"></a>
+               <a class="value" href="<%= user_meta.value %>"><%= user_meta.value %></a>
             <% else %>
                <span class="value"><%= user_meta.value %></span>
             <% end %>
