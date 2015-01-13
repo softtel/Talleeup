@@ -626,6 +626,11 @@ and (orientation : landscape) {
     width: 28.5%;
     float: left;
   }
+  .check-active-select
+  {
+    padding-top: 11px;
+    height: 30px !important;
+  }
   #btnlogout
   {
     top:14px;
@@ -739,13 +744,18 @@ and (orientation : portrait) {
     padding-left: 18px;
 
   }
+  .check-active-select
+  {
+    padding-top: 11px;
+    height: 30px !important;
+  }
   .button-review
   {
     padding-left: 33px;
   }
   .text-bk-content-header
   {
-    width: 56%;
+    width: 100%;
   }
   .number-reviews
   {
@@ -1147,16 +1157,24 @@ and (orientation : landscape)
   }
   .number-reviews
   {
-    width: 71%;
-    font-weight: normal;
-    font-size: 57px;
-    height: 81px;
-    line-height: 55px;
+    position: absolute;
+    top: 1;
+    bottom: 0px;
+    color: white;
+    z-index: 10000;
+    font-weight:bold;
+  }
+  .title-product-reviews
+  {
+    width: 80%;
+    padding-left: 0px;
   }
   .user-reviews
   {
-    width: 23%;
+    width: 20%;
+    border-bottom: none;
   }
+
   .item-number-count
   {
     line-height: 54px;
@@ -1216,6 +1234,10 @@ and (orientation : landscape)
   .title-reviews
   {
     font-size: 17pt;
+  }
+  .text-bk-content-header
+  {
+    width: 100%;
   }
 }
 
@@ -1637,9 +1659,362 @@ and (orientation : portrait) {
     line-height: 32px;
 
   }
+  .fiter-line
+  {
+    width: 12px !important;
+  }
+  .item-menu-top-header
+  {
+    width: 100px;
+  }
+  .name-title-product-review
+  {
+    font-size: 14pt;
+    padding-top: 2px;
+  }
+  .name-title-product-review-child
+  {
+    font-size: 11pt;
+    padding-top: 0px;
+  }
+  .title-reviews
+  {
+    font-size: 9pt;
+  }
+  .item-number-count
+  {
+    line-height: 20px;
+    font-size: 10pt;
+  }
 }
 @media only screen and (min-width:595px)
 and (max-width:595px)
 and (orientation : landscape) {
+  .m-logo-header {
+    background-image: image_url("m_02.png");
+    height: 77px;
+    width: 26%;
+    margin-top: 17px;
+    float: left;
+    background-repeat: no-repeat;
+  }
+  .m-search-home input {
+    background-image: image_url("07.png");
 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #145a8b;
+    border: none;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+  }
+  .m-search-home
+  {
+    width: 11%;
+    float: left;
+    margin-top: 40px;
+  }
+
+  .bk-content-header
+  {
+    padding-top: 27%;
+  }
+  .line-no
+  {
+    width: 10%;
+  }
+  .count-number-text
+  {
+    width: 80%;
+  }
+  .number-reviews
+  {
+    /* width: 71%;
+     font-weight: normal;
+     font-size: 57px;
+     height: 81px;
+     line-height: 55px;*/
+
+    position: absolute;
+    top: 1;
+    bottom: 0px;
+    color: white;
+    z-index: 10000;
+    font-weight:bold;
+
+  }
+  .title-product-reviews
+  {
+    padding-left: 0px;
+    width: 80%;
+  }
+  .item-body
+  {
+    width: 100%;
+    float: left;
+  }
+  .user-reviews
+  {
+    width: 20%;
+    border-bottom: none;
+  }
+  .item-number-count
+  {
+    line-height: 32px;
+
+  }
+
+
+}
+
+//lumina htc 8x
+@media only screen and (min-width:351px)
+and (max-width:351px)
+and (orientation : portrait)
+{
+  .m-logo-header {
+    background-image: image_url("m_02.png");
+    height: 77px;
+    width: 26%;
+    margin-top: 17px;
+    float: left;
+    background-repeat: no-repeat;
+  }
+  .m-search-home input {
+    background-image: image_url("07.png");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #145a8b;
+    border: none;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+  }
+  .m-search-home
+  {
+    width: 11%;
+    float: left;
+    margin-top: 40px;
+  }
+  .button-profile,.button-review
+  {
+    padding-left: 30px;
+    margin-top: 30px;
+  }
+  .bk-content-header
+  {
+    padding-top: 27%;
+  }
+  .line-no
+  {
+    width: 10%;
+  }
+  .count-number-text
+  {
+    width: 80%;
+  }
+  .number-reviews
+  {
+    /* width: 71%;
+     font-weight: normal;
+     font-size: 57px;
+     height: 81px;
+     line-height: 55px;*/
+
+    position: absolute;
+    top: 1;
+    bottom: 0px;
+    color: white;
+    z-index: 10000;
+    font-weight:bold;
+
+  }
+  .title-product-reviews
+  {
+    padding-left: 0px;
+    width: 80%;
+  }
+  .item-body
+  {
+    width: 100%;
+    float: left;
+  }
+  .user-reviews
+  {
+    width: 20%;
+    border-bottom: none;
+  }
+  .item-number-count
+  {
+    line-height: 32px;
+
+  }
+  .fiter-line
+  {
+    width: 12px !important;
+  }
+  .item-menu-top-header
+  {
+    width: 100px;
+  }
+  .name-title-product-review
+  {
+    font-size: 14pt;
+    padding-top: 2px;
+  }
+  .name-title-product-review-child
+  {
+    font-size: 11pt;
+    padding-top: 0px;
+  }
+  .title-reviews
+  {
+    font-size: 9pt;
+  }
+  .item-number-count
+  {
+    line-height: 20px;
+    font-size: 10pt;
+  }
+  .check-active-select
+  {
+    padding-top: 11px;
+    height: 30px !important;
+  }
+}
+@media only screen and (min-width:623px)
+and (max-width:623px)
+and (orientation : landscape)
+{
+  .m-logo-header {
+    background-image: image_url("m_02.png");
+    height: 77px;
+    width: 26%;
+    margin-top: 17px;
+    float: left;
+    background-repeat: no-repeat;
+  }
+  .m-search-home input {
+    background-image: image_url("07.png");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #145a8b;
+    border: none;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+  }
+
+  .m-search-home
+  {
+    width: 11%;
+    float: left;
+    margin-top: 40px;
+  }
+
+  .bk-content-header
+  {
+    padding-top: 15%;
+  }
+  .line-no
+  {
+    width: 10%;
+  }
+  .count-number-text
+  {
+    width: 80%;
+  }
+  .number-reviews
+  {
+    /* width: 71%;
+     font-weight: normal;
+     font-size: 57px;
+     height: 81px;
+     line-height: 55px;*/
+
+    position: absolute;
+    top: 1;
+    bottom: 0px;
+    color: white;
+    z-index: 10000;
+    font-weight:bold;
+
+  }
+  .title-product-reviews
+  {
+    padding-left: 0px;
+    width: 80%;
+  }
+  .item-body
+  {
+    width: 100%;
+    float: left;
+  }
+  .user-reviews
+  {
+    width: 20%;
+    border-bottom: none;
+  }
+  .item-number-count
+  {
+    line-height: 32px;
+
+  }
+}
+//Lg E975
+@media only screen and (min-width:395px)
+and (max-width:395px)
+and (orientation : portrait)
+{
+  .button-review
+  {
+    padding-left: 42px;
+  }
+  .button-profile
+  {
+    padding-left: 20px;
+  }
+  .title-product-reviews
+  {
+    padding-left: 0px;
+    font-size: 11pt;
+  }
+  .title-reviews
+  {
+    font-size: 10pt;
+  }
+  .item-number-count
+  {
+    font-size: 11pt;
+    line-height: 32px;
+  }
+  .name-title-product-review-child
+  {
+    font-size: 14pt;
+    padding-top: 0px;
+  }
+  .fiter-line
+  {
+    width: 12px !important;
+  }
+  .item-menu-top-header
+  {
+    width: 100px;
+  }
+  .bk-content-header
+  {
+    padding-top: 20%;
+  }
+}
+@media only screen and (min-width:640px)
+and (max-width:640px)
+and (orientation : landscape)
+{
+.button-profile
+{
+  padding-left: 30px;
+}
 }

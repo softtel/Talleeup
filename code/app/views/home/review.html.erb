@@ -196,6 +196,8 @@
 
 
         var _id=$("#reviews-select").val();
+        var _idprocut='<%=params[:product_id]%>';
+
         var _data={idre:_id}
         $.ajax({
             type: "POST",
@@ -211,7 +213,12 @@
 
                     var _id=data.data[i].id;
                     var _name=data.data[i].name;
-                    _html+="<option value='"+_id+"'>"+_name +"</option>";
+                    var _elect=""
+                    if (_idprocut==_id)
+                    {
+                        _elect='selected'
+                    }
+                    _html+="<option "+_elect+" value='"+_id+"'>"+_name +"</option>";
                 }
                 $("#child-product").html(_html)
 
@@ -340,7 +347,7 @@
         });
     });
     $("#child-product").change(function(){
-        alert("ok")
+
         var _id=$("#child-product").val();
         window.location="/home/review?product_id="+_id+""
     })

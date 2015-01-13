@@ -4,11 +4,13 @@
   <title>Burger Profile</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
 </head>
 
 
 <body style="background: #F3F7FA !important;">
+<div class="total_page">
 <header>
   <div class="page-header headermain">
     <div style="position: relative;background-color: #145a8b">
@@ -129,7 +131,23 @@
     </div>
     <div class="bk-content-header-bottom header-bottom-bur">
       <div class="container">
+
+
+        <div class="small_review">
           <div class="item-text-bottom" style="text-align: right;padding-right: 20px">reviews</div>
+
+
+          <div class="item-number-bottom" style="text-align: left;padding-left: 20px;padding-top: 20px;"><%= number_with_delimiter(@countreview.count()) %></div>
+          <div class="clearfix"></div>
+          <div class="item-text-bottom" style="text-align: right;padding-right: 20px">views</div>
+
+          <div class="item-number-bottom" style="text-align: left;padding-left: 20px;padding-top: 20px;"><%=number_with_delimiter(@productdetails.numviews) %></div>
+          <div class="clearfix"></div>
+        </div>
+
+
+        <div class="lagre_review">
+        <div class="item-text-bottom" style="text-align: right;padding-right: 20px">reviews</div>
 
 
         <div class="item-text-bottom" style="text-align: left;padding-left: 20px">views</div>
@@ -138,6 +156,7 @@
 
         <div class="item-number-bottom" style="text-align: left;padding-left: 20px"><%=number_with_delimiter(@productdetails.numviews) %></div>
         <div class="clearfix"></div>
+        </div>
       </div>
     </div>
     </div>
@@ -264,7 +283,8 @@
     </div>
   </div>
 </header>
-<%= yield %>
 
+<%= yield %>
+</div>
 </body>
 </html>

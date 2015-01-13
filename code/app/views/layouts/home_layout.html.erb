@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div id="layer"></div>
+<div id="layer" onclick="layer()"></div>
 
 <%
    _style=""
@@ -61,7 +61,7 @@
     <%if user_signed_in? %>
         <%= link_to(image_tag("logout.png"), destroy_user_session_path, :method => :delete, :id=>"btnlogout") %>
     <%else%>
-        <button id="btn-login" class="pull-right">LOGIN</button>
+        <button id="btn-login" onclick="login()" class="pull-right">LOGIN</button>
     <%end%>
 
     <div id="header-top" class="row">
@@ -76,7 +76,7 @@
         burger lovers
       </h1>
 
-      <button id="btn-signup" class="center-block">SIGN UP </button>
+      <button id="btn-signup" onclick="signup()"  class="center-block">SIGN UP </button>
 
       <p id="sign-ups" class="center-block">
         <span>Sign up using</span>
@@ -99,7 +99,7 @@
 
     <%= form_for(:user, :url => registration_path(:user), :format => :json, :html => {:id => "form-register" ,:class => "center-block", :role=>"form"}) do |f| %>
 
-        <button id="btn-slose-register-form" type="button" class="close pull-right">
+        <button id="btn-slose-register-form" onclick="btnsloseregisterform()" type="button" class="close pull-right">
           <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
         </button>
 

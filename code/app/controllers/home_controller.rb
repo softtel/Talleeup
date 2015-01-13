@@ -102,6 +102,7 @@ class HomeController < ApplicationController
     # product reviewed
     limit = (params[:fulllist].nil?) ? 5 : 1000
     @products = @friend.get_products_reviewed(limit)
+    @is_full_list = (params[:fulllist].nil?) ? false : true
 
     ### user
     @user = current_user
