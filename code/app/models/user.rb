@@ -142,6 +142,10 @@ class User < ActiveRecord::Base
         return "Master"
     end
   end
+  def self.check_issame(_email)
+    _data=User.where(email: _email)
+
+  end
 
 
 end

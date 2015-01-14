@@ -106,7 +106,7 @@
           <div class="style_select">
             <%= form_tag("/home/login", method: "post") do %>
 
-            <%= select_tag :city_id, options_for_select(@location.collect {|p| [ p.name, p.id ] }, @city_id), :onchange => "this.form.submit()" %>
+            <%= select_tag :city_id, options_for_select(@location.collect {|p| [ p.name, p.id,{style: 'background:transparent;color:#145a8b'} ] }, @city_id), :onchange => "this.form.submit()" %>
             <%end%>
           </div>
 
@@ -116,6 +116,7 @@
     </div>
 
     <%= form_tag("/home/login", method: "post",id:"searcformrr") do %>
+        <input type="hidden" id="idcitycureent" name="idcitycureent" value="<%=@city_id%>">
         <div class="menu-top-header">
           <div class="container">
             <!--<%if device_type == :mobile %>
@@ -144,7 +145,7 @@
         </div>
     <%end%>
     <div class="cl"></div>
-    <input type="hidden" id="idcitycureent" value="<%=@city_id%>">
+
     <%if @listvalue.present?%>
         <%_show="display:block" %>
     <%else%>

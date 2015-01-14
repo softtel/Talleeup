@@ -34,7 +34,17 @@
 
     <div id="list-products" class="col-md-12">
       <%= render partial: "product", collection: @products %>
-        <button id="btn-seefull-index" onclick="btnseefullindex()" class="center-block btn-seefull">SEE FULL LIST</button>
+      <%
+
+         if user_signed_in?
+
+         else
+      %>
+          <button id="btn-seefull-index" onclick="btnseefullindex()" class="center-block btn-seefull">SEE FULL LIST</button>
+      <% end
+      %>
+
+
     </div>
 
     <!-- End list-product -->

@@ -1570,8 +1570,9 @@ and (orientation : landscape) {
   width:14px ;
   height: 14px;
   padding-left: 22px;
-  line-height: 13px;
+  line-height: 37px;
   color: white;
+  height: 37px;
 }
 .m-item-conettn-body
 {
@@ -2017,4 +2018,49 @@ and (orientation : landscape)
 {
   padding-left: 30px;
 }
+}
+@media only screen and (min-width:384px)
+and (max-width:384px)
+and (orientation : portrait)
+{
+
+  .button-review
+  {
+    padding-left: 42px;
+  }
+  .button-profile
+  {
+    padding-left: 20px;
+  }
+  .title-product-reviews
+  {
+    padding-left: 0px;
+    font-size: 11pt;
+  }
+  .title-reviews
+  {
+    font-size: 10pt;
+  }
+  .item-number-count
+  {
+    font-size: 11pt;
+    line-height: 32px;
+  }
+  .name-title-product-review-child
+  {
+    font-size: 14pt;
+    padding-top: 0px;
+  }
+  .fiter-line
+  {
+    width: 12px !important;
+  }
+  .item-menu-top-header
+  {
+    width: 100px;
+  }
+  .bk-content-header
+  {
+    padding-top: 20%;
+  }
 }

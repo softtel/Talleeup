@@ -437,54 +437,29 @@ body{
 .small_review{
   display: none;
 }
-@media (max-width: 1000px){
-  .bur-text-bk-content-header{
-    width: 75% !important;
-    text-align: center;
-  }
-  .img-text-bk-content-header{
-    width: 20% !important;
-  }
-  .item-noline-number{
-    width: 0;
-  }
-  .item-line-number{
-    width: 100%;
-  }
-  .item-no,.number-bk-content-header{
-    border-bottom: 2px solid #36c0de;
-  }
-  .button-profile{
-    margin-top: 15px;
-  }
-  .lagre_review{
-    display: none;
-  }
-  .small_review{
-    display: block;
-  }
-  .container-menu-add,.item-menu-top-header-bur,.text-loadmore,.buttom-loadmore{
-    width: 100%;
-  }
-  .detaisl-item-titl{
-    font-size: 13pt;
-  }
-  .item-name-reviews-comment{
-    padding-left: 40px;
-  }
-  .item-text-reviews-mutile{
-    padding-left: 40px;
-    text-align: justify;
-  }
-  .no-line-bur{
-    height: 10px;
-  }
-  .total_page{
-    
-  }
+
+/* iPads (landscape) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+  /* Styles */
 }
 
-@media (max-width: 768px){
+/* iPads (portrait) ----------- */
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+  /* Styles */
+
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+  /* Styles */
   .bur-text-bk-content-header{
     width: 75% !important;
     text-align: center;

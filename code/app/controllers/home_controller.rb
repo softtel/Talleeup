@@ -51,8 +51,12 @@ class HomeController < ApplicationController
     @current_city = City.find_by_id(city_id)
 
     # country = request.location.country_code
+    if user_signed_in?
+      @products = Product.get_products(city_id, 99999999)
+    else
+      @products = Product.get_products(city_id, 5)
+    end
 
-    @products = Product.get_products(city_id, 5)
 
     render layout: "home_layout"
   end
@@ -105,7 +109,7 @@ class HomeController < ApplicationController
     @is_full_list = (params[:fulllist].nil?) ? false : true
 
     ### user
-    @user = current_user
+    @user = User.where(id: params[:id]).first()
     @myprofile = Profile.getProfile(current_user.id)
     @isFollowed = @user.isFollowed(@friend.id)
 
@@ -307,6 +311,7 @@ end
 
             else
               @kk=params[:idcomponennt]
+              @hghhghgh=params[:idcitycureent]
               @icomponent=params[:idcomponennt].split(/;/)
               @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: params[:idcitycureent]},product_components:{component_value_id: @icomponent})
               @listvalue=ComponentValue.where(id: @icomponent)
@@ -464,7 +469,11 @@ end
       format.json { render json: 1}
     end
   end
-
+   def CheckEmail
+     _email=params[:email];
+     _data=User.check_issame(_email);
+     render :json => { :status => true }
+   end
   def addlike
     logger.debug params[:id].inspect
       Commentproduct.updatelike(params[:id])
@@ -493,7 +502,8 @@ end
      end
 
      render :json => { :status => true }
-   end
+  end
+
    private
   # Use callbacks to share common setup or constraints between actions.
    def set_profile

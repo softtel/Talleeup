@@ -78,6 +78,282 @@
   }
 }
 
+@media (max-width: 739px)
+  and (orientation : landscape){
+
+  div#login-container-fluid{
+    width: 100%;
+    height: 130px;
+    padding-top: 0px;
+    position: absolute;
+    top: 100px;
+    z-index: 3;
+
+    background-color: transparent;
+    //    opacity: 0.7;
+  }
+
+  input#btn-login-submit {
+    width: 98% !important;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+    margin-top: 5px !important;
+    border-radius: 3px;
+  }
+
+  div#layer{
+    top: 0px;
+  }
+
+  div#login-container {
+    width: 100%;
+  }
+
+  .input-login-wrapper{
+    padding: 0px !important;
+    width: 100%;
+  }
+
+  input#btn-login-submit {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  body{
+    //    overflow-x: hidden;
+  }
+
+  div#header-container{
+    height: 520px;
+  }
+
+  div#header{
+    padding: 0px !important;
+  }
+
+  #register-container-fluid{
+    top: 0;
+    opacity: 1 !important;
+    height: 100% !important;
+  }
+
+  #form-register{
+    width: 99% !important;
+  }
+
+  .form-group-register-mobile{
+    padding: 0px;
+    margin: 0px;
+    border-color: #D7DADE;
+  }
+
+  .input-register-mobile{
+    background-color: #E1E6EA;
+    border-radius: 0;
+    height: 50px;
+    width: 100%;
+  }
+
+  #btn-register-submit{
+    width: 100% !important;
+    margin: 20px 1px;
+  }
+
+  div#main{
+    padding: 0px;
+  }
+
+  button#btn-login{
+    top: 5px;
+    right: 0px;
+    border: none;
+  }
+
+  img#arrow-up {
+    margin-top: -45px;
+  }
+
+  h1.introduct{
+    font-size: 29px !important;
+  }
+
+  h1#introduct-top {
+    margin-top: 50px;
+    width: 240px;
+  }
+
+  h1#introduct-bottom {
+    margin-top: -6px;
+  }
+
+  div#header-container, div#main-container{
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .introduct{
+    font-size: 30px !important;
+  }
+
+  div#main{
+    padding: 0px !important;
+  }
+
+  div#main-title{
+    margin-top: 30px;
+  }
+
+  h3#main-title-top{
+    font-size: 20px;
+  }
+
+  div#main-body{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  h1#main-title-body{
+    font-size: 25px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
+
+  div#list-products{
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  div.product{
+    margin: 0px;
+    //    height: 300px;
+    height: auto;
+    //    height: 330px !important;
+    border-radius: 0;
+    position: relative;
+    border: none;
+  }
+
+  div.product-image img{
+    border-radius: 0px;
+  }
+
+  div.layer-product-image{
+    border-radius: 0px;
+  }
+
+  .product .btn-img-sign{
+    right: 18px !important;
+    top: 220px !important;
+    width: 35px;
+    //    z-index: 2;
+  }
+
+  div.product-reviews{
+    height: 75px !important;
+    margin-left: 25px;
+  }
+
+  div.product-image{
+    width: 100% !important;
+  }
+
+  div.product-image img{
+    width: 100% !important;
+    border-radius: 0 !important;
+  }
+
+  .product-reviews{
+    //    width: 100% !important;
+  }
+
+  .product-reviews-score, .product-reviews-people{
+    height: 65px !important;
+  }
+
+  .product-reviews-score{
+    width: 126px !important;
+  }
+
+  .score{
+    color: #ffffff !important;
+  }
+
+  span.min-score-review{
+    top: 22px !important;
+    color: #B7B8BA !important;
+    font-weight: bold;
+    font-size: 12px !important;
+  }
+
+  span.max-score-review{
+    bottom: -1px !important;
+    color: #B7B8BA !important;
+    font-weight: bold;
+    font-size: 12px !important;
+  }
+
+  div.product-reviews-people{
+    display: none;
+  }
+
+  div.product-reviews-people h6 {
+    margin-top: 16px;
+  }
+
+  span.num-reviewer{
+    padding-top: 0px;
+  }
+
+  div.product-reviews-top{
+    margin-left: 0px;
+    margin-top: -63px;
+    height: 64px !important;
+  }
+
+  div.product-reviews-center{
+    margin-left: 0px;
+  }
+
+  h3.product-reviews-center-top{
+    margin-top: 12px;
+    font-size: 12px;
+    font-weight: bolder;
+  }
+
+  h4.product-reviews-center-bottom{
+    font-size: 12px;
+    margin-bottom: 0px;
+    font-weight: bolder;
+  }
+
+  p.product-reviews-score{
+  }
+
+  .product-reviews-score .score{
+    font-size: 45px !important;
+  }
+
+  div.product-btn-group{
+    display: none;
+  }
+
+  button.btn-seefull{
+    margin-top: 20px;
+  }
+
+  .product-reviews{
+    width: 90%;
+  }
+
+  .circles{
+    display: inline !important;
+  }
+
+  .product-reviews-score{
+    border-bottom: 5px solid #36C0DD !important;
+  }
+}
+
 @media (max-width: 703px) {
 
   a.link-avatar-viewer:nth-child(2){
