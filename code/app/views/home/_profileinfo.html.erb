@@ -10,15 +10,29 @@
 
           <div data-datatype="<%= user_meta.meta.datatype %>" data-usermetaid="<%= user_meta.id %>" class="meta-value">
             <% if m.datatype == "url"%>
-               <a class="value" href="<%= user_meta.value %>"><%= user_meta.value %></a>
+                <%
+                _string=user_meta.value
+                _string=_string.to_s.gsub("www.","")
+                _string=_string.to_s.gsub("https://","")
+                _string=_string.to_s.gsub("http://","")
+                _string=_string.to_s.split(".");
+
+                   if _string.length>1
+                     _a=_string[0]
+                   else
+                     _a=user_meta.value
+                   end
+                %>
+               <a class="value" target="_blank" href="<%= user_meta.value %>"><%=_a%></a>
             <% else %>
                <span class="value"><%= user_meta.value %></span>
             <% end %>
           </div>
 
           <% if @isMyprofile %>
-              <img id="icon-edit-meta-<%= user_meta.id %>" class="icon-edit-meta" onclick="icon_edit_meta(this.id)" src="/assets/icon-edit.png" />
-              <img id="icon-save-meta-<%= user_meta.id %>" class="icon-save-meta" onclick="icon_save_meta(this.id)" src="/assets/icon-save.png" />
+
+              <img id="icon-edit-meta-<%= user_meta.id %>" class="icon-edit-meta" onclick="icon_edit_meta(this.id,'<%=user_meta.value%>')" src="/assets/icon-edit.png" />
+              <img id="icon-save-meta-<%= user_meta.id %>" class="icon-save-meta" onclick="icon_save_meta(this.id,'<%=user_meta.value%>')" src="/assets/icon-save.png" />
           <% end %>
 
         </h4>

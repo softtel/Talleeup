@@ -75,7 +75,7 @@
       <h1 id="introduct-bottom" class="introduct center-block">
         burger lovers
       </h1>
-
+    <%unless user_signed_in?%>
       <button id="btn-signup" onclick="signup()"  class="center-block">SIGN UP </button>
 
       <p id="sign-ups" class="center-block">
@@ -88,7 +88,7 @@
         <li><a href="#">Email</a></li>
       </ul>
       </p>
-
+      <%end%>
     </div>
     <!--End header-top-->
   </div>
@@ -224,7 +224,27 @@ $("#btn-register-submit").click(function(){
         $("#user_password").css({"border":"1px solid red"});
             return false;
     }
-    $("#form-register").submit();
+    var _email=$("#user_email").val();
+
+    $.post("/home/CheckEmail",{email:_email},function(){
+
+    }).success(function(data){
+        if(data.data.length>0)
+        {
+            $("#user_email").val("");
+            $("#user_email").attr("placeholder","Email already exists");
+            $("#user_email").css({"border":"1px solid red"});
+
+            return false;
+        }
+        else
+        {
+            $("#form-register").submit();
+        }
+    });
+
+
+
 });
 
 </script>
@@ -268,12 +288,12 @@ $("#btn-register-submit").click(function(){
                       success: function(data, status)
                       {
 
-                          console.log('success');
+                          //console.log('success');
 
                       },
                       error: function(data, status)
                       {
-                          console.log('error');
+                          //console.log('error');
                       }
                   });
 
@@ -331,28 +351,33 @@ $("#btn-register-submit").click(function(){
   function changeemailddd()
   {
       var _email=$("#user_email").val();
-     // $.post("/home/CheckEmail",{email:_email},function(){
+      $.post("/home/CheckEmail",{email:_email},function(){
 
-     // }).success(function(data){
-      //      console.log(data)
-      //})
-      var _data={email:_email,authenticity_token:'<%= form_authenticity_token%>'}
-      $.ajax({
-          type: "POST",
-          url: '/home/CheckEmail',
-          contentType: "application/json; charset=utf-8",
-          dataType: 'json',
-          data: JSON.stringify(_data),
-          success: function(data, status)
-          {
-                console.log(data)
+     }).success(function(data){
+            if(data.data.length>0)
+            {
+                $("#user_email").val("");
+                $("#user_email").attr("placeholder","Email already exists");
+                $("#user_email").css({"border":"1px solid red"});
+            }
+     });
+      //var _data={email:_email,authenticity_token:'<%= form_authenticity_token%>'}
+     // $.ajax({
+     //     type: "POST",
+     //     url: '/home/CheckEmail',
+     //     contentType: "application/json; charset=utf-8",
+     //     dataType: 'json',
+     //    data: JSON.stringify(_data),
+     //    success: function(data, status)
+     //     {
+     //          console.log(data)
 
-          },
-          error: function(data, status)
-          {
-              console.log("error");
-          }
-      });
+      //    },
+      //    error: function(data, status)
+     //     {
+     //         console.log("error");
+     //     }
+     // });
   }
 </script>
 

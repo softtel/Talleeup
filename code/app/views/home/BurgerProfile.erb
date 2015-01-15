@@ -1,4 +1,4 @@
-<script src="http://connect.facebook.net/en_US/all.js"></script>
+
 <script>
 
     jQuery(document).ready(function ($) {
@@ -81,10 +81,17 @@
 </script>
 <!-- Jssor Slider Begin -->
 <!-- You can move inline styles to css file or css block. -->
-  <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 1500px;
+<%
+   _kaka= @productdetails.product_images.length
+    _width="1500px"
+    if(_kaka<=0)
+      _width="100%"
+    end
+%>
+  <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: <%=_width%>;
           height: 330px; overflow: hidden;">
     <!-- Slides Container -->
-    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 1500px; height: 330px;
+    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: <%=_width%>; height: 330px;
             overflow: hidden;">
       <%@productdetails.product_images.each do |kkkk| %>
       <div>

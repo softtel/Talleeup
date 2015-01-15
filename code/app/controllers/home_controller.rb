@@ -2,7 +2,7 @@ require 'product_view_models'
 
 class HomeController < ApplicationController
    #before_action :authenticate_user!
-   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile]
+   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail]
 
   def index
 
@@ -312,6 +312,7 @@ end
             else
               @kk=params[:idcomponennt]
               @hghhghgh=params[:idcitycureent]
+              @city_id=@hghhghgh
               @icomponent=params[:idcomponennt].split(/;/)
               @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: params[:idcitycureent]},product_components:{component_value_id: @icomponent})
               @listvalue=ComponentValue.where(id: @icomponent)
@@ -472,7 +473,7 @@ end
    def CheckEmail
      _email=params[:email];
      _data=User.check_issame(_email);
-     render :json => { :status => true }
+     render :json => { :data => _data }
    end
   def addlike
     logger.debug params[:id].inspect

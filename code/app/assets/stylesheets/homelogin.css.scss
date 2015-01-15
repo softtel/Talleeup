@@ -465,9 +465,6 @@
 .icon-images-review
 {
   background-image: image_url("reviews.png");
-
-
-
   height: 53px;
   width: 50%;
 
@@ -628,8 +625,8 @@ and (orientation : landscape) {
   }
   .check-active-select
   {
-    padding-top: 11px;
-    height: 30px !important;
+    /*padding-top: 11px;*/
+    height: 37px !important;
   }
   #btnlogout
   {
@@ -705,7 +702,7 @@ and (orientation : landscape) {
   }
   .button-search-submit
   {
-    right: 100px;
+    right: 125px;
   }
   .button-profile {
     margin-top: 10px;
@@ -718,7 +715,7 @@ and (orientation : landscape) {
     padding-top: 19px;
   }
   .img-text-bk-content-header {
-    margin-top: 6px;
+    margin-top: 12px;
   }
 
   .content-body-share
