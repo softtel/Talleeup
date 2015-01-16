@@ -263,4 +263,5 @@ Devise.setup do |config|
   config.omniauth :facebook, "1527198720891153", "314625d7b3091f3ab3a4e848218c6b79", {:client_options => {:ssl => {:verify => false}}}
   config.omniauth :google_oauth2, "846020275464-dbmklofk7qbrvdl4ol9b6sl6dnf5j8so.apps.googleusercontent.com", "4GdqKEVZCUtdP-U-9D7W9icj", { access_type: "offline", approval_prompt: "" }
   config.omniauth :twitter, "hNrBDfi5W3oS2ms4VwM3YWlcc", "l2IflM6WCnlY7NXsJMFB0NsbcPhvYC4letajvCpnYSsq68LdPf"
+  config.omniauth :github, "1b17fe5105ccb461b43f", "04d17f3373b4350885d3edc755c718631bb0be0f", scope: "user, public_repo"
 end

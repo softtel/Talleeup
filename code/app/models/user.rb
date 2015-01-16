@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter]
+         :omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter,:github]
 
   after_create :create_profile
 
@@ -91,7 +91,26 @@ class User < ActiveRecord::Base
 
     end
   end
+  def self.find_for_github_oauth(auth)
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    if user
+      return user
+    else
+      registered_user = User.where(:email => auth.info.email).first
+      if registered_user
+        return registered_user
+      else
 
+        user = User.create(fullname:auth.extra.raw_info.name,
+                           provider:auth.provider,
+                           uid:auth.uid,
+                           email:auth.info.email,
+                           password:Devise.friendly_token[0,20],
+                           confirmed_at: DateTime.now
+        )
+      end
+    end
+  end
 
   def self.new_with_session(params, session)
     super.tap do |user|
@@ -146,6 +165,44 @@ class User < ActiveRecord::Base
     _data=User.where(email: _email)
 
   end
+  def self.from_omniauth(auth, current_user)
+    authorization = Authorization.where(:provider => auth.provider, :uid => auth.uid.to_s, :token => auth.credentials.token, :secret => auth.credentials.secret).first_or_initialize
+    if authorization.user.blank?
+      user = current_user.nil? ? User.where('email = ?', auth["info"]["email"]).first : current_user
+      if user.blank?
+        user = User.new
+        user.password = Devise.friendly_token[0,10]
+        user.name = auth.info.name
+        user.email = auth.info.email
+        auth.provider == "twitter" ?  user.save(:validate => false) :  user.save
+      end
+      authorization.username = auth.info.nickname
+      authorization.user_id = user.id
+      authorization.save
+    end
+    authorization.user
+  end
+  def self.find_for_github_oauth(auth)
+
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    if user
+      return user
+    else
+      registered_user = User.where(:email => auth.info.email).first
+      if registered_user
+        return registered_user
+      else
+
+        user = User.create(fullname:auth.extra.raw_info.name,
+                           provider:auth.provider,
+                           uid:auth.uid,
+                           email:auth.info.email,
+                           password:Devise.friendly_token[0,20],
+                           confirmed_at: DateTime.now
+        )
+      end
+    end
 
 
+  end
 end

@@ -39,6 +39,7 @@ Rails.application.routes.draw do
   post 'home/addlocation'
   post 'home/CheckEmail'
 
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", confirmations: 'confirmations' }
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # resources :users
