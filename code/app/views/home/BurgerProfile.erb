@@ -256,9 +256,9 @@
           <%= image_tag(item.user.profile.avatar.url(:thumb),:width => 70, :height => 70,:class => 'img-circle') %>
         </div>
         <div class="item-text-reviews-comment">
-          <div class="item-name-reviews-comment"><%=item.user.fullname %></div>
+          <div class="item-name-reviews-comment" lang="<%=item.user.id%>"><%=item.user.fullname %></div>
           <div class="item-clock-comment">
-                <%=item.get_comment_createat.to_formatted_s(:db)%>
+            <%=item.created_at.to_formatted_s(:db)%>
           </div>
           <div class="clear-fix"></div>
 

@@ -37,9 +37,14 @@ class Product < ActiveRecord::Base
                                 LIMIT #{_limit}")
   end
 
-  def self.search(_keyword)
-    # return Product.where("name like ?", "%#{_keyword}%")
-    return (Product.with_name_matching(_keyword) + Product.whose_name_starts_with(_keyword)).uniq
+  def self.search(_keyword,city_id)
+      return Product.find_by_sql("SELECT distinct p.*
+      FROM  products p
+      JOIN restaurants rs ON p.restaurant_id=rs.id
+      WHERE  lower(p.name) like '%#{_keyword.downcase}%' and rs.city_id=#{city_id}
+    ")
+     #return Product.joins(:restaurants).where("products.name like ?"=> "%#{_keyword}%","restaurants.city_id"=>city_id)
+    #return (Product.with_name_matching(_keyword) + Product.whose_name_starts_with(_keyword)).uniq
   end
 
   def get_reviewers

@@ -77,9 +77,29 @@ class HomeController < ApplicationController
   def search
 
     # @cityDetected = request.location.city
+    _ip=request.remote_ip
+    @getLocation=Location.where(ip: _ip).order("id DESC")
+    if !@getLocation.blank?
+      _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
+      _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
+      if !_detectcountry.blank?
+        _detectcountryid=_detectcountry.first().id
+        @cities=City.where(country_id: _detectcountryid)
+        if !_dectechcity.blank?
+          city_id=_dectechcity.first().id
+        else
+          city_id=@cities.first().id
+        end
+      end
+    else
+      country=Country.all.order("name ASC")
+      countryid=country.first().id
+      @cities=City.where(country_id:countryid)
+      city_id=@cities.first().id
+    end
 
     @keyword = params[:keyword]
-    @products = Product.search(@keyword)
+    @products = Product.search(@keyword,city_id)
 
     @myprofile = Profile.getProfile(current_user.id)
 

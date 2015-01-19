@@ -106,14 +106,14 @@
 
         <h2 class="center-block" id="form-register-title">Alright!</h2>
 
-        <div class="form-group form-group-register-mobile">
-          <%= f.email_field :email, autofocus: true,onchange: "changeemailddd()", :class => "form-control input-register-mobile", :placeholder => "email" %>
-        </div>
+
 
         <div class="form-group form-group-register-mobile">
           <%= f.text_field :fullname, :class => "form-control input-register-mobile", :placeholder => "full name" %>
         </div>
-
+        <div class="form-group form-group-register-mobile">
+          <%= f.email_field :email, autofocus: true,onchange: "changeemailddd()", :class => "form-control input-register-mobile", :placeholder => "email" %>
+        </div>
         <div class="form-group form-group-register-mobile">
           <% if @validatable %>
               <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -130,10 +130,6 @@
           <%= f.submit "JOIN TALLEEUP", :class => "center-block", :id => "btn-register-submit",:type=>"button" %>
         </div>
     <% end %>
-
-
-
-
   </div>
 </div>
 <!-- End header-container -->
@@ -224,6 +220,12 @@ $("#btn-register-submit").click(function(){
     {
         $("#user_password").css({"border":"1px solid red"});
             return false;
+    }
+    if(_user_password.length<8)
+    {
+        $("#user_password").attr("placeholder","Password must be more than 8 characters");
+        $("#user_password").css({"border":"1px solid red"});
+        return false;
     }
     var _email=$("#user_email").val();
 
