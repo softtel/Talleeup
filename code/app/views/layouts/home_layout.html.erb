@@ -193,6 +193,7 @@ $("#btn-login-submit").click(function(){
      //    $("#Email").css({"border":"0px solid red"});
     // }
  })
+
 $("#btn-register-submit").click(function(){
     var _user_email=$("#user_email").val();
     if(_user_email=="")
@@ -208,6 +209,7 @@ $("#btn-register-submit").click(function(){
     else
     {
         $("#user_email").css({"border":"0px solid red"});
+
     }
     var _user_fullname=$("#user_fullname").val();
     if(_user_fullname=="")
@@ -306,54 +308,11 @@ $("#btn-register-submit").click(function(){
           });
       });
   })
-    // this is the id of the form
-   // $("#login-form").submit(function() {
 
-     //   $.ajax({
-     //       url: '/users/sign_in.json',
-      //      type: 'POST',
-      //      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-//            contentType: "application/json; charset=utf-8",
-        //    dataType: "json",
-        //    data: {user: {email: 'abc@gmail.com', password: 'Tancse1992'}},
-        //    success: function(data, textStatus, xhr) {
-                //called when successful
-         //       console.log('success' + data);
-       //     },
-         //   error: function(data, textStatus, xhr) {
-                //called when successful
-         //       console.log('fail');
-         //   }
-        //});
-
-//        var url = $(this).attr('action'); // the script where you handle the form input.
-//
-//        $.ajax({
-//            type: "POST",
-//            url: url,
-//            data: $("#login-form").serialize(), // serializes the form's elements.
-//            success: function(data, status)
-//            {
-//                var domain = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-//                console.log(domain);
-//                console.log(status);
-//                console.log(data);
-//
-//
-//                window.location = domain + "/home/login";
-//            },
-//            fail: function(data, status)
-//            {
-//                console.log(status);
-//                console.log(data);
-//            }
-//        });
-//
-        //return false; // avoid to execute the actual submit of the form.
-    //});
   function changeemailddd()
   {
       var _email=$("#user_email").val();
+  
       $.post("/home/CheckEmail",{email:_email},function(){
 
      }).success(function(data){
