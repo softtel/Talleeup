@@ -1388,3 +1388,87 @@ span.icon {
   height: 16px;
   background-position: center;
 }
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
+and (orientation : landscape) {
+  .input-login-wrapper
+  {
+    width: 100%;
+  }
+  div#register-container-fluid
+  {
+    top: 32%;
+  }
+}
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
+and (orientation : portrait) {
+
+  div#register-container-fluid
+  {
+    top: 23%;
+  }
+}
+@media only screen and (min-width:623px)
+and (max-width:623px)
+and (orientation : landscape)
+{
+  div#header-container
+  {
+    height: 600px;
+  }
+  .input-login-wrapper
+  {
+    width: 100%;
+  }
+  .form-control
+  {
+    height: 45px;
+  }
+  #btn-login-submit
+  {
+    height :50px;
+  }
+}
+@media only screen and (min-width:640px)
+and (max-width:640px)
+and (orientation : landscape) {
+  div#header-container
+  {
+    height: 600px;
+  }
+}
+@media only screen and (min-width:595px)
+and (max-width:595px)
+and (orientation : landscape) {
+  div#header-container
+  {
+    height: 600px;
+  }
+  .input-login-wrapper
+  {
+    width: 100%;
+  }
+  #register-container-fluid
+  {
+    top:32% !important;
+  }
+}
+@media only screen and (min-width:563px)
+and (max-width:563px)
+and (orientation : landscape) {
+  div#header-container
+  {
+    height: 600px;
+  }
+  .input-login-wrapper
+  {
+    width: 100%;
+  }
+  #register-container-fluid
+  {
+    top:30% !important;
+  }
+}

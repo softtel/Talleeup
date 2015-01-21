@@ -312,7 +312,7 @@ $("#btn-register-submit").click(function(){
   function changeemailddd()
   {
       var _email=$("#user_email").val();
-  
+
       $.post("/home/CheckEmail",{email:_email},function(){
 
      }).success(function(data){
