@@ -16,6 +16,7 @@
 //= require ./sites/bootstrap.min
 //= require ./sites/tooltip
 //= require ./sites/popover
+//= require ./sites/autocomplate
 //= require_directory ./sites
 //= require ckeditor/init
 $(function(){

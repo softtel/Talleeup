@@ -4,7 +4,11 @@
     left: 20% !important;
   }
 }
-
+.product-reviews-score .score
+{
+  font-family: "Times New Roman", Georgia, Serif;
+  font-weight: bold;
+}
 @media (max-width: 1076px) {
   div#header-container{
       padding: 0 !important;
@@ -855,7 +859,7 @@ body{
 #login-container-fluid{
   height: 100px;
   background-color: #E7EFF2;
-  padding-top: 32px;
+  padding-top: 28px;
 
   display: none;
 }
@@ -1207,7 +1211,10 @@ div#main-bar-color{
   cursor: initial;
   padding-top: 8px;
 }
-
+#Email,#Password
+{
+  height: 42px;
+}
 .product-reviews-score .score{
   color: #34C1DD;
   font-size: 65px;
@@ -1215,7 +1222,7 @@ div#main-bar-color{
   vertical-align: middle;
   line-height: normal;
   position: absolute;
-  top: 0;
+  top: 17px;
   left: 0;
   z-index: 3;
 }

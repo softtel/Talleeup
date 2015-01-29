@@ -3,7 +3,7 @@ require 'product_view_models'
 class HomeController < ApplicationController
    #before_action :authenticate_user!
    before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail]
-
+   autocomplete :brand, :name, :display_value => :funky_method
   def index
 
     # @cityDetected = request.location.city
@@ -66,7 +66,10 @@ class HomeController < ApplicationController
     Follow.add(current_user.id, params[:friend_id])
     render :json => { :status => true }
   end
-
+  def getUserFllow
+   data= Follow.getUserFllow(current_user.id)
+    render :json=>{:data=> data}
+  end
    def unfollow
 
      Follow.delete(current_user.id, params[:friend_id])

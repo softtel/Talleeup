@@ -26,7 +26,7 @@
     <h4 class="text-center text-bold">Add Friends!</h4>
     <h6 class="text-center text-normal">Share this review with your friends</h6>
     <div id="form-group-share" class="form-group center-block">
-        <input id="txt-share-friend" class="form-control" />
+        <input id="txt-share-friend"  class="form-control" />
     </div>
 
   </div>
@@ -34,7 +34,6 @@
     <h4 class="text-center text-bold">Share your Experience</h4>
     <h6 class="text-center text-normal">Tell everyone about your burger review</h6>
     <div class="center-block">
-
       <div class="center-block" id="fb-root"></div>
       <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -179,8 +178,46 @@
           var _idddd=$(this).attr("lang");
           $("#idiididid_"+_idddd+"").css({"display":"none"});
       });
+      $(function() {
+          var availableTags = [
+              "ActionScript",
+              "AppleScript",
+              "Asp",
+              "BASIC",
+              "C",
+              "C++",
+              "Clojure",
+              "COBOL",
+              "ColdFusion",
+              "Erlang",
+              "Fortran",
+              "Groovy",
+              "Haskell",
+              "Java",
+              "JavaScript",
+              "Lisp",
+              "Perl",
+              "PHP",
+              "Python",
+              "Ruby",
+              "Scala",
+              "Scheme"
+          ];
 
+          $("#txt-share-friend").autocomplete({
+              source: availableTags
+          });
+      });
   });// end ready
+  function getfriend()
+  {
+      $.post("/home/getUserFllow",{},function(){
+
+      }).success(function(data){
+            console.log(data);
+      });
+  }
+
 </script>
 
 </body>

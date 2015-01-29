@@ -11,7 +11,41 @@
   <%= csrf_meta_tags %>
   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places,visualization&sensor=false"></script>
 </head>
-<body>
+<% if notice %>
+    <body  onload="onloadpoup()">
+<%else%>
+    <body>
+<%end%>
+<!--<p id="notice"><%= notice %></p>-->
+<% if notice %>
+<!-- Modal -->
+<div class="modal fade" id="myModalsinginup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Notification Sign Up</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          <%=raw  notice %>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function onloadpoup()
+  {
+        $("#myModalsinginup").modal();
+
+  }
+</script>
+<%end %>
 
 <div id="layer" onclick="layer()"></div>
 
@@ -86,7 +120,7 @@
         <li><%= link_to "Twitter", user_omniauth_authorize_path(:twitter) %></li>
         <li><%=link_to "Github", user_omniauth_authorize_path(:github)%></li>
 
-        <li><a href="#">Email</a></li>
+        <li><a href="javascript:void(0)" onclick="signup()">Email</a></li>
       </ul>
       </p>
       <%end%>
@@ -342,6 +376,5 @@ $("#btn-register-submit").click(function(){
      // });
   }
 </script>
-
 </body>
 </html>

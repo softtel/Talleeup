@@ -182,6 +182,8 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.1.7)
       sprockets-rails (~> 2.0)
+    rails4-autocomplete (1.1.1)
+      rails (>= 3.0)
     railties (4.1.7)
       actionpack (= 4.1.7)
       activesupport (= 4.1.7)
@@ -255,6 +257,7 @@ DEPENDENCIES
   pg_search
   prototype-rails
   rails
+  rails4-autocomplete
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   turbolinks
