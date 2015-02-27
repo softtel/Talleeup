@@ -38,7 +38,7 @@ body{
   font-weight: bolder;
   color: white;
   width: 100%;
-  height: 100px;
+  height: 146px;
   line-height: 87px;
 
 }
@@ -58,34 +58,40 @@ body{
 {
   float: left;
   width: 20%;
-  height: 100px;
+  height: 146px;
   border-bottom: 1px solid #145a8b;
 }
 .item-nnumber
 {
   float: left;
   width: 60%;
-  height: 100px;
-  border-bottom:2px solid #36c0de
+  height: 146px;
+  border-bottom:2px solid #36c0de;
+  font-family: myFirstFont;
+  font-size: 159px;
 }
 .text-burgerprofile
 {
-
-  height: 55px;
-  line-height: 25px;
-  font-size: 25pt !important;
+  font-family: myFirstFont;
+  height: 97px;
+  line-height: 45px;
+  font-size: 36pt !important;
+  padding-top: 46px !important;
 }
 .bur-text-bk-content-header
 {
   width: 58%;
   color: #fccf0f;
-  font-size: 20pt;
+  font-size: 18px;
   font-weight: bold;
   height: 43px;
   line-height: 32px;
   text-align: right;
-  padding-top: 10px;
+  padding-top: 30px;
   float: left;
+  text-transform: uppercase;
+  font-family: myFirstFont;
+
 }
 .downburgerprofile
 {
@@ -96,11 +102,14 @@ body{
 {
 
   float: left;
-  height: 42px;
+  height: 62px;
   background-color: #fccf0f;
-  line-height: 47px;
-  width: 220px;
+  line-height: 67px;
+  width: 301px;
   border-radius: 6px;
+  font-family: myFirstFont;
+  font-size: 18px;
+
 }
 .item-menu-top-header-bur a,.item-menu-top-header-bur a:hover,.item-menu-top-header-bur a:visited,.item-menu-top-header-bur a:active
 {
@@ -108,7 +117,7 @@ body{
 
   padding-left: 30px;
   background-color: #fccf0f;
-  border-radius: 6px;
+
   color: #145a8b;
   text-decoration: none;
 }
@@ -166,8 +175,8 @@ body{
 {
   width: 100%;
   float: left;
-  padding-top: 20px;
-  padding-bottom: 30px;
+  padding-top: 60px;
+  /*padding-bottom: 30px;*/
 }
 .detaisl-noline
 {
@@ -183,16 +192,18 @@ body{
   height: 50px;
   line-height: 50px;
   color: #145a8b;
-  font-size: 26pt;
+  font-size: 42px;
   font-weight: normal;
   text-transform: uppercase;
   text-align: center;
   border-bottom: 2px solid #36c0de;
+  font-family: myFirstFont;
 }
 .content-deatisl-title
 {
-  width: 100%;
-  float: left;
+  width: 780px;
+ /*float: left;*/
+  margin: 0 auto;
 }
 .text-dataisl-item
 {
@@ -200,8 +211,8 @@ body{
   float: left;
   text-align: left;
   color: #87898b;
-  font-size:19pt;
-
+  font-size:24px;
+  font-family: myFirstFont;
 
 }
 .price-dataisl-item
@@ -210,9 +221,9 @@ body{
   float: left;
   text-align: right;
   color: #87898b;
-  font-size:19pt;
+  font-size:24px;
 
-
+font-family: myFirstFont;
   white-space: pre-wrap;;
 }
 .line-none
@@ -223,8 +234,9 @@ body{
 }
 .content-reviews
 {
-  width: 100%;
-  float: left;
+  width: 780px;
+  /*float: left;*/
+  margin: 0 auto;
 }
 .item-avarta
 {
@@ -288,14 +300,15 @@ body{
 }
 .text-loadmore
 {
-  width: 200px;
-  height: 50px;
+  width: 300px;
+  height: 62px;
   background: #fccf0f;
-  line-height: 50px;
+  line-height: 62px;
   color: #145a8b;
-  font-size: 13pt;
-  font-weight: bold;
+  font-size: 18pt;
+  /*font-weight: bold;*/
   border-radius: 6px;
+  font-family: myFirstFont;
 }
 .item-text-reviews-mutile
 {
@@ -334,12 +347,12 @@ body{
 }
 .item-reviews-bur-comennt
 {
-  width: 100%;
-  float: left;
-  border-bottom: 1px solid #d8d8d8;
+  width: 640px;
+  /*float: left;*/
+  /*border-bottom: 1px solid #d8d8d8*/;
   min-height: 120px;
   line-height: 74px;
-
+margin: 0 auto;
 }
 .like-noactive
 {
@@ -372,7 +385,7 @@ body{
   float: left;
   line-height: 25px;
   text-align: right;
-  background-image:image_url("dot.png") ;
+  background-image:image_url("b-6.png") ;
   background-position:right center;
   background-repeat: no-repeat;
   height: 25px;
@@ -403,7 +416,7 @@ body{
   text-align: center;
   color: #ffffff;
   text-transform: uppercase;
-  padding-top: 5%;
+  padding-top: 42px;
   font-size: 12pt;
 
 }
@@ -430,8 +443,9 @@ body{
   line-height: 50px;
   min-height: 50px;
   border-bottom: 1px solid #d8d8d8;
-  width: 100%;
-  float: left;
+  /*width: 100%;*/
+  width: 780px;
+  /*float: left;*/
 }
 
 .small_review{

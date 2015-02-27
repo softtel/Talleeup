@@ -183,14 +183,14 @@ $width-txt-control: 500px;
   }
 
   #total-number-mobile{
-    font-size: 20px;
+    font-size: 54px;
     font-weight: bold;
     width: 100%;
     height: 100%;
     display: block;
     color: #ffffff;
     text-align: center;
-    margin-top: 20px;
+
   }
 
 
@@ -273,24 +273,26 @@ $width-txt-control: 500px;
 }
 
 #share-dialog{
- /* display: none;*/
+  display: none;
   position: absolute;
   top: 110px;
-  width: 330px;
+  width: 501px;
   min-height: 400px;
-  background-color: #ffffff;
+  background-color: #f3f7f9;
   z-index: 99;
   right: 0;
   left: 0;
   margin-right: auto;
   margin-left: auto;
   border-radius: 5px;
+  height: 711px;
 }
 
 #btn-close-dialog{
   position: absolute;
   right: 5px;
   top: 5px;
+
 }
 
 #share-dialog-1{
@@ -334,6 +336,7 @@ $width-txt-control: 500px;
   border: transparent;
   background-color: #fccf0f;
   color: #145a8b;
+  font-family: myFirstFont;
 }
 
 #share-dialog .text-center{
@@ -342,11 +345,14 @@ $width-txt-control: 500px;
 
 .text-bold{
   color: #145A8B;
-  font-weight: bold;
+  font-family: myFirstFont;
+  font-size: 42px;
 }
 
 .text-normal{
   color: #A8ABAE;
+  font-family: myFirstFont;
+  font-size: 16px;
 }
 
 .review-header-container{
@@ -365,14 +371,16 @@ $width-txt-control: 500px;
   color: #ffffff;
   text-align: center;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 36px;
+  font-family: myFirstFont;
 }
 
 #review-titles-bottom{
   color: #13598A;
   text-align: center;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 18px;
+  font-family: myFirstFont;
 }
 
 #step-1-container-fluid{
@@ -403,12 +411,15 @@ $width-txt-control: 500px;
 .text-title{
   text-align: center;
   color: #13598A;
-  font-weight: bold;
+  font-family: myFirstFont;
+  font-size: 24px;
 }
 
 .text-details{
   text-align: center;
   color: #A7A8AA;
+  font-family: myFirstFont;
+  font-size: 16px !important;
 }
 
 .txt-control{
@@ -418,11 +429,13 @@ $width-txt-control: 500px;
   border: 2px solid #88898B;
   border-radius: 7px;
   background-color: transparent;
-  color: #A9A9A9;
-  padding-left: 10px;
+  color: #87898b;
+  padding-left: 25px;
   padding-right: 10px;
-  font-weight: bolder;
-  font-size: 15px;
+
+  font-size: 18px;
+  font-family: myFirstFont;
+
 }
 
 .txt-control:focus{
@@ -526,7 +539,8 @@ div#total-rate{
 #total-title{
   text-align: center;
   color: #85898C;
-  font-size: 18px;
+  font-size: 14px;
+  font-family: myFirstFont;
 }
 
 #total-number{
@@ -534,7 +548,9 @@ div#total-rate{
   color: #38BFDF;
   font-weight: bold;
   margin-top: -5px;
-  font-size: 50px;
+  font-size: 54px;
+  font-family: myFirstFont;
+
 }
 
 #step-3-container-fluid{
@@ -614,9 +630,10 @@ button#btn-talleeup{
   border: transparent;
   background-color: #fccf0f;
   color: #13598C;
-  font-weight: bolder;
+
   margin-top: 60px;
   margin-bottom: 0px;
+  font-family: myFirstFont;
 }
 
 .rate-control{
@@ -641,8 +658,10 @@ button#btn-talleeup{
   top: 22px;
   left: 16px;
   color: #ffffff;
-  font-size: 13px;
+  font-size: 18px;
   z-index: 99;
+  cursor: pointer;
+  font-family: myFirstFont;
 }
 
 .rate-control .rate-number:first-child{
@@ -652,7 +671,7 @@ button#btn-talleeup{
 
 .rate-number{
   float: left;
-  width: 12.5%;
+  width: 11.11%;
   height: 100%;
   line-height: 60px;
   text-align: center;
@@ -666,15 +685,16 @@ button#btn-talleeup{
 
 .rate-result{
   float: left;
-  width: 12.5%;
+  width: 11.11%;
   height: 100%;
   line-height: 60px;
   text-align: center;
   background-color: #ffffff;
   color: #48C3E4;
-  font-size: 20px;
+  font-size: 22px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
+  font-family: myFirstFont;
 }
 .reviews-select
 {
@@ -700,4 +720,25 @@ button#btn-talleeup{
   position: absolute;
   top: -40px;
   z-index: 9999;
+}
+#changeautocomplate
+{
+  position: absolute;
+  z-index: 10000;
+  background: white;
+  width: 94%;
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 5px;
+}
+#changeautocomplate div:hover
+{
+  background: #36C0DD;
+  color: white;
+  cursor: pointer;
+
+}
+.padding-image
+{
+  padding-left: 19px;
 }

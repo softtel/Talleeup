@@ -3,7 +3,7 @@ require 'product_view_models'
 class HomeController < ApplicationController
    #before_action :authenticate_user!
    before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail]
-   autocomplete :brand, :name, :display_value => :funky_method
+   #autocomplete :brand, :name, :display_value => :funky_method
   def index
 
     # @cityDetected = request.location.city
@@ -15,11 +15,18 @@ class HomeController < ApplicationController
       _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
       if !_detectcountry.blank?
         _detectcountryid=_detectcountry.first().id
+
         @cities=City.where(country_id: _detectcountryid)
         if !_dectechcity.blank?
           city_id=_dectechcity.first().id
-        else
-          city_id=@cities.first().id
+        else if !@cities.blank?
+            city_id=@cities.first().id
+             else
+               country=Country.all.order("name ASC")
+               countryid=country.first().id
+               @cities=City.where(country_id:countryid)
+               city_id=@cities.first().id
+          end
         end
 
       else
@@ -267,7 +274,7 @@ end
     end
 
     @review_type = ReviewType.get_all
-
+    @userall=User.all().select(:email)
 
     render layout: "review_layout"
   end
@@ -302,8 +309,16 @@ end
             @location=City.where(country_id: _detectcountryid)
             if !_dectechcity.blank?
               @city_id=_dectechcity.first().id
-            else
-              @city_id=@location.first().id
+            else if !@location.blank?
+                   @city_id=@location.first().id
+                 else
+
+                   country=Country.all.order("name ASC")
+                   countryid=country.first().id
+                   @cities=City.where(country_id:countryid)
+                   city_id=@cities.first().id
+                 end
+
             end
           else
             country=Country.all.order("name ASC")
@@ -503,6 +518,7 @@ end
       Commentproduct.updatelike(params[:id])
       render :json => { :status => true }
   end
+
   def actionSendMail
     _html="";
     _html+="<p>You just received an invitation from a friend . You can click  here</a> to see details:</p>"+request.host_with_port+params[:link];

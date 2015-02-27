@@ -1,4 +1,10 @@
+<style>
+    .bk-header{
+        /*background: url('<%= @cueeentr.image.url(:original) %>') no-repeat center center fixed;*/
+        background-image: url('<%= @cueeentr.image.url(:original) %>');
 
+    }
+</style>
 <div class="cl"></div>
 <div class="container">
 <div class="content-product">
@@ -73,7 +79,7 @@
       <div class="item-conettn-body">
         <a href="/home/BurgerProfile/<%=item.id %>">
           <div class="item-img" style="position: relative">
-            <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'border-radius:10px') %>
+            <%= image_tag(item.images.url(:original),:width=>"269px",:height=>"219px", :class => 'img-responsive',:style => 'border-radius:10px;width:269px;height:219px') %>
             <% if(is_reviewed) %>
 
                   <div class="layer-product-image" style="height: 100% !important;"></div>

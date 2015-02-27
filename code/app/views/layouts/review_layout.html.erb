@@ -16,22 +16,33 @@
 
 <div id="layer-review"></div>
 <div id="share-dialog" class="center-block">
-    <button id="btn-close-dialog" type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <button id="btn-close-dialog" type="button" class="close" aria-label="Close"><span style="color: #145a8b" aria-hidden="true">&times;</span></button>
     <div id="share-dialog-1">
-      <h2 class="text-center text-bold">BOOMSHAKALAKA!</h2>
+      <h2 class="text-center text-bold" style="padding-top: 74px">BOOMSHAKALAKA!</h2>
       <h6 class="text-center text-normal">Thanks for bringing even more</h6>
       <h6 class="text-center text-normal">awesomeness to TalleeUp</h6>
     </div>
   <div id="share-dialog-2">
-    <h4 class="text-center text-bold">Add Friends!</h4>
-    <h6 class="text-center text-normal">Share this review with your friends</h6>
-    <div id="form-group-share" class="form-group center-block">
-        <input id="txt-share-friend"  class="form-control" />
-    </div>
+    <h4 class="text-center text-bold" style="padding-top: 33px">Add Friends!</h4>
+    <h6 class="text-center text-normal" >Share this review with your friends</h6>
+    <div id="form-group-share" class="form-group center-block" style="position: relative">
+        <input id="txt-share-friend"   class="form-control" />
 
+    </div>
+    <%
+       arr=Array.new
+
+       @userall.each  do |item|
+         arr.push(item.email)
+
+       end
+       arr.join
+
+    %>
+    <input type="hidden" value="<%=arr%>" id="sdnfsdsdf">
   </div>
   <div id="share-dialog-3">
-    <h4 class="text-center text-bold">Share your Experience</h4>
+    <h4 class="text-center text-bold" style="padding-top: 33px">Share your Experience</h4>
     <h6 class="text-center text-normal">Tell everyone about your burger review</h6>
     <div class="center-block">
       <div class="center-block" id="fb-root"></div>
@@ -56,7 +67,8 @@
 
   </div>
   <div id="share-dialog-4">
-    <button id="btn-done" class="center-block">DONE</button>
+    <button id="btn-done" class="center-block">DONE <span id="showloadding_reviews" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button>
+
   </div>
 </div>
 
@@ -127,12 +139,27 @@
       });
 
       $('#btn-done').click(function(){
+          var _val=$("#txt-share-friend").val();
+          _val=_val.split(',')
+          for(var i=0;i<_val.length-1;i++)
+          {
+              $("#showloadding_reviews").show();
+
+              $.post("/home/actionSendMail", {email:_val[i],message:"",link:"<%=request.original_url%>"}, function () {
+
+              }).success(function (data) {
+
+                  $("#showloadding_reviews").hide();
+              });
+          }
           closeDialog();
+
       });
 
-      $('.rate-number').hover(function()
+      /*$('.rate-number').click(function()
       {
           var numRate = $(this).text();
+
           var rateControl = $(this).closest('.rate-control');
           var _idddd=$(this).attr("lang");
           rateControl.children('.rate-result').text(numRate);
@@ -146,7 +173,7 @@
               totalRate += Number($(this).text());
           });
 
-          if(numRate==1) {
+          if(numRate==0) {
 
               $("#idiididid_"+_idddd+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
               $("#idiididid_"+_idddd+"").html("Fail")
@@ -178,37 +205,186 @@
           var _idddd=$(this).attr("lang");
           $("#idiididid_"+_idddd+"").css({"display":"none"});
       });
-      $(function() {
-          var availableTags = [
-              "ActionScript",
-              "AppleScript",
-              "Asp",
-              "BASIC",
-              "C",
-              "C++",
-              "Clojure",
-              "COBOL",
-              "ColdFusion",
-              "Erlang",
-              "Fortran",
-              "Groovy",
-              "Haskell",
-              "Java",
-              "JavaScript",
-              "Lisp",
-              "Perl",
-              "PHP",
-              "Python",
-              "Ruby",
-              "Scala",
-              "Scheme"
-          ];
+      */
 
-          $("#txt-share-friend").autocomplete({
-              source: availableTags
-          });
-      });
+      var arr=$("#sdnfsdsdf").val();
+      var find = '"';
+      var re = new RegExp(find, 'g');
+
+      arr = arr.replace(re, '');
+      arr = arr.replace('[', '');
+      arr = arr.replace(']', '');
+
+
+
+      arr=arr.split(',')
+
+
+      /*var arr = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+      ];*/
+
+      function split( val ) {
+          return val.split( /,\s*/ );
+      }
+      function extractLast( term ) {
+          return split( term ).pop();
+      }
+
+      $( "#txt-share-friend" )
+          // don't navigate away from the field on tab when selecting an item
+              .bind( "keydown", function( event ) {
+                  if ( event.keyCode === $.ui.keyCode.TAB &&
+                          $( this ).autocomplete( "instance" ).menu.active ) {
+                      event.preventDefault();
+                  }
+              })
+              .autocomplete({
+                  minLength: 0,
+                  source: function( request, response ) {
+                      // delegate back to autocomplete, but extract the last term
+                      response( $.ui.autocomplete.filter(
+                              arr, extractLast( request.term ) ) );
+                  },
+                  focus: function() {
+                      // prevent value inserted on focus
+                      return false;
+                  },
+                  select: function( event, ui ) {
+                      var terms = split( this.value );
+                      // remove the current input
+                      terms.pop();
+                      // add the selected item
+                      terms.push( ui.item.value );
+                      // add placeholder to get the comma-and-space at the end
+                      terms.push( "" );
+                      this.value = terms.join( ", " );
+                      return false;
+                  }
+              });
+
+
   });// end ready
+ function changeautocomplete()
+  {
+
+      var _val=$("#txt-share-friend").val();
+      var _data=find(_val);
+      var _html="";
+      for(var i=0;i<_data.length;i++)
+      {
+
+          _html+="<div onclick='additem(\""+_data[i]+"\")'>"+_data[i]+"</div>";
+      }
+      $("#changeautocomplate").html(_html);
+        console.log(find(_val))
+
+  }
+  function additem(_str)
+  {
+      var _data=$("#idhhhhhh").val();
+      var _kk="";
+      if(_data=="") {
+          _kk =  _str + "@";
+      }
+      else
+      {
+
+          var _sppll=_data.split('@');
+          var _int=0;
+          for(var k=0;k<_sppll.length-1;k++)
+          {
+              if(_str==_sppll[k])
+              {
+                  _int=1;
+              }
+
+          }
+          if(_int==0)
+          {
+              _kk = _data + _str + "@";
+          }
+          else
+          {
+              _kk=_data;
+          }
+
+      }
+
+      $("#idhhhhhh").val(_kk)
+       var _html="";
+      var _hhhh=_kk.split('@');
+        for(var g=0;g<_hhhh.length-1;g++)
+        {
+            _html+="<div style='width: auto'>"+_hhhh[g]+"</div>";
+        }
+      $("#txt-share-friend").val(_html)
+
+  }
+  /*$("#txt-share-friend").change(function(){
+
+      /*console.log(find(data));
+  });*/
+
+  function find(data) {
+      var result = [];
+      var arr = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+      ];
+
+      for (var i in arr) {
+
+          var rgxp = new RegExp(data, "g");
+
+          if (arr[i].match(rgxp)) {
+              result.push(arr[i]);
+          }
+      }
+
+      return result;
+  }
   function getfriend()
   {
       $.post("/home/getUserFllow",{},function(){

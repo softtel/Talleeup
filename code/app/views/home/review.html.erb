@@ -9,10 +9,10 @@
     </div>
     <div id="step-1-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
 
-      <div class="form-group form-group-mobile form-group-mobile-top">
+      <div style="margin-bottom: 19px" class="form-group form-group-mobile form-group-mobile-top">
 
 
-        <select <%=@disbale%> id="reviews-select" class="txt-control txt-success txt-control-mobile-top">
+        <select <%=@disbale%> id="reviews-select" style="width: 540px;height: 62px" class="txt-control txt-success txt-control-mobile-top">
           <%=@restaurant.each do |item| %>
               <%
                  _select=""
@@ -27,13 +27,13 @@
         </select>
 
 
-        <img src="/assets/review/valid.png" />
+        <img class="padding-image" src="/assets/review/valid.png" />
       </div>
 
       <div class="form-group form-group-mobile">
 
 
-        <select <%=@disbale%> id="child-product"  class="txt-control txt-success txt-normal txt-control-mobile-bottom">
+        <select <%=@disbale%> id="child-product" style="width: 540px;height: 62px"  class="txt-control txt-success txt-normal txt-control-mobile-bottom">
           <%=@restaurant_product.each do |child|%>
               <%
                  _selectdd=""
@@ -50,7 +50,7 @@
 
         <!--<input placeholder="Name Of Burger" class="txt-control txt-success txt-normal txt-control-mobile-bottom" value="" />-->
 
-        <img src="/assets/review/valid.png" />
+        <img class="padding-image" src="/assets/review/valid.png" />
       </div>
     </div>
   </div>
@@ -81,7 +81,7 @@
         </div>
         <div id="step-2-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
           <div id="total-rate" class="center-block">
-            <h5 id="total-title">TOTAL</h5>
+            <h5 id="total-title">TALLEE</h5>
             <h1 id="total-number" name="total-number" class="total-number"><%= (@reviewed.present?) ? @reviewed.totalpoint : 0 %></h1>
           </div>
 
@@ -93,14 +93,16 @@
                     <div class="hover-tootip" id="idiididid_<%= r_t.id %>" style="display: none"></div>
                     <div class="rate-control" >
                       <div class="rate-name" lang="<%= r_t.id %>"><%= r_t.name %></div>
-                      <div class="rate-number" lang="<%= r_t.id %>">1</div>
-                      <div class="rate-number" lang="<%= r_t.id %>">2</div>
-                      <div class="rate-number" lang="<%= r_t.id %>">3</div>
-                      <div class="rate-number" lang="<%= r_t.id %>">4</div>
-                      <div class="rate-number" lang="<%= r_t.id %>">5</div>
-                      <div class="rate-number" lang="<%= r_t.id %>">6</div>
-                      <div class="rate-number" lang="<%= r_t.id %>">7</div>
-                      <div data-reviewTypeId="<%= r_t.id %>" class="rate-result">0</div>
+                      <!--<div class="rate-number" lang="<%= r_t.id %>">0</div>-->
+                      <div style="border-top-left-radius: 7px;border-bottom-left-radius:7px" class="rate-number" id="reviews_number_0_<%= r_t.id %>" onclick="hoverchangereview(0,<%= r_t.id %>)" lang="<%= r_t.id %>">0</div>
+                      <div class="rate-number" id="reviews_number_1_<%= r_t.id %>" onclick="hoverchangereview(1,<%= r_t.id %>)" lang="<%= r_t.id %>">1</div>
+                      <div class="rate-number" id="reviews_number_2_<%= r_t.id %>" onclick="hoverchangereview(2,<%= r_t.id %>)" lang="<%= r_t.id %>">2</div>
+                      <div class="rate-number" id="reviews_number_3_<%= r_t.id %>" onclick="hoverchangereview(3,<%= r_t.id %>)" lang="<%= r_t.id %>">3</div>
+                      <div class="rate-number" id="reviews_number_4_<%= r_t.id %>" onclick="hoverchangereview(4,<%= r_t.id %>)" lang="<%= r_t.id %>">4</div>
+                      <div class="rate-number" id="reviews_number_5_<%= r_t.id %>" onclick="hoverchangereview(5,<%= r_t.id %>)" lang="<%= r_t.id %>">5</div>
+                      <div class="rate-number" id="reviews_number_6_<%= r_t.id %>" onclick="hoverchangereview(6,<%= r_t.id %>)" lang="<%= r_t.id %>">6</div>
+                      <div class="rate-number" id="reviews_number_7_<%= r_t.id %>" onclick="hoverchangereview(7,<%= r_t.id %>)" lang="<%= r_t.id %>">7</div>
+                      <div data-reviewTypeId="<%= r_t.id %>" id="rate-result_8_<%= r_t.id %>" class="rate-result">0</div>
                       <div class="clearfix"></div>
                     </div>
                   </div>
@@ -109,14 +111,15 @@
                 <% @reviewed_components.each do |c| %>
                   <div class="form-group form-group-rate-mobile" style="position:relative">
                     <div class="rate-control">
-                      <div class="rate-name"><%= (c.review_type.present?) ? c.review_type.name : "Admin Deleted" %></div>
-                      <div class="rate-number">1</div>
-                      <div class="rate-number">2</div>
-                      <div class="rate-number">3</div>
-                      <div class="rate-number">4</div>
-                      <div class="rate-number">5</div>
-                      <div class="rate-number">6</div>
-                      <div class="rate-number">7</div>
+                      <div style="border-top-left-radius: 7px;border-bottom-left-radius:7px" class="rate-name"><%= (c.review_type.present?) ? c.review_type.name : "Admin Deleted" %></div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_0_<%= c.id %>">0</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_1_<%= c.id %>">1</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_2_<%= c.id %>">2</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_3_<%= c.id %>">3</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_4_<%= c.id %>">4</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_5_<%= c.id %>">5</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_6_<%= c.id %>">6</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_7_<%= c.id %>">7</div>
                       <div class="rate-result"><%= c.point %></div>
                       <div class="clearfix"></div>
                     </div>
@@ -152,7 +155,10 @@
           <div id="form-group-comment" class="form-group">
             <textarea id="txt-textarea-comment" name="txt-textarea-comment" class="txt-control txt-normal"><% if (@reviewed.present?) %> <%= @reviewed.getComment %> <% end %></textarea>
             <div class="inputWrapper">
-              <input id="btn-attach-image" class="fileInput" type="file" />
+              <input id="btn-attach-image" onchange="readURL(this);" class="fileInput" type="file" />
+              <div style="padding-top: 35px">
+                <img id="blah" src="/Images/no.png" alt="your image" />
+              </div>
             </div>
 
           </div>
@@ -231,9 +237,22 @@
     });
     $('.rate-control').each(function () {
         var numRate = $(this).find('.rate-result').text();
+        var _lang=$(this).children('.rate-number').attr("lang")
+
         $(this).children('.rate-result').text(numRate);
-        $(this).children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
-        $(this).children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+        //for(var i=0;i<=numRate;i++)
+       // {
+        for(var i=0;i<=numRate;i++)
+        {
+            $("#com_reviews_number_"+i+"_"+_lang+"").css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+        }
+
+            //$(this).children('.rate-number').slice(0, 2).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+       // }
+        for(var k=numRate+1;k<=7;k++) {
+           // $(this).children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+            $("#com_reviews_number_"+k+"_"+_lang+"").css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+        }
 
     });// end each
     $('#btn-talleeup').click(function(e){
@@ -289,6 +308,7 @@
                 });
 
             });
+
             $.ajax({
                 type: "POST",
                 url: 'review_post',
@@ -349,4 +369,73 @@
         var _id=$("#child-product").val();
         window.location="/home/review?product_id="+_id+""
     })
+    function hoverchangereview(_number,_id)
+    {
+        var numRate = $("#reviews_number_"+_number+"_"+_id+"").text();
+
+        //var rateControl = $(this).closest('.rate-control');
+        var _idddd=$(this).attr("lang");
+        $("#rate-result_8_"+_id+"").text(numRate);
+        //rateControl.children('.rate-result').text(numRate);
+        //rateControl.children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+        for(var i=0;i<=_number;i++) {
+            $("#reviews_number_" + i + "_" + _id + "").css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+
+        }
+        for(var k=(_number+1);k<=7;k++) {
+            $("#reviews_number_" + k + "_" + _id + "").css({'background-color': '#DFE3E6', 'color': '#fff'});
+        }
+        //rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+
+
+        var totalRate = 0;
+        $('.rate-result').each(function(){
+            totalRate += Number($(this).text());
+        });
+
+        if(numRate==0) {
+
+            $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+            $("#idiididid_"+_id+"").html("Fail")
+
+        }
+
+        else  if(numRate==3)
+        {
+
+            $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+            $("#idiididid_"+_id+"").html("Average")
+            //rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': 'white'});
+        }
+
+
+        else if(numRate==7)
+        {
+
+            $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+            $("#idiididid_"+_id+"").html("Perfect")
+        }
+        else
+        {
+            $("#idiididid_"+_id+"").css({"display":"none"});
+        }
+
+        $('.total-number').text(totalRate);
+        valid();
+
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                        .attr('src', e.target.result)
+                        .width(50)
+                        .height(50);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>

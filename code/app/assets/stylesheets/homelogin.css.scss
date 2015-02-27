@@ -39,20 +39,22 @@
 .search-home
 {
   float: left;
-  width:38%;
-  margin-top: 40px;
+  /*width:38%;*/
+  margin-top: 30px;
   position: relative;
 }
 .search-home input[type="text"]
 {
   border :2px solid #36c0de;
-  width: 66%;
+  /*width: 66%;*/
+  width: 270px;
   border-radius: 6px;
-  height: 50px;
+  height: 55px;
   background: #145a8b;
+  font-family: myFirstFont;
 
   background-color: #145a8b;
-
+  padding-left: 22px;
   color: #ffffff;
 }
 .button-search-submit
@@ -63,28 +65,31 @@
   background-color: transparent;
   background-repeat:no-repeat;
   background-position: right;
-  top: 13px;
-  right: 128px;
+  top: 33%;
+  right: 14px;
   content: "";
   width: 22px;
   height: 22px;
+
 }
 .button-review
 {
   float: left;
-  margin-top: 40px;
-  padding-left: 60px;
+  margin-top: 30px;
+  padding-left: 32px;
 }
 .button-review input
 {
-  font-weight: bold;
+ /* font-weight: bold;*/
   border: none;
   background: #fccf0f;
   border-radius:8px ;
-  width: 80px;
+  width: 126px;
   color: #145a8b;
-  height: 40px;
+  height: 55px;
   line-height: 40px;
+  font-family: myFirstFont;
+  font-size: 18px;
 }
 .button-profile
 {

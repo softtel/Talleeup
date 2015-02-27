@@ -1,3 +1,4 @@
+
 @media (max-width: 1199px) {
 
   span.icon{
@@ -6,8 +7,9 @@
 }
 .product-reviews-score .score
 {
-  font-family: "Times New Roman", Georgia, Serif;
-  font-weight: bold;
+  font-family: myFirstFont;
+  /*font-weight: bold;*/
+  font-size: 66px;
 }
 @media (max-width: 1076px) {
   div#header-container{
@@ -217,9 +219,10 @@
   }
 
   h1#main-title-body{
-    font-size: 25px !important;
+    font-size: 42px !important;
     margin-left: 0px !important;
     margin-right: 0px !important;
+    font-family: myFirstFont;
   }
 
   div#list-products{
@@ -904,8 +907,8 @@ div#register-container-fluid{
   z-index: 3;
   width: 100%;
   height: 512px;
-  background-color: #e9eff2;
-  opacity: 0.7;
+  background-color: #f3f7f9;
+  opacity: 0.95;
   top:40%;
 }
 @media only screen
@@ -941,7 +944,7 @@ and (orientation : portrait) {
 #btn-login{
   color: #ffffff;
   font-size: 18px;
-  font-weight: bold;
+  /*font-weight: bold;*/
   border: 2.5px solid #36c0de;
   width: 140px;
   height: 62px;
@@ -952,6 +955,7 @@ and (orientation : portrait) {
   text-align: center;
   background-color:transparent;
   border-radius: 6px;
+  font-family: myFirstFont;
 }
 #btn-logout{
   color: #ffffff;
@@ -1004,6 +1008,7 @@ and (orientation : portrait) {
   border: transparent;
   background-color: #fccf0f;
   color: #145a8b;
+  font-family: myFirstFont;
 }
 
 .btn-seefull{
@@ -1085,15 +1090,19 @@ ul#signup-list li:not(:first-child):before {
 
 #main-title-top{
   color: #B6BABD;
-  font-weight: bold;
+  /*font-weight: bold;*/
+  font-family: myFirstFontBold;
+  letter-spacing: 3px;
 }
 
 #main-title-body{
   color: #145A8B;
-  font-weight: bold;
+  /*font-weight: bold;*/
   margin-top: -1px;
   margin-bottom: -2px;
   padding-bottom: 20px;
+  font-family: myFirstFont;
+  font-size:42px !important;
 }
 
 div#main-bar-color{
@@ -1104,11 +1113,12 @@ div#main-bar-color{
 }
 #city-filter{
   color: #165A8B;
-  font-weight: bold;
-  font-size: 18px;
+ 
+  font-size: 42px;
   text-align: center;
   margin-top: 40px;
   margin-bottom: 40px;
+  font-family: myFirstFont;
 }
 
 .product{
@@ -1175,12 +1185,18 @@ div#main-bar-color{
 }
 
 .product-reviews-center h3{
-  color: #88898D;
+  color: #87898b;
   margin-top: 11px !important;
+  font-family: myFirstFont;
+  font-size: 24px;
+  letter-spacing: 1px;
 }
 
 .product-reviews-center h4{
   color: #CECFD1;
+  font-family: myFirstFont;
+  font-size: 18px !important;
+  letter-spacing: 1px;
 }
 
 .circles{
@@ -1214,10 +1230,13 @@ div#main-bar-color{
 #Email,#Password
 {
   height: 42px;
+  font-family: myFirstFont;
+  text-transform: lowercase;
+  color: #bbc0c3 !important;
 }
 .product-reviews-score .score{
   color: #34C1DD;
-  font-size: 65px;
+  font-size: 66px;
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
@@ -1242,6 +1261,8 @@ div#main-bar-color{
 .product-reviews-people h6{
   margin-top: 26px;
   color: #C1C1C1;
+  font-family: myFirstFont;
+  font-size: 12px;
 }
 
 .list-avatars{
@@ -1258,10 +1279,11 @@ div#main-bar-color{
 
 .num-reviewer{
   color: #36C1DE;
-  font-weight: bold;
+  /*font-weight: bold;*/
   font-size: 18px;
   padding-top: 20px;
   margin-left: 4px;
+  font-family: myFirstFont;
 }
 
 .product-btn-group{
@@ -1280,9 +1302,10 @@ div#main-bar-color{
   background-color: #FCD00F;
   color: #16598E;
   font-size: 18px;
-  font-weight: bold;
+  /*font-weight: bold;*/
   border: none;
   margin-bottom: 0px !important;
+  font-family: myFirstFont;
 }
 
 .btn-review{
@@ -1312,7 +1335,7 @@ span.icon {
 
 .styled-select {
   width: 200px;
-  height: 34px;
+  height: 42px;
   overflow: hidden;
   background: url('/assets/05.png') no-repeat right #F3F7FA;
   border: none;
@@ -1324,22 +1347,32 @@ span.icon {
   padding: 5px;
   color: #165A8B;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 18px;
   line-height: 1;
   border: 0;
   border-radius: 0;
   height: 42px;
   -webkit-appearance: none;
+  font-family: myFirstFont;
+
 }
 @font-face {
   font-family: myFirstFont;
   src: url('/assets/Montserrat-Regular.ttf');
 }
+@font-face {
+  font-family: myFirstFontBold;
+  src: url('/assets/Montserrat-Bold.ttf');
+}
 #introduct-top,#introduct-bottom
 {
   font-family:myFirstFont;
 }
-
+#btn-signup
+{
+  font-family:myFirstFont ;
+  font-size: 18px;
+}
 .min-score-review{
   font-size: 16px !important;
   position: absolute;
@@ -1478,4 +1511,22 @@ and (orientation : landscape) {
   {
     top:30% !important;
   }
+}
+.modal-title
+{
+  font-family: myFirstFont !important;
+  font-size: 24px;
+  color: #87898b;
+  letter-spacing: 1px;
+}
+.modal-body
+{
+  font-family: myFirstFont !important;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+.col-xs-5, .col-sm-5
+{
+  padding-left: 0px !important;
+
 }
