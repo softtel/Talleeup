@@ -583,7 +583,7 @@ and (orientation : portrait) {
     margin-top: 30px;
   }
   .button-review {
-    margin-top: 35px;
+    margin-top: 30px;
   }
   .button-profile {
     margin-top: 36px;
@@ -815,7 +815,7 @@ and (orientation : portrait) {
   .m-logo-header {
     background-image: image_url("m_02.png");
     height: 77px;
-    width: 26%;
+    width: 20%;
     margin-top: 17px;
     float: left;
     background-repeat: no-repeat;
@@ -1250,7 +1250,7 @@ and (orientation : portrait) {
   .m-logo-header {
     background-image: image_url("m_02.png");
     height: 77px;
-    width: 26%;
+    width: 20%;
     margin-top: 17px;
     float: left;
     background-repeat: no-repeat;
@@ -1322,13 +1322,13 @@ and (orientation : portrait) {
   }
   .button-review
   {
-    padding-left: 30px;
+    padding-left: 15px;
     margin-top: 30px;
   }
   .button-profile
   {
-    padding-left: 18px;
-    margin-top: 30px;
+    padding-left: 13px;
+    margin-top: 38px;
   }
   .line-no
   {
@@ -1348,7 +1348,7 @@ and (orientation : portrait) {
   }
   .name-title-product-review
   {
-    font-size: 15pt;
+    font-size: 13pt;
     height: 11px;
     line-height: 11px;
   }
@@ -1587,7 +1587,7 @@ and (orientation : portrait) {
   .m-logo-header {
     background-image: image_url("m_02.png");
     height: 77px;
-    width: 26%;
+    width: 20%;
     margin-top: 17px;
     float: left;
     background-repeat: no-repeat;
@@ -1609,10 +1609,18 @@ and (orientation : portrait) {
     float: left;
     margin-top: 40px;
   }
+  .button-review
+  {
+    margin-top: 30px;
+  }
   .button-profile,.button-review
   {
-    padding-left: 30px;
-    margin-top: 30px;
+    padding-left: 21px;
+
+  }
+  .button-profile
+  {
+    margin-top: 38px;
   }
   .bk-content-header
   {
@@ -1779,7 +1787,7 @@ and (orientation : portrait)
   .m-logo-header {
     background-image: image_url("m_02.png");
     height: 77px;
-    width: 26%;
+    width: 20%;
     margin-top: 17px;
     float: left;
     background-repeat: no-repeat;
@@ -1801,11 +1809,20 @@ and (orientation : portrait)
     float: left;
     margin-top: 40px;
   }
-  .button-profile,.button-review
+  .button-review
   {
-    padding-left: 30px;
     margin-top: 30px;
   }
+  .button-profile,.button-review
+  {
+    padding-left: 21px;
+
+  }
+  .button-profile
+  {
+    margin-top: 38px;
+  }
+
   .bk-content-header
   {
     padding-top: 27%;
@@ -1974,7 +1991,7 @@ and (orientation : portrait)
 {
   .button-review
   {
-    padding-left: 42px;
+    padding-left: 30px;
   }
   .button-profile
   {
@@ -2028,7 +2045,7 @@ and (orientation : portrait)
 
   .button-review
   {
-    padding-left: 42px;
+    padding-left: 20px;
   }
   .button-profile
   {

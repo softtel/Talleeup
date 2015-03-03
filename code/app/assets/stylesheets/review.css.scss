@@ -742,3 +742,51 @@ button#btn-talleeup{
 {
   padding-left: 19px;
 }
+@media only screen and (min-width:338px)
+and (max-width:338px)
+and (orientation : portrait) {
+  #review-titles-top
+  {
+    margin-top: 17px;
+  }
+  .padding-image
+  {
+    padding-left: 0px;
+  }
+}
+@media only screen and (min-width:357px)
+and (max-width:357px)
+and (orientation : portrait) {
+
+  .padding-image
+  {
+    padding-left: 0px;
+  }
+}
+@media only screen and (min-width:384px)
+and (max-width:384px)
+and (orientation : portrait) {
+
+  .padding-image
+  {
+    padding-left: 0px;
+  }
+}
+@media only screen and (min-width:395px)
+and (max-width:395px)
+and (orientation : portrait) {
+
+  .padding-image
+  {
+    padding-left: 0px;
+  }
+}
+@media only screen and (min-width:351px)
+and (max-width:351px)
+and (orientation : portrait) {
+
+  .padding-image
+  {
+    padding-left: 0px;
+  }
+}

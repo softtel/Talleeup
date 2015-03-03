@@ -457,7 +457,7 @@ margin: 0 auto;
 and (min-device-width : 768px)
 and (max-device-width : 1024px)
 and (orientation : landscape) {
-  /* Styles */
+
 }
 
 /* iPads (portrait) ----------- */
@@ -466,6 +466,18 @@ and (min-device-width : 768px)
 and (max-device-width : 1024px)
 and (orientation : portrait) {
   /* Styles */
+  .detaisl-item-titl
+  {
+    width: 70%;
+  }
+  .detaisl-noline
+  {
+    width: 15%;
+  }
+  .content-deatisl-title,.item-content-details
+  {
+    width: 100%;
+  }
 
 }
 
@@ -522,4 +534,197 @@ and (max-device-width : 480px) {
     margin-left: -45px;
     width: 95px;
   }
+}
+@media only screen and (min-width:395px)
+and (max-width:395px)
+and (orientation : portrait)
+{
+  .content-deatisl-title
+  {
+    width: 100%;
+  }
+  .item-content-details
+  {
+    width: 100%;
+  }
+  .menu-top-header
+  {
+    height: auto !important;
+  }
+  .item-text-bottom
+  {
+    padding-top: 23px;
+  }
+  .text-burgerprofile
+  {
+    font-size: 25px !important;
+  }
+
+}
+@media only screen and (min-width:351px)
+and (max-width:351px)
+and (orientation : portrait)
+{
+  .content-deatisl-title
+  {
+    width: 100%;
+  }
+  .item-content-details
+  {
+    width: 100%;
+  }
+  .menu-top-header
+  {
+    height: auto !important;
+  }
+  .item-text-bottom
+  {
+    padding-top: 23px;
+  }
+  .text-burgerprofile
+  {
+    font-size: 25px !important;
+  }
+  .no-line-bur
+  {
+    height: 8px;
+  }
+  .detaisl-item-titl
+  {
+    font-size: 22px;
+    width: 90%;
+  }
+  .content-reviews
+  {
+    width: 100%;
+  }
+  .item-reviews-bur-comennt
+  {
+    width: 100%;
+  }
+  .item-clock-comment
+  {
+    overflow: hidden;
+  }
+  .item-text-reviews-comment
+  {
+    padding-left: 15px;
+  }
+  .buttom-loadmore
+  {
+    width: auto;
+  }
+  .detaisl-noline
+  {
+    width: 5%;
+
+  }
+  .item-nnumber
+  {
+    font-size: 73pt;
+  }
+  .navbar-header
+  {
+    padding-top: 10px;
+  }
+}
+@media only screen and (min-width:384px)
+and (max-width:384px)
+and (orientation : portrait)
+{
+  .content-deatisl-title
+  {
+    width: 100%;
+  }
+  .item-content-details
+  {
+    width: 100%;
+  }
+  .menu-top-header
+  {
+    height: auto !important;
+  }
+  .item-text-bottom
+  {
+    padding-top: 23px;
+  }
+  .text-burgerprofile
+  {
+    font-size: 25px !important;
+  }
+  .content-reviews
+  {
+    width: 100%;
+  }
+  .item-reviews-bur-comennt
+  {
+    width: 100%;
+  }
+}
+@media only screen and (min-width:338px)
+and (max-width:338px)
+and (orientation : portrait)
+{
+  .content-reviews
+  {
+    width: 100%;
+  }
+  .item-reviews-bur-comennt
+  {
+    width: 100%;
+  }
+  .item-clock-comment
+  {
+    overflow: hidden;
+  }
+  .item-text-reviews-comment
+  {
+    padding-left: 15px;
+  }
+  .buttom-loadmore
+  {
+    width: auto;
+  }
+  .detaisl-noline
+  {
+    width: 5%;
+  }
+  .detaisl-item-titl
+  {
+    width: 90%;
+    font-size: 21px;
+  }
+  .item-content-details
+  {
+    width: 100%;
+  }
+  .content-deatisl-title
+  {
+    width: 100%;
+  }
+  .price-dataisl-item
+  {
+    font-size: 21px;
+  }
+  .menu-top-header
+  {
+    height: auto !important;
+  }
+  .no-line-bur
+  {
+    height: 8px;
+  }
+  .text-burgerprofile
+  {
+    font-size: 26px !important;
+  }
+  .bur-text-bk-content-header
+  {
+    width: 57%;
+  }
+  .item-nnumber
+  {
+    font-size: 73pt;
+  }
+
 }

@@ -36,11 +36,13 @@
 
         <% if action_name==='index' %>
             <span class="score"><%=  product.get_review_score.round(1) %></span>
-            <span class="max-score-review">/<%=product.getMaxReview%></span>
+           <!-- <span class="max-score-review">/<%=product.getMaxReview%></span>-->
+            <span class="max-score-review">/35</span>
          <%else%>
             <span class="score"><%=  product.get_review_score.round(1) %></span>
             <span class="min-score-review">/<%=product.getMinReview%></span>
-            <span class="max-score-review">/<%=product.getMaxReview%></span>
+            <!--<span class="max-score-review">/<%=product.getMaxReview%></span>-->
+            <span class="max-score-review">/35</span>
         <%end%>
 
       </p>

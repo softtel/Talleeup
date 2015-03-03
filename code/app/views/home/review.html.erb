@@ -12,7 +12,7 @@
       <div style="margin-bottom: 19px" class="form-group form-group-mobile form-group-mobile-top">
 
 
-        <select <%=@disbale%> id="reviews-select" style="width: 540px;height: 62px" class="txt-control txt-success txt-control-mobile-top">
+        <select <%=@disbale%> id="reviews-select" style="height: 62px" class="txt-control txt-success txt-control-mobile-top">
           <%=@restaurant.each do |item| %>
               <%
                  _select=""
@@ -33,7 +33,7 @@
       <div class="form-group form-group-mobile">
 
 
-        <select <%=@disbale%> id="child-product" style="width: 540px;height: 62px"  class="txt-control txt-success txt-normal txt-control-mobile-bottom">
+        <select <%=@disbale%> id="child-product" style="height: 62px"  class="txt-control txt-success txt-normal txt-control-mobile-bottom">
           <%=@restaurant_product.each do |child|%>
               <%
                  _selectdd=""

@@ -98,7 +98,14 @@ class HomeController < ApplicationController
         if !_dectechcity.blank?
           city_id=_dectechcity.first().id
         else
-          city_id=@cities.first().id
+          if !@cities.blank?
+            city_id=@cities.first().id
+          else
+            country=Country.all.order("name ASC")
+            countryid=country.first().id
+            @cities=City.where(country_id:countryid)
+            city_id=@cities.first().id
+            end
         end
       end
     else
@@ -316,7 +323,7 @@ end
                    country=Country.all.order("name ASC")
                    countryid=country.first().id
                    @cities=City.where(country_id:countryid)
-                   city_id=@cities.first().id
+                   @city_id=@cities.first().id
                  end
 
             end
@@ -390,11 +397,19 @@ end
                 _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
                 if !_detectcountry.blank?
                   _detectcountryid=_detectcountry.first().id
+                  @kkk=_detectcountryid
                   @location=City.where(country_id: _detectcountryid)
                   if !_dectechcity.blank?
                     @city_id=_dectechcity.first().id
                   else
-                    @city_id=@location.first().id
+                    if !@location.blank?
+                        @city_id=@location.first().id
+                    else
+                      country=Country.all.order("name ASC")
+                      countryid=country.first().id
+                      @cities=City.where(country_id:countryid)
+                      @city_id=@cities.first().id
+                      end
                   end
 
                 end

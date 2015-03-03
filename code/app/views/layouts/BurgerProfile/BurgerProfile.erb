@@ -18,10 +18,20 @@
       <div class="container">
         <div class="navbar-header">
           <%if device_type == :mobile %>
-              <div class="m-logo-header"></div>
 
+              <%if user_signed_in? %>
+
+                  <a href="/home/login"><div class="m-logo-header"></div></a>
+              <%else%>
+                  <a href="/home/index"><div class="m-logo-header"></div></a>
+              <%end%>
           <%else%>
-              <a href="/home/index"><div class="logo-header "></div></a>
+              <%if user_signed_in? %>
+
+                        <a href="/home/login"><div class="logo-header "></div></a>
+                  <%else%>
+                  <a href="/home/index"><div class="logo-header "></div></a>
+              <%end%>
           <%end%>
          <!-- <%if device_type != :mobile %>
               <a href="/home/locations"> <div class="home-login-poniter"></div></a>
@@ -103,7 +113,7 @@
 
       </div>
     </div>
-    <div class="bk-header bk-header-burgerprofile" style="background-image:url('/Uploads/banner/02.png') ">
+    <div class="bk-header bk-header-burgerprofile" style="background-image:url('/Uploads/banner/02.png');background-size: cover;-webkit-background-size: cover ">
 
 
 
