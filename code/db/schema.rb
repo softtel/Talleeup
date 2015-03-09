@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107083442) do
+ActiveRecord::Schema.define(version: 20150306100715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -151,6 +151,19 @@ ActiveRecord::Schema.define(version: 20150107083442) do
   create_table "favorites", force: true do |t|
     t.integer  "user_id"
     t.integer  "favorite_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "filter_cities", force: true do |t|
+    t.integer  "city_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "filters", force: true do |t|
+    t.integer  "component_id"
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"

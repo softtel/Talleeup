@@ -137,13 +137,23 @@
             <div class="item-menu-top-header"><a href="#" >this filter </a></div>
             <div class="item-menu-top-header"><a href="#" >another filter</a> </div>
             <%end%>-->
-            <div class="item-menu-top-header" onclick="hovermenu()" ><a href="javascript:void(0)" >Filter <%=@kkk%></a></div>
+            <div class="item-menu-top-header" onclick="hovermenu()" ><a href="javascript:void(0)" >Filter</a></div>
             <div class="fiter-line" style="float: left;width: 50px;height: 55px;border-right: 1px solid #ccc;"></div>
             <div class="item-menu-top-header-filter" id="show-data-select">
               <%if @listvalue.present?%>
+
                   <%@listvalue.each do |item|%>
-                      <div class='item-nnnn' id='remove-id-<%=item.id%>'>
-                        <div class='cls-input-auto' ><div class='text-select-item'><%=item.name%></div><div onclick='closeritem(<%=item.id%>)' class='cls-close-menu'>x</div></div>
+                      <div class='item-nnnn' id='remove-cate-id-<%=item.id%>'>
+                        <div class='cls-input-auto' ><div class='text-select-item'><%=item.name%></div><div onclick='closeritem(<%=item.id%>,"cate")' class='cls-close-menu'>x</div></div>
+
+                      </div>
+                  <%end%>
+              <%end%>
+              <%if @listcutyfilter.present?%>
+
+                  <%@listcutyfilter.each do |item|%>
+                      <div class='item-nnnn' id='remove-city-id-<%=item.id%>'>
+                        <div class='cls-input-auto' ><div class='text-select-item'><%=item.name%></div><div onclick='closeritem(<%=item.id%>,"city")' class='cls-close-menu'>x</div></div>
 
                       </div>
                   <%end%>
@@ -155,7 +165,7 @@
     <%end%>
     <div class="cl"></div>
 
-    <%if @listvalue.present?%>
+    <%if @listvalue.present? or @listcutyfilter.present?%>
         <%_show="display:block" %>
     <%else%>
         <%_show="display:none" %>
@@ -166,7 +176,7 @@
       <div class="container">
         <div class="container-menu-filter">
           <%_ko=0%>
-          <%@componant.each do |item|%>
+
               <%_witdht=100%>
               <%if device_type == :mobile %>
                 <%_k=_witdht/3%>
@@ -174,18 +184,34 @@
                   <%_k=_witdht/4%>
               <%end%>
               <div class="container-item" style="width: <%=_k%>%">
-                <div class="menu-text-file"><%=item.name%></div>
+                <div class="menu-text-file">City</div>
                 <div class="menu-item-filter">
-                  <%item.getvalue.each do |k|%>
+                  <%@companonetcity.each do |k|%>
                       <%_select=""%>
-                      <%if @listvalue.present?%>
-                          <%@listvalue.each do |hokk|%>
+                      <%if @listcutyfilter.present?%>
+                          <%@listcutyfilter.each do |hokk|%>
                               <% if k.id==hokk.id %>
-                                    <% _select='class=check-active-select' %>
+                                  <% _select='class=check-active-select' %>
                               <%end%>
                           <%end%>
                       <%end%>
-                       <div <%=_select%>  onclick="additem(<%=k.id%>)" id="item-component_<%=k.id%>" class="item-nemu-text"><%=k.name%></div>
+                      <div <%=_select%>  onclick="additem(<%=k.id%>,'city')" id="item-component_<%=k.id%>" class="item-nemu-text"><%=k.name%></div>
+                  <%end%>
+                </div>
+              </div>
+              <div class="container-item" style="width: <%=_k%>%">
+                <div class="menu-text-file">Category</div>
+                <div class="menu-item-filter">
+                  <%@componant.each do |k|%>
+                      <%_selectfd=""%>
+                      <%if @listvalue.present?%>
+                          <%@listvalue.each do |hokk|%>
+                              <% if k.id==hokk.id %>
+                                    <% _selectfd='class=check-active-select' %>
+                              <%end%>
+                          <%end%>
+                      <%end%>
+                       <div <%=_selectfd%>  onclick="additem(<%=k.id%>,'cate')" id="item-component_<%=k.id%>" class="item-nemu-text"><%=k.name%></div>
                   <%end%>
                 </div>
               </div>
@@ -201,7 +227,7 @@
 
               <%end%>
               <%_ko=_ko+1%>
-          <%end%>
+
 
 
         </div>

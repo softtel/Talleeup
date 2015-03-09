@@ -931,7 +931,7 @@ and (orientation : portrait) {
   font-weight: bold;
   color: #145a8b;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 7px;
 }
 
 #header{
@@ -1617,4 +1617,8 @@ and (orientation : portrait) {
   {
     font-size: 18px;
   }
+}
+div#register-container-fluid div.form-group
+{
+  margin-bottom: 7px !important;
 }

@@ -67,6 +67,7 @@ class Product < ActiveRecord::Base
   def check_reviewed(user_id)
     first_day_of_month = Time.new(Time.now.year, Time.now.month, 1)
     reviewed = Review.where("user_id = ? AND product_id = ? AND  created_at >= ?", user_id, self.id,  first_day_of_month).count
+    
     return (reviewed > 0) ? true : false
   end
 
@@ -91,7 +92,7 @@ class Product < ActiveRecord::Base
                                 where id = (
                                             select max(id)
                                             from reviews as f
-                                            where f.product_id = #{productid} and f.user_id = reviews.user_id) limit #{_num}")
+                                            where f.product_id = #{productid} and f.user_id = reviews.user_id)  ORDER by created_at DESC limit #{_num}")
 
     return reviews
   end

@@ -157,9 +157,9 @@
           <%= f.password_field :password, autocomplete: "off", :class => "form-control input-register-mobile", :placeholder => "password" %>
         </div>
 
-        <!--<div class="form-group form-group-register-mobile">-->
-          <!--<%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control input-register-mobile", :placeholder => "password confirm" %>-->
-        <!--</div>-->
+        <div class="form-group form-group-register-mobile">
+          <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control input-register-mobile", :placeholder => "password confirm" %>
+        </div>
 
         <div class="form-group">
           <%= f.submit "JOIN TALLEEUP", :class => "center-block", :id => "btn-register-submit",:type=>"button" %>
@@ -264,6 +264,20 @@ $("#btn-register-submit").click(function(){
         $("#user_password").css({"border":"1px solid red"});
         return false;
     }
+    var _comfirmpasss=$("#user_password_confirmation").val()
+    if(_comfirmpasss=="")
+    {
+        $("#user_password_confirmation").attr("placeholder","Please,Input password confirm !");
+        $("#user_password_confirmation").css({"border":"1px solid red"});
+        return false;
+    }
+    if(_user_password!=_comfirmpasss)
+    {
+        $("#user_password_confirmation").attr("placeholder","Password and Password Confirm not match");
+        $("#user_password_confirmation").css({"border":"1px solid red"});
+        return false;
+    }
+
     var _email=$("#user_email").val();
 
     $.post("/home/CheckEmail",{email:_email},function(){

@@ -5,67 +5,71 @@ class HomeController < ApplicationController
    before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail]
    #autocomplete :brand, :name, :display_value => :funky_method
   def index
-
-    # @cityDetected = request.location.city
-    _ip=request.remote_ip
-    @getLocation=Location.where(ip: _ip).order("id DESC")
-
-    if !@getLocation.blank? && !request.post?
-      _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
-      _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
-      if !_detectcountry.blank?
-        _detectcountryid=_detectcountry.first().id
-
-        @cities=City.where(country_id: _detectcountryid)
-        if !_dectechcity.blank?
-          city_id=_dectechcity.first().id
-        else if !@cities.blank?
-            city_id=@cities.first().id
-             else
-               country=Country.all.order("name ASC")
-               countryid=country.first().id
-               @cities=City.where(country_id:countryid)
-               city_id=@cities.first().id
-          end
-        end
-
-      else
-        country=Country.all.order("name ASC")
-        countryid=country.first().id
-        @cities=City.where(country_id:countryid)
-        city_id=@cities.first().id
-      end
-    else if @getLocation.blank? && request.post?
-           city_id=params[:city_id]
-           countryid=City.where(id: city_id).first().country_id
-           @cities=City.where(country_id:countryid)
-
-         else if !@getLocation.blank? && request.post?
-                city_id=params[:city_id]
-                countryid=City.where(id: city_id).first().country_id
-                @cities=City.where(country_id:countryid)
-              else
-
-                country=Country.all.order("name ASC")
-                countryid=country.first().id
-                @cities=City.where(country_id:countryid)
-                city_id=@cities.first().id
-              end
-
-         end
-
-    end
-    @current_city = City.find_by_id(city_id)
-
-    # country = request.location.country_code
     if user_signed_in?
-      @products = Product.get_products(city_id, 99999999)
+      redirect_to "/home/login"
     else
-      @products = Product.get_products(city_id, 5)
+      # @cityDetected = request.location.city
+      _ip=request.remote_ip
+      @getLocation=Location.where(ip: _ip).order("id DESC")
+
+      if !@getLocation.blank? && !request.post?
+        _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
+        _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
+        if !_detectcountry.blank?
+          _detectcountryid=_detectcountry.first().id
+
+          @cities=City.where(country_id: _detectcountryid)
+          if !_dectechcity.blank?
+            city_id=_dectechcity.first().id
+          else if !@cities.blank?
+                 city_id=@cities.first().id
+               else
+                 country=Country.all.order("name ASC")
+                 countryid=country.first().id
+                 @cities=City.where(country_id:countryid)
+                 city_id=@cities.first().id
+               end
+          end
+
+        else
+          country=Country.all.order("name ASC")
+          countryid=country.first().id
+          @cities=City.where(country_id:countryid)
+          city_id=@cities.first().id
+        end
+      else if @getLocation.blank? && request.post?
+             city_id=params[:city_id]
+             countryid=City.where(id: city_id).first().country_id
+             @cities=City.where(country_id:countryid)
+
+           else if !@getLocation.blank? && request.post?
+                  city_id=params[:city_id]
+                  countryid=City.where(id: city_id).first().country_id
+                  @cities=City.where(country_id:countryid)
+                else
+
+                  country=Country.all.order("name ASC")
+                  countryid=country.first().id
+                  @cities=City.where(country_id:countryid)
+                  city_id=@cities.first().id
+                end
+
+           end
+
+      end
+      @current_city = City.find_by_id(city_id)
+
+      # country = request.location.country_code
+      if user_signed_in?
+        @products = Product.get_products(city_id, 99999999)
+      else
+        @products = Product.get_products(city_id, 5)
+      end
+
+
+      render layout: "home_layout"
     end
 
-
-    render layout: "home_layout"
   end
 
   def follow
@@ -305,7 +309,8 @@ end
   def login
 
       _ip=request.remote_ip
-      @componant=Component.all
+      @componant=Component.joins(:filter)
+      @companonetcity=City.joins(:filter_city)
       @getLocation=Location.where(ip: _ip).order("id DESC")
       # lay location duoc va khong post
       if !@getLocation.blank? && !request.post?
@@ -324,6 +329,7 @@ end
                    countryid=country.first().id
                    @cities=City.where(country_id:countryid)
                    @city_id=@cities.first().id
+                   @location=City.where(country_id: countryid)
                  end
 
             end
@@ -348,9 +354,29 @@ end
             if @city.present? && params[:idcomponennt].present?
               @kk=params[:idcomponennt]
               @icomponent=params[:idcomponennt].split(/;/)
-              @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id},product_components:{component_value_id: @icomponent})
-              @listvalue=ComponentValue.where(id: @icomponent)
-
+              if @icomponent.length>0
+                _idcityfilter=Array.new
+                _idcategoryfilter=Array.new
+                  for x in @icomponent
+                    _c=x.split(/@/)
+                    if _c[1]=='city'
+                      _idcityfilter.push(_c[0])
+                    else
+                      _idcategoryfilter.push(_c[0])
+                    end
+                  end
+              end
+              #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id},product_components:{component_value_id: @icomponent})
+              #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: _idcityfilter},product_components:{component_value_id: _idcategoryfilter})
+              @data=Product.joins(product_components: [{component_value: :component }]).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct
+              if _idcityfilter.length>0
+                @data=@data.where(restaurants: {city_id: _idcityfilter})
+              end
+              if _idcategoryfilter.length>0
+                @data=@data.where(components:{id: _idcategoryfilter})
+              end
+              @listvalue=Component.where(id: _idcategoryfilter)
+              @listcutyfilter=City.where(id:_idcityfilter)
               countryid=City.where(id: @city_id).first().country_id
               @location=City.where(country_id:countryid)
 
@@ -359,9 +385,31 @@ end
               @hghhghgh=params[:idcitycureent]
               @city_id=@hghhghgh
               @icomponent=params[:idcomponennt].split(/;/)
-              @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: params[:idcitycureent]},product_components:{component_value_id: @icomponent})
-              @listvalue=ComponentValue.where(id: @icomponent)
+              if @icomponent.length>0
+                _idcityfilter=Array.new
+                _idcategoryfilter=Array.new
+                for x in @icomponent
+                  _c=x.split(/@/)
+                  if _c[1]=='city'
+                    _idcityfilter.push(_c[0])
+                  else
+                    _idcategoryfilter.push(_c[0])
+                  end
+                end
+              end
+              #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: params[:idcitycureent]},product_components:{component_value_id: @icomponent})
+              @data=Product.joins(product_components: [{component_value: :component }]).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct
+              if _idcityfilter.length>0
+                @data=@data.where(restaurants: {city_id: _idcityfilter})
+              end
+              if _idcategoryfilter.length>0
+                @data=@data.where(components:{id: _idcategoryfilter})
+              end
 
+              #@listvalue=ComponentValue.where(id: @icomponent)
+              @listvalue=Component.where(id: _idcategoryfilter)
+              @listcutyfilter=City.where(id:_idcityfilter)
+              @datatata=@icomponent.length
               country=Country.all.order("name ASC")
               countryid=country.first().id
               @location=City.where(country_id:countryid)
@@ -382,17 +430,58 @@ end
               if @city.present? && params[:idcomponennt].present?
                 @kk=params[:idcomponennt]
                 @icomponent=params[:idcomponennt].split(/;/)
-                @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id},product_components:{component_value_id: @icomponent})
-                @listvalue=ComponentValue.where(id: @icomponent)
-
+                if @icomponent.length>0
+                  _idcityfilter=Array.new
+                  _idcategoryfilter=Array.new
+                  for x in @icomponent
+                    _c=x.split(/@/)
+                    if _c[1]=='city'
+                      _idcityfilter.push(_c[0])
+                    else
+                      _idcategoryfilter.push(_c[0])
+                    end
+                  end
+                end
+                #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id},product_components:{component_value_id: @icomponent})
+                #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: _idcityfilter},product_components:{component_value_id: _idcategoryfilter})
+                @data=Product.joins(product_components: [{component_value: :component }]).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct
+                if _idcityfilter.length>0
+                  @data=@data.where(restaurants: {city_id: _idcityfilter})
+                end
+                if _idcategoryfilter.length>0
+                  @data=@data.where(components:{id: _idcategoryfilter})
+                end
+                @listvalue=Component.where(id: _idcategoryfilter)
+                @listcutyfilter=City.where(id:_idcityfilter)
                 countryid=City.where(id: @city_id).first().country_id
                 @location=City.where(country_id:countryid)
               else
                 @kk=params[:idcomponennt]
                 @icomponent=params[:idcomponennt].split(/;/)
-                @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: params[:idcitycureent]},product_components:{component_value_id: @icomponent})
-                @listvalue=ComponentValue.where(id: @icomponent)
-
+                if @icomponent.length>0
+                  _idcityfilter=Array.new
+                  _idcategoryfilter=Array.new
+                  for x in @icomponent
+                    _c=x.split(/@/)
+                    if _c[1]=='city'
+                      _idcityfilter.push(_c[0])
+                    else
+                      _idcategoryfilter.push(_c[0])
+                    end
+                  end
+                end
+                #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: params[:idcitycureent]},product_components:{component_value_id: @icomponent})
+                #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: _idcityfilter},product_components:{component_value_id: _idcategoryfilter})
+                @data=Product.joins(product_components: [{component_value: :component }]).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct
+                if _idcityfilter.length>0
+                  @data=@data.where(restaurants: {city_id: _idcityfilter})
+                end
+                if _idcategoryfilter.length>0
+                  @data=@data.where(components:{id: _idcategoryfilter})
+                end
+                #@listvalue=ComponentValue.where(id: @icomponent)
+                @listvalue=Component.where(id: _idcategoryfilter)
+                @listcutyfilter=City.where(id:_idcityfilter)
                 _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
                 _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
                 if !_detectcountry.blank?

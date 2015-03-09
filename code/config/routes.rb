@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :articles
   resources :product_images
+
   root 'home#index'
   get 'homelogin/login'
   get 'home/index'

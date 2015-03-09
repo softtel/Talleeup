@@ -153,12 +153,16 @@ class User < ActiveRecord::Base
   def get_involvement
 
     case get_numBuggerReviewed()
-      when 0..4
-        return "Apprentice"
-      when 5..19
-        return "Journeyman"
+      when 0..5
+        return "Associate"
+      when 6..10
+        return "Soldier"
+      when 11..15
+        return "Caporegime"
+      when 16..20
+        return "Underboss"
       else
-        return "Master"
+        return "Boss"
     end
   end
   def self.check_issame(_email)

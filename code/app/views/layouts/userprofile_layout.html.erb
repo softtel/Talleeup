@@ -30,11 +30,11 @@
     <div id="menu-bar" class="container">
       <div id="menu-item-boss" class="menu-item">
         <h5>INVOLVEMENT</h5>
-        <h2>BOSS</h2>
+        <h2><%= @user.get_involvement() %></h2>
       </div>
       <div id="menu-item-reviews" class="menu-item">
         <h5>PASSIONATE REVIEWS</h5>
-        <h2>32</h2>
+        <h2><%= @user.get_numBuggerReviewed() %></h2>
       </div>
       <div id="menu-item-loved" class="menu-item">
         <h5>FOLLOWERS</h5>

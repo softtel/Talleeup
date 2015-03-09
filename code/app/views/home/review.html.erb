@@ -4,8 +4,8 @@
       <img id="step-1-image" class="center-block img-responsive" src="/assets/review/check.png"  alt="" />
       <!--<img id="step-1-image-mobile" class="center-block img-responsive" src="/assets/review/check.png"  alt="" />-->
       <h3 class="center-block text-title">Resturant & Burger</h3>
-      <h4 class="center-block text-details">This is some detail for this step</h4>
-      <h4 class="center-block text-details">if it needs it</h4>
+      <!--<h4 class="center-block text-details">This is some detail for this step</h4>
+      <h4 class="center-block text-details">if it needs it</h4>-->
     </div>
     <div id="step-1-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
 
@@ -63,8 +63,8 @@
         <div id="step-2-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
           <img class="center-block img-responsive image-step-2" src="/assets/review/2.png"  alt="" />
           <h3 class="center-block text-title">Rate</h3>
-          <h4 class="center-block text-details">This is some detail for this step</h4>
-          <h4 class="center-block text-details">if it needs it</h4>
+         <!-- <h4 class="center-block text-details">This is some detail for this step</h4>
+          <h4 class="center-block text-details">if it needs it</h4>-->
         </div>
         <div id="step-2-left-mobile">
           <div id="step-2-left-title-mobile">
@@ -138,8 +138,8 @@
         <div id="step-3-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
           <img class="center-block img-responsive" src="/assets/review/3.png"  alt="" />
           <h3 class="center-block text-title">Comments</h3>
-          <h4 class="center-block text-details">This is some detail for this step</h4>
-          <h4 class="center-block text-details">if it needs it</h4>
+         <!-- <h4 class="center-block text-details">This is some detail for this step</h4>
+          <h4 class="center-block text-details">if it needs it</h4>-->
         </div>
 
         <div id="step-3-left-mobile">
@@ -183,7 +183,7 @@
         var isValid = true;
         $('.rate-result').each(function(){
 
-            if($(this).text() === "0")
+            if($(this).text() === "")
             {
                 isValid = false;
                 return false;
@@ -396,7 +396,10 @@
         if(numRate==0) {
 
             $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
-            $("#idiididid_"+_id+"").html("Fail")
+            $("#idiididid_"+_id+"").delay(2000);
+            $("#idiididid_"+_id+"").html("Fail");
+            $("#idiididid_"+_id+"").fadeOut('slow', 1);
+            //$("#idiididid_"+_id+"").html("Fail")
 
         }
 
@@ -404,7 +407,10 @@
         {
 
             $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
-            $("#idiididid_"+_id+"").html("Average")
+            //$("#idiididid_"+_id+"").html("Average")
+            $("#idiididid_"+_id+"").delay(2000);
+            $("#idiididid_"+_id+"").html("Average");
+            $("#idiididid_"+_id+"").fadeOut('slow', 1);
             //rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': 'white'});
         }
 
@@ -413,7 +419,10 @@
         {
 
             $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
-            $("#idiididid_"+_id+"").html("Perfect")
+            //$("#idiididid_"+_id+"").html("Perfect")
+            $("#idiididid_"+_id+"").delay(2000);
+            $("#idiididid_"+_id+"").html("Perfect");
+            $("#idiididid_"+_id+"").fadeOut('slow', 1);
         }
         else
         {
