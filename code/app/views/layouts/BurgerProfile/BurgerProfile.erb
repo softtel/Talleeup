@@ -21,16 +21,16 @@
 
               <%if user_signed_in? %>
 
-                  <a href="/home/login"><div class="m-logo-header"></div></a>
+                  <a href="/login"><div class="m-logo-header"></div></a>
               <%else%>
-                  <a href="/home/index"><div class="m-logo-header"></div></a>
+                  <a href="/index"><div class="m-logo-header"></div></a>
               <%end%>
           <%else%>
               <%if user_signed_in? %>
 
-                        <a href="/home/login"><div class="logo-header "></div></a>
+                        <a href="/login"><div class="logo-header "></div></a>
                   <%else%>
-                  <a href="/home/index"><div class="logo-header "></div></a>
+                  <a href="/index"><div class="logo-header "></div></a>
               <%end%>
           <%end%>
          <!-- <%if device_type != :mobile %>
@@ -85,13 +85,13 @@
 
 
           <div class="button-review">
-            <a href="/home/review">
+            <a href="/review">
                 <input type="button" value="REVIEW" name="REVIEW">
             </a>
           </div>
 
             <% if user_signed_in? %>
-              <a href="/home/userprofile?id=<%=current_user.id%>">
+              <a href="/userprofile/<%=current_user.id%>">
                 <div class="button-profile">
                 <%= image_tag(@profile.avatar.url(:thumb), :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
                 </div>
@@ -177,7 +177,7 @@
 
           <div class="full-noline-bur"></div>
 
-          <div class="item-menu-top-header-bur"><a href="/home/review?product_id=<%=params[:id]%>" class="bur-review" >REVIEW </a></div>
+          <div class="item-menu-top-header-bur"><a href="/review?product_id=<%=params[:id]%>" class="bur-review" >REVIEW </a></div>
          <!-- <div class="no-line-bur"></div>-->
 
           <!--<div class="item-menu-top-header-bur"><a href="#" class="bur-addtolist">ADD TO LIST </a></div>-->
@@ -222,7 +222,7 @@
                 </div>
                 <div class="form-group">
                   <label for="recipient-name" class="control-label">Link:</label>
-                  <input type="text" value="/home/BurgerProfile/<%=params[:id]%>"  disabled="disabled" class="form-control" id="link-name-<%=params[:id]%>">
+                  <input type="text" value="/BurgerProfile/<%=params[:id]%>"  disabled="disabled" class="form-control" id="link-name-<%=params[:id]%>">
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="control-label">Message:</label>
@@ -274,9 +274,9 @@
             <div role="tabpanel" class="tab-pane" id="Twiter" style="padding: 20px">
 
               <a class="twitter-share-button"
-                 href="https://twitter.com/share"
+                 href="https://twitter.com/share?text=I just crushed the <%=Product.where(id: params[:id]).first().name%> at <%=Product.where(id: params[:id]).first().restaurant.name%>.Check out my &url=<%=root_url %>BurgerProfile/<%=params[:id]%>"
                  data-url="<%=request.original_url %>"
-                 data-counturl="https://dev.twitter.com/web/tweet-button"
+                 data-counturl="<%=root_url %>BurgerProfile/<%=params[:id]%>"
                  data-count="vertical">
                 Tweet
               </a>

@@ -56,7 +56,7 @@
   </div>
 </div>
 <!--
-<%= form_tag("/home/review", method: "post",enctype: "multipart/form-data",multipart: true) do %>
+<%= form_tag("/review", method: "post",enctype: "multipart/form-data",multipart: true) do %>
     -->
     <div id="step-2-container-fluid" class="container-fluid step-container-fluid">
       <div id="step-2-container" class="container step-container">
@@ -89,12 +89,28 @@
 
             <% if @reviewed_components.blank?   %>
                 <% @review_type.each do |r_t| %>
+                  <script>
+                      $(function() {
+                          $( "#slider-range-min-<%=r_t.id%>" ).slider({
+                              range: "min",
+                              value: 0,
+                              min: 0,
+                              max: 7,
+                              slide: function( event, ui ) {
+
+
+                                  hoverchangereview(ui.value,<%= r_t.id %>)
+                              }
+                          });
+                      });
+                  </script>
+                  <div id="slider-range-min-<%=r_t.id%>" style="width: 81%;margin-bottom: 3px"></div>
                   <div class="form-group form-group-rate-mobile" style="position:relative">
                     <div class="hover-tootip" id="idiididid_<%= r_t.id %>" style="display: none"></div>
                     <div class="rate-control" >
                       <div class="rate-name" lang="<%= r_t.id %>"><%= r_t.name %></div>
                       <!--<div class="rate-number" lang="<%= r_t.id %>">0</div>-->
-                      <div style="border-top-left-radius: 7px;border-bottom-left-radius:7px" class="rate-number" id="reviews_number_0_<%= r_t.id %>" onclick="hoverchangereview(0,<%= r_t.id %>)" lang="<%= r_t.id %>">0</div>
+                     <!-- <div style="border-top-left-radius: 7px;border-bottom-left-radius:7px" class="rate-number" id="reviews_number_0_<%= r_t.id %>" onclick="hoverchangereview(0,<%= r_t.id %>)" lang="<%= r_t.id %>">0</div>-->
                       <div class="rate-number" id="reviews_number_1_<%= r_t.id %>" onclick="hoverchangereview(1,<%= r_t.id %>)" lang="<%= r_t.id %>">1</div>
                       <div class="rate-number" id="reviews_number_2_<%= r_t.id %>" onclick="hoverchangereview(2,<%= r_t.id %>)" lang="<%= r_t.id %>">2</div>
                       <div class="rate-number" id="reviews_number_3_<%= r_t.id %>" onclick="hoverchangereview(3,<%= r_t.id %>)" lang="<%= r_t.id %>">3</div>
@@ -112,7 +128,7 @@
                   <div class="form-group form-group-rate-mobile" style="position:relative">
                     <div class="rate-control">
                       <div style="border-top-left-radius: 7px;border-bottom-left-radius:7px" class="rate-name"><%= (c.review_type.present?) ? c.review_type.name : "Admin Deleted" %></div>
-                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_0_<%= c.id %>">0</div>
+                      <!--<div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_0_<%= c.id %>">0</div>-->
                       <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_1_<%= c.id %>">1</div>
                       <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_2_<%= c.id %>">2</div>
                       <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_3_<%= c.id %>">3</div>
@@ -181,9 +197,12 @@
     function valid(){
 
         var isValid = true;
+        var _tong=0;
         $('.rate-result').each(function(){
 
-            if($(this).text() === "")
+            _tong=_tong+Number($(this).text());
+
+            if(_tong<=0)
             {
                 isValid = false;
                 return false;
@@ -244,7 +263,16 @@
        // {
         for(var i=0;i<=numRate;i++)
         {
-            $("#com_reviews_number_"+i+"_"+_lang+"").css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+
+            if(numRate==0)
+            {
+                $("#com_reviews_number_"+i+"_"+_lang+"").css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+            }
+            else
+            {
+                $("#com_reviews_number_"+i+"_"+_lang+"").css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+            }
+
         }
 
             //$(this).children('.rate-number').slice(0, 2).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
@@ -296,7 +324,6 @@
                 },
                 comment: {
                     content: $('#txt-textarea-comment').val(),
-
                     namefile:_namefile
                 }
             }
@@ -308,10 +335,9 @@
                 });
 
             });
-
             $.ajax({
                 type: "POST",
-                url: 'review_post',
+                url: '/home/review_post',
                 contentType: "application/json; charset=utf-8",
                 enctype: 'multipart/form-data',
                 dataType: 'json',
@@ -367,11 +393,11 @@
     $("#child-product").change(function(){
 
         var _id=$("#child-product").val();
-        window.location="/home/review?product_id="+_id+""
+        window.location="/review?product_id="+_id+""
     })
     function hoverchangereview(_number,_id)
     {
-        var numRate = $("#reviews_number_"+_number+"_"+_id+"").text();
+        var numRate = _number;//$("#reviews_number_"+_number+"_"+_id+"").text();
 
         //var rateControl = $(this).closest('.rate-control');
         var _idddd=$(this).attr("lang");
@@ -383,7 +409,7 @@
 
         }
         for(var k=(_number+1);k<=7;k++) {
-            $("#reviews_number_" + k + "_" + _id + "").css({'background-color': '#DFE3E6', 'color': '#fff'});
+            $("#reviews_number_" + k + "_" + _id + "").css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
         }
         //rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
 
@@ -403,7 +429,7 @@
 
         }
 
-        else  if(numRate==3)
+        else  if(numRate==4)
         {
 
             $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});

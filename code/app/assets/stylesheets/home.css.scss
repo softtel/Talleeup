@@ -1458,6 +1458,12 @@ and (orientation : portrait) {
 and (max-width:623px)
 and (orientation : landscape)
 {
+  .modal-body{
+    padding-bottom: 155px !important;
+  }
+  .tab-pane{
+    width: 90%;
+  }
   div#header-container
   {
     height: 600px;
@@ -1546,8 +1552,23 @@ and (orientation : portrait) {
   {
     height: 388px;
   }
-
+  .button-search-submit
+  {
+    right: 27px !important;
+  }
 }
+
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px) {
+  /* Styles */
+
+  .button-search-submit
+  {
+    right: 27px !important;
+  }
+}
+
 @media only screen and (min-width:338px)
 and (max-width:338px)
 and (orientation : portrait) {
@@ -1582,7 +1603,15 @@ and (orientation : portrait)
   {
     font-size: 16px;
   }
+  .modal-body{
+    padding-bottom: 115px;
+  }
+  .tab-pane{
+    width: 90%;
+  }
 }
+
+
 @media only screen and (min-width:395px)
 and (max-width:395px)
 and (orientation : portrait)

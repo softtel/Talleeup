@@ -19,16 +19,16 @@
             <%if device_type == :mobile %>
                 <%if user_signed_in? %>
 
-                    <a href="/home/login"><div class="m-logo-header"></div></a>
+                    <a href="/login"><div class="m-logo-header"></div></a>
                 <%else%>
-                    <a href="/home/index"><div class="m-logo-header"></div></a>
+                    <a href="/index"><div class="m-logo-header"></div></a>
                 <%end%>
             <%else%>
                 <%if user_signed_in? %>
 
-                    <a href="/home/login"><div class="logo-header "></div></a>
+                    <a href="/login"><div class="logo-header "></div></a>
                 <%else%>
-                    <a href="/home/index"><div class="logo-header "></div></a>
+                    <a href="/index"><div class="logo-header "></div></a>
                 <%end%>
             <%end%>
           <!--  <%if device_type != :mobile %>ss
@@ -82,18 +82,18 @@
                <%end%>
                </form>
             <div class="button-review">
-              <a href="/home/review">
+              <a href="/review">
               <input type="button" value="REVIEW" name="REVIEW">
                   </a>
             </div>
 
             <div class="button-profile">
               <% if user_signed_in? %>
-                  <a href="/home/userprofile?id=<%=current_user.id%>">
+                  <a href="/userprofile/<%=current_user.id%>">
                     <%= image_tag(@profile.avatar.url(:thumb), :class=>"pull-right img-responsive img-circle",:style=>"width:40px") %>
                   </a>
               <%else%>
-                  <a href="/home/userprofile?id=">
+                  <a href="#">
                     <%= image_tag("/Uploads/avatar/avatar.png") %>
                   </a>
               <%end%>
@@ -113,7 +113,7 @@
         </div>
         <div class="text-bk-content-header">
           <div class="style_select">
-            <%= form_tag("/home/login", method: "post") do %>
+            <%= form_tag("/login", method: "post") do %>
 
             <%= select_tag :city_id, options_for_select(@location.collect {|p| [ p.name, p.id,{style: 'background:transparent;color:#145a8b'} ] }, @city_id), :onchange => "this.form.submit()" %>
             <%end%>
@@ -124,7 +124,7 @@
       </div>
     </div>
 
-    <%= form_tag("/home/login", method: "post",id:"searcformrr") do %>
+    <%= form_tag("/login", method: "post",id:"searcformrr") do %>
         <input type="hidden" id="idcitycureent" name="idcitycureent" value="<%=@city_id%>">
         <div class="menu-top-header">
           <div class="container">

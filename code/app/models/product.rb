@@ -66,11 +66,34 @@ class Product < ActiveRecord::Base
 
   def check_reviewed(user_id)
     first_day_of_month = Time.new(Time.now.year, Time.now.month, 1)
-    reviewed = Review.where("user_id = ? AND product_id = ? AND  created_at >= ?", user_id, self.id,  first_day_of_month).count
-    
-    return (reviewed > 0) ? true : false
-  end
 
+    reviewed = Review.where("user_id = ? AND product_id = ?", user_id, self.id).order(id: :desc)
+    if reviewed.length>0
+      date_now=(Time.now - reviewed.first().created_at.to_time)/1.day
+      if date_now <=30 and date_now >0
+        return  true
+      else
+        return false
+      end
+    else
+      return false
+    end
+
+  end
+  def getnumberdemo(user_id)
+
+
+    reviewed = Review.where("user_id = ? AND product_id = ?", user_id, self.id)
+    if reviewed.length>0
+      date_now=(Time.now - reviewed.first().created_at.to_time)/1.day
+
+      return  date_now
+    else
+      return 0
+    end
+
+
+  end
   def self.get_socre_average_product_byid(productid,_num)
     reviews = Review.where('product_id' => productid)
     return (reviews.count == 0) ? 0.0 : reviews.average("totalpoint").round(_num)

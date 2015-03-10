@@ -1,7 +1,39 @@
 <div id="main-title" class="row center-block profile-main-title">
   <h1 id="main-title-body">PROFILE INFO</h1>
   <div id="main-bar-color" class="center-block"></div>
+  <div class="info-details row">
+    <h4 class="pull-left">Country</h4>
+    <h4 class="pull-right">
 
+      <div data-datatype="text"  class="meta-value">
+        <select onchange="changecountry()" id="countreyhhhhhh">
+          <%
+             @countryall.each do |item|
+              %>
+            <option value="<%=item.id%>"><%=item.name%></option>
+            <%end
+          %>
+        </select>
+        <% if @isMyprofile %>
+           <!-- <img  class="icon-edit-meta" onclick="icon_edit_meta_select_country()" src="/assets/icon-edit.png" />-->
+        <% end %>
+      </div>
+    </h4>
+  </div>
+  <div class="info-details row">
+    <h4 class="pull-left">City</h4>
+    <h4 class="pull-right">
+
+      <div data-datatype="text"  class="meta-value">
+        <select id="citytybbbbb">
+            <option value="0">no result</option>
+        </select>
+        <% if @isMyprofile %>
+           <!-- <img  class="icon-edit-meta" onclick="icon_edit_meta_select_city()" src="/assets/icon-edit.png" />-->
+        <% end %>
+      </div>
+    </h4>
+  </div>
   <% @meta.each do |m| %>
       <% user_meta = m.get_meta_user(@friend.id) %>
       <div class="info-details row">
@@ -32,7 +64,7 @@
           <% if @isMyprofile %>
 
               <img id="icon-edit-meta-<%= user_meta.id %>" class="icon-edit-meta" onclick="icon_edit_meta(this.id,'<%=user_meta.value%>')" src="/assets/icon-edit.png" />
-              <img id="icon-save-meta-<%= user_meta.id %>" class="icon-save-meta" onclick="icon_save_meta(this.id,'<%=user_meta.value%>')" src="/assets/icon-save.png" />
+              <img id="icon-save-meta-<%= user_meta.id %>" class="icon-save-meta"  onclick="icon_save_meta(<%= user_meta.id %>,'<%=user_meta.value%>')" src="/assets/icon-save.png" />
           <% end %>
 
         </h4>
@@ -40,3 +72,48 @@
   <% end %>
 </div>
 <!--End main-title-->
+<script>
+  $(document).ready(function () {
+      var _id=$("#countreyhhhhhh").val();
+      $.post("/home/getcityByIDCountry",{idcountry:_id},function(){
+
+      }).success(function(data){
+          var _html="";
+          if(data.data.length>0)
+          {
+
+              for(var i=0;i<data.data.length;i++)
+              {
+                  _html+="<option value='"+data.data[i].id+"'>"+data.data[i].name+"</option>";
+              }
+          }
+          else
+          {
+              _html+="<option value='0'>no result</option>";
+          }
+          $("#citytybbbbb").html(_html)
+      });
+  })
+  function changecountry()
+  {
+      var _id=$("#countreyhhhhhh").val();
+      $.post("/home/getcityByIDCountry",{idcountry:_id},function(){
+
+      }).success(function(data){
+          var _html="";
+          if(data.data.length>0)
+          {
+
+              for(var i=0;i<data.data.length;i++)
+              {
+                  _html+="<option value='"+data.data[i].id+"'>"+data.data[i].name+"</option>";
+              }
+          }
+          else
+          {
+              _html+="<option value='0'>no result</option>";
+          }
+            $("#citytybbbbb").html(_html)
+      });
+  }
+</script>

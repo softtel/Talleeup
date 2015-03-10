@@ -32,7 +32,7 @@
           %>
         <div class="m-content-body-item">
           <div class="m-item-conettn-body">
-            <a href="/home/BurgerProfile/<%=item.id %>">
+            <a href="/BurgerProfile/<%=item.id %>">
               <div class="m-item-img" style="position: relative">
                 <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'border-top-left-radius:10px;border-bottom-left-radius:10px;') %>
               </div>
@@ -48,7 +48,7 @@
             <div class="item-body">
               <div class="item-reviews">
                 <div class="title-product-reviews">
-                  <a href="/home/BurgerProfile/<%=item.id %>"> <div class="name-title-product-review"><%= item.productname%></div></a>
+                  <a href="/BurgerProfile/<%=item.id %>"> <div class="name-title-product-review"><%= item.productname%></div></a>
                   <div class="name-title-product-review-child"><%= item.restaurantsname%></div>
                 </div>
                 <div class="user-reviews">
@@ -73,13 +73,15 @@
           <%
              if current_user.blank?
                is_reviewed = false
+
              else
                is_reviewed = item.check_reviewed(current_user.id)
+
              end
           %>
     <div class="content-body-item">
       <div class="item-conettn-body">
-        <a href="/home/BurgerProfile/<%=item.id %>">
+        <a href="/BurgerProfile/<%=item.id %>">
           <div class="item-img" style="position: relative">
             <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'width:269px;height:219px;border-top-left-radius:10px;border-bottom-left-radius:10px') %>
             <% if(is_reviewed) %>
@@ -100,7 +102,7 @@
 
                 <%if device_type == :tablet %>
                     <% item.get_reviewers.limit(3).each  do |review| %>
-                        <a href="/home/userprofile?id=<%=review.user_id%>">
+                        <a href="/userprofile/<%=review.user_id%>">
                           <div class="item-img-user">
                             <%= image_tag(review.user.profile.avatar.url(:thumb),:width => 35, :height => 35,:class => 'img-circle') %>
                           </div></a>
@@ -108,7 +110,7 @@
                     <% end %>
                     <%else%>
                     <% item.get_reviewers.limit(5).each  do |review| %>
-                        <a href="/home/userprofile?id=<%=review.user_id%>">
+                        <a href="/userprofile/<%=review.user_id%>">
                           <div class="item-img-user">
                             <%= image_tag(review.user.profile.avatar.url(:thumb),:width => 35, :height => 35,:class => 'img-circle') %>
                           </div></a>
@@ -124,13 +126,13 @@
             </div>
           </div>
           <div class="title-product-reviews">
-            <a href="/home/BurgerProfile/<%=item.id %>"> <div class="name-title-product-review"><%= item.productname%></div></a>
+            <a href="/BurgerProfile/<%=item.id %>"> <div class="name-title-product-review"><%= item.productname%></div></a>
             <div class="name-title-product-review-child"><%= item.restaurantsname%></div>
           </div>
           <div class="user-review-toolbal">
             <div class="content-body-share">
 
-              <a href="/home/review?product_id=<%=item.id %>">
+              <a href="/review?product_id=<%=item.id %>">
                 <div class="text-review" style="position:relative;">
                   <% if(is_reviewed) %>
                       <span class="icon"></span>
@@ -173,7 +175,7 @@
                         </div>
                         <div class="form-group">
                           <label for="recipient-name" class="control-label">Link:</label>
-                          <input type="text" value="/home/BurgerProfile/<%=item.id%>"  disabled="disabled" class="form-control" id="link-name-<%=item.id%>">
+                          <input type="text" value="/BurgerProfile/<%=item.id%>"  disabled="disabled" class="form-control" id="link-name-<%=item.id%>">
                         </div>
                         <div class="form-group">
                           <label for="message-text" class="control-label">Message:</label>
@@ -199,13 +201,13 @@
                               js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
                               fjs.parentNode.insertBefore(js, fjs);
                           }(document, 'script', 'facebook-jssdk'));</script>
-                      <div class="fb-send"  data-href="<%=request.original_url %>" data-width="300px" data-colorscheme="light"></div>
+                      <div class="fb-send"  data-href="<%=root_url %>BurgerProfile/<%=item.id%>" data-width="300px" data-colorscheme="light"></div>
                       </div>
                     <div role="tabpanel" class="tab-pane" id="Twiter<%=item.id%>" style="padding: 20px">
 
                       <a class="twitter-share-button"
-                         href="https://twitter.com/share"
-                         data-url="<%=request.original_url %>"
+                         href="https://twitter.com/share?text=I just crushed the <%= item.productname%> at <%= item.restaurantsname%>.Check out my &url=<%=root_url %>BurgerProfile/<%=item.id%>"
+                         data-url="I just crushed the <%= item.productname%> at <%= item.restaurantsname%>.Check out my /BurgerProfile/<%=item.id%>"
                          data-counturl="<%=request.original_url %>"
                          data-count="vertical">
                         Tweet

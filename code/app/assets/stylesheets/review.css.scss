@@ -671,7 +671,7 @@ button#btn-talleeup{
 
 .rate-number{
   float: left;
-  width: 11.11%;
+  width: 12.7%;
   height: 100%;
   line-height: 60px;
   text-align: center;
@@ -789,4 +789,16 @@ and (orientation : portrait) {
   {
     padding-left: 0px;
   }
+}
+#reviews-select
+{
+  padding-top:0px ;
+}
+#child-product
+{
+  padding-top:0px ;
+}
+.ui-widget-header
+{
+  background: #38BEDE !important;
 }

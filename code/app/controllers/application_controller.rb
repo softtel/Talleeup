@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
           admin_dashboard_path
           #'admin/dashboard'
         else
-          '/home/login'
+          '/login'
         end
   end
 

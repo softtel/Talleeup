@@ -8,14 +8,18 @@ Rails.application.routes.draw do
 
   root 'home#index'
   get 'homelogin/login'
-  get 'home/index'
-  post 'home/index'
+
+  get '/index'=>'home#index',as: 'index'
+  post '/index'=>'home#index',as: 'indexs'
+
   post 'home/search'
   post 'home/follow'
   post 'home/unfollow'
   get 'home/search'
   get 'home/test_ajax'
-  get 'home/userprofile'
+
+  get '/userprofile/:id'=> 'home#userprofile'
+
   get 'home/news'
   post 'home/user_meta'
   post 'home/update_profile'
@@ -23,13 +27,17 @@ Rails.application.routes.draw do
   get 'home/upload_avatar'
   get 'home/geolocation'
   get 'home/myprofile'
-  get 'home/review'
+
+  get '/review'=> 'home#review'
+
   post 'home/review_post'
   get 'home/test'
-  get 'home/BurgerProfile/:id'=>'home#BurgerProfile'
-  get 'home/login'
+
+  get 'BurgerProfile/:id'=>'home#BurgerProfile'
+
+  get '/login'=>'home#login',as: 'login'
   get 'home/locations'
-  post 'home/login'
+  post '/login'=>'home#login',as: 'logins'
   post 'home/addSession'
   get 'home/addSession'
   post 'home/addlike'
@@ -40,7 +48,7 @@ Rails.application.routes.draw do
   post 'home/addlocation'
   post 'home/CheckEmail'
   post 'home/getUserFllow'
-
+  post '/home/getcityByIDCountry'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", confirmations: 'confirmations' }
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # resources :users

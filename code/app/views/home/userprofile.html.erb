@@ -13,7 +13,7 @@
       <%if @products.length>5%>
 
       <% if !@is_full_list %>
-          <a href="/home/userprofile?id=<%= @friend.id %>&fulllist=true">
+          <a href="/userprofile/<%= @friend.id %>&fulllist=true">
             <button class="center-block btn-seefull">SEE FULL LIST</button>
           </a>
       <% end %>

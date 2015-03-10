@@ -52,10 +52,10 @@
   height: 55px;
   background: #145a8b;
   font-family: myFirstFont;
-
   background-color: #145a8b;
   padding-left: 22px;
   color: #ffffff;
+  padding-right: 50px;
 }
 .button-search-submit
 {
@@ -812,6 +812,10 @@ and (orientation : portrait) {
 and (min-device-width : 320px)
 and (max-device-width : 480px)
 and (orientation : portrait) {
+
+  #Email, #Password{
+    width:100%;
+  }
   .m-logo-header {
     background-image: image_url("m_02.png");
     height: 77px;
@@ -959,6 +963,9 @@ and (orientation : portrait) {
 and (min-device-width : 320px)
 and (max-device-width : 480px)
 and (orientation : landscape) {
+  #Email, #Password{
+    width:100%;
+  }
   .m-logo-header {
     background-image: image_url("m_02.png");
     height: 77px;
@@ -1095,6 +1102,14 @@ and (orientation : landscape) {
   .count-number-text
   {
     font-size: 20pt;
+  }
+}
+
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+  .button-search-submit {
+    display: none !important;
   }
 }
 @media only screen and (min-device-width:481px)
@@ -1499,6 +1514,7 @@ and (orientation : landscape) {
   padding: 10px;
   font-size: 11pt;
   cursor: pointer;
+  white-space: nowrap;
 }
 .item-menu-top-header-filter
 {

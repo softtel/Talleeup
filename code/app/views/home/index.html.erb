@@ -21,7 +21,7 @@
 
     <div class="styled-select center-block">
 
-      <%= form_tag("/home/index", method: "post") do %>
+      <%= form_tag("/index", method: "post") do %>
         <%= select_tag :city_id, options_for_select(@cities.collect {|p| [ p.name, p.id ] }, @current_city.id), :onchange => "this.form.submit()" %>
       <% end %>
 

@@ -6,7 +6,7 @@ class HomeController < ApplicationController
    #autocomplete :brand, :name, :display_value => :funky_method
   def index
     if user_signed_in?
-      redirect_to "/home/login"
+      redirect_to "/login"
     else
       # @cityDetected = request.location.city
       _ip=request.remote_ip
@@ -128,7 +128,11 @@ class HomeController < ApplicationController
   end
 
 
-
+  def getcityByIDCountry
+    _id=params[:idcountry]
+    @cityall=City.where(country_id: _id).order(name: :asc)
+    render :json => { :data => @cityall }
+  end
   def userprofile
 
     ### friend
@@ -139,6 +143,7 @@ class HomeController < ApplicationController
     if @friend.nil?
       @friend = User.find_by_id(1)
     end
+    @countryall=Country.all().order(name: :asc)
 
     # profile
     @profile = Profile.getProfile(params[:id])
@@ -200,10 +205,10 @@ class HomeController < ApplicationController
     if user_signed_in?
       if (!params[:content].blank?)
 
-        if params[:file].present?
-          Review.save(params[:file])
+        #if params[:file].present?
+         # Review.save(params[:file])
 
-        end
+        #end
         Comment.create(content:  params[:content],images: params[:file],product_id:params[:productid],user_id:current_user.id)
       end
     end
@@ -214,7 +219,10 @@ class HomeController < ApplicationController
     MetaUser.update_profile(params[:id], params[:value])
     render :json => { :data => true }
   end
-
+   def user_meta_country_city
+     CityCountryUser.insert_prodile(params[:id], params[:value])
+     render :json => { :data => true }
+   end
   def update_profile
     if params[:column_name] == "address"
       profile = current_user.profile
@@ -354,9 +362,10 @@ end
             if @city.present? && params[:idcomponennt].present?
               @kk=params[:idcomponennt]
               @icomponent=params[:idcomponennt].split(/;/)
+              _idcityfilter=Array.new
+              _idcategoryfilter=Array.new
               if @icomponent.length>0
-                _idcityfilter=Array.new
-                _idcategoryfilter=Array.new
+
                   for x in @icomponent
                     _c=x.split(/@/)
                     if _c[1]=='city'
@@ -385,9 +394,10 @@ end
               @hghhghgh=params[:idcitycureent]
               @city_id=@hghhghgh
               @icomponent=params[:idcomponennt].split(/;/)
+              _idcityfilter=Array.new
+              _idcategoryfilter=Array.new
               if @icomponent.length>0
-                _idcityfilter=Array.new
-                _idcategoryfilter=Array.new
+
                 for x in @icomponent
                   _c=x.split(/@/)
                   if _c[1]=='city'
@@ -430,9 +440,10 @@ end
               if @city.present? && params[:idcomponennt].present?
                 @kk=params[:idcomponennt]
                 @icomponent=params[:idcomponennt].split(/;/)
+                _idcityfilter=Array.new
+                _idcategoryfilter=Array.new
                 if @icomponent.length>0
-                  _idcityfilter=Array.new
-                  _idcategoryfilter=Array.new
+
                   for x in @icomponent
                     _c=x.split(/@/)
                     if _c[1]=='city'
@@ -458,9 +469,10 @@ end
               else
                 @kk=params[:idcomponennt]
                 @icomponent=params[:idcomponennt].split(/;/)
+                _idcityfilter=Array.new
+                _idcategoryfilter=Array.new
                 if @icomponent.length>0
-                  _idcityfilter=Array.new
-                  _idcategoryfilter=Array.new
+
                   for x in @icomponent
                     _c=x.split(/@/)
                     if _c[1]=='city'
@@ -560,7 +572,7 @@ end
       #end
       @cueeentr=City.find_by_id(@city_id)
       @profile=Profile.where(user_id: current_user.id).first()
-      render layout: "homelogin/homelogin"
+      render :action => "login", layout: "homelogin/homelogin"
   end
 
   def geolocation
