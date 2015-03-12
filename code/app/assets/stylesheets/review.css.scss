@@ -190,6 +190,7 @@ $width-txt-control: 500px;
     display: block;
     color: #ffffff;
     text-align: center;
+    line-height: 50px;
 
   }
 
@@ -801,4 +802,108 @@ and (orientation : portrait) {
 .ui-widget-header
 {
   background: #38BEDE !important;
+}
+.style-slider-range
+{
+  width: 81.5%;
+  margin-bottom: 3px;
+}
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : portrait) {
+  .style-slider-range
+  {
+    width: 91.7%;
+    margin-bottom: 3px;
+  }
+}
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation : landscape) {
+  .style-slider-range
+  {
+    width: 82.8%;
+    margin-bottom: 3px;
+  }
+}
+@media only screen and (min-width:351px)
+and (max-width:351px)
+and (orientation : portrait)
+{
+  .style-slider-range {
+    width: 100%;
+    /*margin-bottom: 3px;*/
+  }
+  .rate-number
+  {
+    width: 12.67%;
+  }
+}
+@media only screen and (min-width:384px)
+and (max-width:384px)
+and (orientation : portrait)
+{
+  .style-slider-range {
+    width: 100%;
+    /*margin-bottom: 3px;*/
+  }
+  .rate-number
+  {
+    width: 12.67%;
+  }
+}
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
+and (orientation : portrait) {
+  .style-slider-range {
+    width: 100%;
+    /*margin-bottom: 3px;*/
+  }
+  .padding-image
+  {
+    padding-left: 0px;
+  }
+  #review-titles-top
+
+  {
+    margin-top: 16px;
+  }
+  div#col-logo
+  {
+    width: 64px;
+  }
+}
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
+and (orientation : landscape) {
+  .style-slider-range {
+    width: 81%;
+    /*margin-bottom: 3px;*/
+  }
+}
+
+//lumina 530
+@media only screen and (min-width:357px)
+and (max-width:357px)
+and (orientation : portrait) {
+  .rate-control{
+    width: 100% !important;
+  }
+  .rate-result{
+    width: 10% !important;
+  }
+}
+@media only screen and (min-width:595px)
+and (max-width:595px)
+and (orientation : landscape) {
+  .rate-control{
+    width: 100% !important;
+  }
+  .rate-result{
+    width: 10% !important;
+  }
 }

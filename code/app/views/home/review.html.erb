@@ -75,7 +75,7 @@
             <div class="clearfix"></div>
           </div>
           <div id="box-total-number-mobile">
-            <span id="total-number-mobile"  class="total-number">0</span>
+            <span id="total-number-mobile"  class="total-number"><%= (@reviewed.present?) ? @reviewed.totalpoint : 0 %></span>
           </div>
           <div class="clearfix"></div>
         </div>
@@ -104,20 +104,20 @@
                           });
                       });
                   </script>
-                  <div id="slider-range-min-<%=r_t.id%>" style="width: 81%;margin-bottom: 3px"></div>
+                  <div id="slider-range-min-<%=r_t.id%>" class="style-slider-range"></div>
                   <div class="form-group form-group-rate-mobile" style="position:relative">
                     <div class="hover-tootip" id="idiididid_<%= r_t.id %>" style="display: none"></div>
                     <div class="rate-control" >
                       <div class="rate-name" lang="<%= r_t.id %>"><%= r_t.name %></div>
                       <!--<div class="rate-number" lang="<%= r_t.id %>">0</div>-->
                      <!-- <div style="border-top-left-radius: 7px;border-bottom-left-radius:7px" class="rate-number" id="reviews_number_0_<%= r_t.id %>" onclick="hoverchangereview(0,<%= r_t.id %>)" lang="<%= r_t.id %>">0</div>-->
-                      <div class="rate-number" id="reviews_number_1_<%= r_t.id %>" onclick="hoverchangereview(1,<%= r_t.id %>)" lang="<%= r_t.id %>">1</div>
-                      <div class="rate-number" id="reviews_number_2_<%= r_t.id %>" onclick="hoverchangereview(2,<%= r_t.id %>)" lang="<%= r_t.id %>">2</div>
-                      <div class="rate-number" id="reviews_number_3_<%= r_t.id %>" onclick="hoverchangereview(3,<%= r_t.id %>)" lang="<%= r_t.id %>">3</div>
-                      <div class="rate-number" id="reviews_number_4_<%= r_t.id %>" onclick="hoverchangereview(4,<%= r_t.id %>)" lang="<%= r_t.id %>">4</div>
-                      <div class="rate-number" id="reviews_number_5_<%= r_t.id %>" onclick="hoverchangereview(5,<%= r_t.id %>)" lang="<%= r_t.id %>">5</div>
-                      <div class="rate-number" id="reviews_number_6_<%= r_t.id %>" onclick="hoverchangereview(6,<%= r_t.id %>)" lang="<%= r_t.id %>">6</div>
-                      <div class="rate-number" id="reviews_number_7_<%= r_t.id %>" onclick="hoverchangereview(7,<%= r_t.id %>)" lang="<%= r_t.id %>">7</div>
+                      <div class="rate-number" id="reviews_number_1_<%= r_t.id %>" lang="<%= r_t.id %>">1</div>
+                      <div class="rate-number" id="reviews_number_2_<%= r_t.id %>" lang="<%= r_t.id %>">2</div>
+                      <div class="rate-number" id="reviews_number_3_<%= r_t.id %>" lang="<%= r_t.id %>">3</div>
+                      <div class="rate-number" id="reviews_number_4_<%= r_t.id %>" lang="<%= r_t.id %>">4</div>
+                      <div class="rate-number" id="reviews_number_5_<%= r_t.id %>" lang="<%= r_t.id %>">5</div>
+                      <div class="rate-number" id="reviews_number_6_<%= r_t.id %>" lang="<%= r_t.id %>">6</div>
+                      <div class="rate-number" id="reviews_number_7_<%= r_t.id %>" lang="<%= r_t.id %>">7</div>
                       <div data-reviewTypeId="<%= r_t.id %>" id="rate-result_8_<%= r_t.id %>" class="rate-result">0</div>
                       <div class="clearfix"></div>
                     </div>

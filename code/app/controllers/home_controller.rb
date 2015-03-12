@@ -111,6 +111,11 @@ class HomeController < ApplicationController
             city_id=@cities.first().id
             end
         end
+      else
+        country=Country.all.order("name ASC")
+        countryid=country.first().id
+        @cities=City.where(country_id:countryid)
+        city_id=@cities.first().id
       end
     else
       country=Country.all.order("name ASC")
@@ -139,7 +144,8 @@ class HomeController < ApplicationController
     @friend = User.find_by_id(params[:id])
 
     @isMyprofile = (@friend.id == current_user.id) ? true : false
-
+    @coutry=CityCountryUser.where(user_id: current_user.id.to_s,type_option: 'country')
+    @cityddddd=CityCountryUser.where(user_id: current_user.id.to_s,type_option: 'city')
     if @friend.nil?
       @friend = User.find_by_id(1)
     end
@@ -220,7 +226,11 @@ class HomeController < ApplicationController
     render :json => { :data => true }
   end
    def user_meta_country_city
-     CityCountryUser.insert_prodile(params[:id], params[:value])
+     CityCountryUser.insert_prodile(params[:id], params[:value],current_user.id,params[:type])
+     render :json => { :data => true }
+   end
+   def update_user_meta_country_city
+     CityCountryUser.update_prodile(params[:id], params[:value])
      render :json => { :data => true }
    end
   def update_profile
@@ -510,6 +520,7 @@ end
                       countryid=country.first().id
                       @cities=City.where(country_id:countryid)
                       @city_id=@cities.first().id
+                      @location=City.where(country_id: countryid)
                       end
                   end
 

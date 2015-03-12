@@ -1651,3 +1651,17 @@ div#register-container-fluid div.form-group
 {
   margin-bottom: 7px !important;
 }
+
+//lumina 530
+@media only screen and (min-width:357px)
+and (max-width:357px)
+and (orientation : portrait) {
+  .modal-body {
+    height: 200px !important;
+  }
+}
+@media only screen and (min-width:595px)
+and (max-width:595px)
+and (orientation : landscape) {
+
+}

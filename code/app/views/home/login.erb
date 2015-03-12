@@ -83,7 +83,7 @@
       <div class="item-conettn-body">
         <a href="/BurgerProfile/<%=item.id %>">
           <div class="item-img" style="position: relative">
-            <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'width:269px;height:219px;border-top-left-radius:10px;border-bottom-left-radius:10px') %>
+            <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'width:269px;height:220px;border-top-left-radius:10px;border-bottom-left-radius:10px') %>
             <% if(is_reviewed) %>
 
                   <div class="layer-product-image" style="height: 100% !important;"></div>
@@ -94,7 +94,7 @@
         <div class="item-body">
           <div class="item-reviews">
             <div class="number-reviews">
-              <%=  item.get_review_score.round(1) %><span class="number-sub">/<%=item.getMaxReview%></span>
+              <%=  item.get_review_score.round(1) %><span class="number-sub">/35<!--<%=item.getMaxReview %>--></span>
             </div>
             <div class="user-reviews">
               <div class="title-reviews">Reviews</div>

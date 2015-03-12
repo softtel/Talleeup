@@ -8,14 +8,27 @@
       <div data-datatype="text"  class="meta-value">
         <select onchange="changecountry()" id="countreyhhhhhh">
           <%
+             _idcountry=0
+             _idfile=0
+             _select=""
+             if @coutry.length>0
+               _idcountry=@coutry.first().country_id
+               _idfile=@coutry.first().id
+             end
              @countryall.each do |item|
+              if item.id==_idcountry
+                _select="selected"
+
+              else
+                _select=""
+               end
               %>
-            <option value="<%=item.id%>"><%=item.name%></option>
+            <option <%=_select%> value="<%=item.id%>"><%=item.name%></option>
             <%end
           %>
         </select>
         <% if @isMyprofile %>
-           <!-- <img  class="icon-edit-meta" onclick="icon_edit_meta_select_country()" src="/assets/icon-edit.png" />-->
+           <img  class="icon-edit-meta" onclick="icon_edit_meta_select_country(<%=_idfile%>,'country')" src="/assets/icon-edit.png" />
         <% end %>
       </div>
     </h4>
@@ -29,7 +42,16 @@
             <option value="0">no result</option>
         </select>
         <% if @isMyprofile %>
-           <!-- <img  class="icon-edit-meta" onclick="icon_edit_meta_select_city()" src="/assets/icon-edit.png" />-->
+           <%
+                _idcountry=0
+                _idcityyty=0
+                if @cityddddd.length>0
+                    _idcountry=@cityddddd.first().country_id
+                    _idcityyty=@cityddddd.first().id
+                end
+            %>
+            <input type="hidden" value="<%=_idcountry%>" id="sdfghshdfgsdfs">
+           <img  class="icon-edit-meta" onclick="icon_edit_meta_select_city(<%=_idcityyty%>,'city')" src="/assets/icon-edit.png" />
         <% end %>
       </div>
     </h4>
@@ -75,6 +97,7 @@
 <script>
   $(document).ready(function () {
       var _id=$("#countreyhhhhhh").val();
+      var _idiiii=$("#sdfghshdfgsdfs").val();
       $.post("/home/getcityByIDCountry",{idcountry:_id},function(){
 
       }).success(function(data){
@@ -84,7 +107,16 @@
 
               for(var i=0;i<data.data.length;i++)
               {
-                  _html+="<option value='"+data.data[i].id+"'>"+data.data[i].name+"</option>";
+                 var  _select="";
+                  if(_idiiii==data.data[i].id)
+                  {
+                      _select="selected";
+                  }
+                  else
+                  {
+                      _select="";
+                  }
+                  _html+="<option "+_select+" value='"+data.data[i].id+"'>"+data.data[i].name+"</option>";
               }
           }
           else

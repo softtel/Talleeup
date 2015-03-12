@@ -13,9 +13,13 @@ Rails.application.routes.draw do
   post '/index'=>'home#index',as: 'indexs'
 
   post 'home/search'
+  post '/search'=>'home#search',as: 'postsearch'
   post 'home/follow'
   post 'home/unfollow'
+
   get 'home/search'
+  get '/search'=>'home#search',as: 'getsearch'
+
   get 'home/test_ajax'
 
   get '/userprofile/:id'=> 'home#userprofile'
@@ -32,7 +36,8 @@ Rails.application.routes.draw do
 
   post 'home/review_post'
   get 'home/test'
-
+  post 'home/user_meta_country_city'
+  post 'home/update_user_meta_country_city'
   get 'BurgerProfile/:id'=>'home#BurgerProfile'
 
   get '/login'=>'home#login',as: 'login'

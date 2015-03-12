@@ -274,7 +274,7 @@
 }
 .item-img-user:first-child
 {
-  padding-left: 0px;
+  padding-left: 8px;
 }
 .item-number-count
 {
@@ -328,12 +328,12 @@
 {
   background: #fccf0f;
   border-bottom-right-radius: 9px;
-  height: 53px;
+  height: 55px;
 }
 .content-body-share
 {
   background: #fccf0f;
-  height: 53px;
+  height: 55px;
 }
 .text-review
 {
@@ -453,6 +453,7 @@
   font-weight: bold;
   font-size: 18pt;
   padding-top: 27px;
+  white-space: nowrap;
 }
 .img-text-bk-content-header
 {
@@ -812,7 +813,10 @@ and (orientation : portrait) {
 and (min-device-width : 320px)
 and (max-device-width : 480px)
 and (orientation : portrait) {
-
+  .modal-body
+  {
+    height: 164px;
+  }
   #Email, #Password{
     width:100%;
   }
@@ -837,9 +841,9 @@ and (orientation : portrait) {
   }
   .m-search-home {
     float: left;
-    width: 19%;
+    width: 12%;
     margin-top: 48px;
-    padding-left: 18px;
+   /* padding-left: 18px;*/
   }
   .m-content-body-item {
     width: 100%;
@@ -850,11 +854,11 @@ and (orientation : portrait) {
 
   .button-review
   {
-    padding-left: 106px;
+    padding-left: 10px;
   }
   .button-profile
   {
-    padding-left: 170px;
+    padding-left: 13px;
   }
 
 
@@ -895,8 +899,8 @@ and (orientation : portrait) {
   }
   .item-number-count
   {
-    line-height: 54px;
-  font-size: 24pt;
+    line-height: 26px;
+  font-size: 14pt;
   }
   .item-reviews
   {
@@ -904,15 +908,16 @@ and (orientation : portrait) {
   }
   .name-title-product-review
   {
-    font-size: 24pt;
-    height: 47px;
-    line-height: 39px;
+    font-size: 18pt;
+    /*height: 47px;*/
+    line-height: 25px;
+    height: auto;
   }
   .name-title-product-review-child
   {
-    padding-top: 5px;
+    padding-top: 8px;
 
-    font-size: 21pt;
+    font-size: 15pt;
   }
   .item-add
   {
@@ -952,17 +957,22 @@ and (orientation : portrait) {
   }
   .title-reviews
   {
-    font-size: 17pt;
+    font-size: 8pt;
   }
   .title-product-reviews
   {
     width: 80%;
+    padding-left: 0px;
   }
 }
 @media only screen
 and (min-device-width : 320px)
 and (max-device-width : 480px)
 and (orientation : landscape) {
+  .modal-body
+  {
+    height: 164px;
+  }
   #Email, #Password{
     width:100%;
   }
@@ -1000,11 +1010,11 @@ and (orientation : landscape) {
 
   .button-review
   {
-    padding-left: 95px;
+    padding-left: 30px;
   }
   .button-profile
   {
-    padding-left: 95px;
+    padding-left: 30px;
   }
 
 
@@ -1046,6 +1056,7 @@ and (orientation : landscape) {
   .title-product-reviews
   {
     width: 80%;
+    padding-left: 0px;
   }
   .item-number-count
   {
@@ -1058,15 +1069,15 @@ and (orientation : landscape) {
   }
   .name-title-product-review
   {
-    font-size: 24pt;
-    height: 47px;
-    line-height: 39px;
+    font-size: 22pt;
+    height: auto;
+    line-height: 32px;
   }
   .name-title-product-review-child
   {
     padding-top: 5px;
 
-    font-size: 21pt;
+    font-size: 18pt;
   }
   .item-add
   {
@@ -1600,6 +1611,10 @@ and (orientation : landscape) {
 @media only screen and (min-width:357px)
 and (max-width:357px)
 and (orientation : portrait) {
+  .text-bk-content-header
+  {
+    font-size: 16pt !important;
+  }
   .m-logo-header {
     background-image: image_url("m_02.png");
     height: 77px;

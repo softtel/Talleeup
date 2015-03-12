@@ -733,3 +733,171 @@ and (orientation : portrait)
   height: 30px;
   padding-right: 10px;
 }
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
+and (orientation : portrait) {
+  .item-nnumber
+  {
+    font-size: 100px;
+  }
+  .text-burgerprofile
+  {
+    font-size: 26pt !important;
+    padding-top: 33px !important;
+  }
+  .item-number-bottom
+  {
+    padding-top: 40px !important;
+  }
+  .menu-top-header
+  {
+    height: auto !important;
+  }
+  .content-deatisl-title
+  {
+    width: 100% !important;
+  }
+  .item-content-details
+  {
+    width: 100% !important;
+  }
+  .text-dataisl-item
+  {
+    font-size: 14px;
+  }
+  .price-dataisl-item
+  {
+    font-size: 14px;
+    overflow: hidden;
+  }
+  .content-reviews
+  {
+    width: 100%;
+  }
+  .item-reviews-bur-comennt
+  {
+    width: 100%;
+  }
+  .item-name-reviews-comment
+  {
+    font-size: 9pt;
+  }
+  .like-noactive
+  {
+    margin-left: 37px;
+    width: 35%;
+  }
+}
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px)
+and (orientation : landscape) {
+  .item-number-bottom
+  {
+    padding-top: 40px !important;
+  }
+  .menu-top-header
+  {
+    height: auto !important;
+  }
+  .content-deatisl-title
+  {
+    width: 100% !important;
+  }
+  .item-content-details
+  {
+    width: 100% !important;
+  }
+  .text-dataisl-item
+  {
+    font-size: 14px;
+  }
+  .price-dataisl-item
+  {
+    font-size: 14px;
+    overflow: hidden;
+  }
+  .content-reviews
+  {
+    width: 100%;
+  }
+  .item-reviews-bur-comennt
+  {
+    width: 100%;
+  }
+  .like-noactive
+  {
+    margin-left: 37px;
+    width: 35%;
+  }
+}
+
+
+//lumina 530
+@media only screen and (min-width:357px)
+and (max-width:357px)
+and (orientation : portrait) {
+  .item-content-details{
+    width: 40% !important;
+  }
+  .item-content-details{
+    clear: both;
+  }
+  .item-nnumber{
+    font-size: 130px;
+  }
+  .content-reviews, .item-reviews-bur-comennt{
+    width: 100%;
+  }
+  #slider1_container{
+    top: 100px !important;
+    left: 0px !important;
+    height: 140.281333px !important;
+    overflow: hidden !important;
+    clear: both !important;
+    width: 100% !important;
+  }
+  .jssorb05{
+    display: none !important;
+  }
+  .item-number-bottom{
+    padding-top: 42px !important;
+  }
+  .lagre_review{
+    margin-top: -10px !important;
+  }
+}
+@media only screen and (min-width:595px)
+and (max-width:595px)
+and (orientation : landscape) {
+  .item-content-details{
+    width: 72% !important;
+  }
+  .item-content-details{
+    clear: both;
+  }
+  .item-nnumber{
+    font-size: 130px;
+  }
+  .content-reviews, .item-reviews-bur-comennt{
+    width: 100%;
+  }
+  #slider1_container{
+    top: 100px !important;
+    left: 0px !important;
+    height: 140.281333px !important;
+    overflow: hidden !important;
+    clear: both !important;
+    width: 100% !important;
+  }
+  .jssorb05{
+    display: none !important;
+  }
+  .item-number-bottom{
+    padding-top: 42px !important;
+  }
+  .lagre_review{
+    margin-top: -10px !important;
+  }
+}
