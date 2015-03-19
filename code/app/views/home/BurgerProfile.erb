@@ -222,11 +222,31 @@
       <div class="detaisl-noline"></div>
     </div>
     <div class="buttom-loadmore" align="center" style="padding-top: 15px;cursor: pointer">
-      <div class="text-loadmore" data-toggle="modal" data-target="#exampleModal">ADD COMMENT</div>
+      <%if user_signed_in? %>
+            <div class="text-loadmore" data-toggle="modal" data-target="#exampleModal">ADD COMMENT</div>
+      <%else%>
+            <div class="text-loadmore" data-toggle="modal" data-target="#checkreviewfhgfjghd">ADD COMMENT</div>
+          <!-- Modal -->
+          <div class="modal fade" id="checkreviewfhgfjghd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content" style="top:70px">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="exampleModalLabel">Notification</h4>
+                </div>
+                <div class="modal-body">
+                  <p style="color: #666">You must be logged in in order to leave comments</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+      <%end%>
+
     </div>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content daaaacomnet">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="exampleModalLabel">Add Comment</h4>
@@ -267,7 +287,8 @@
         <div class="item-text-reviews-comment">
           <div class="item-name-reviews-comment" lang="<%=item.user.id%>"><%=item.user.fullname %></div>
           <div class="item-clock-comment">
-            <span data-livestamp="<%=item.created_at.to_formatted_s(:db)%>"></span>
+            <span data-livestamp="<%=item.created_at.to_time.to_i%>"></span>
+
           </div>
           <div class="clear-fix"></div>
 
@@ -300,14 +321,23 @@
             <div class="item-text-reviews-comment">
               <div class="item-name-reviews-comment"><%=chchch.user.fullname %></div>
               <div class="item-clock-comment">
-               <span data-livestamp=" <%=chchch.created_at.to_formatted_s(:db)%>"></span>
+               <span data-livestamp="<%=chchch.created_at.to_time.to_i%>"></span>
               </div>
               <div class="clear-fix"></div>
 
               <div class="item-text-reviews-mutile">
                 <span><%=chchch.content%></span></div>
               <div style="width: 100%;height: 10px;float: left"></div>
-
+              <%
+                 if chchch.get_numlink_comment_product_byid==1%>
+                  <div class="like-active">
+                    <span>like</span>
+                  </div>
+              <%else%>
+                  <div class="like-noactive">
+                    <span onclick="addlikecommentUser(<%=chchch.id %>)">like</span>
+                  </div>
+              <%end %>
 
               <div class="next-comment" style="width: 100%"></div>
             </div>
@@ -357,6 +387,28 @@
           }
       });
 
+  }
+  function addlikecommentUser(_id)
+  {
+      var data = {id: _id};
+
+      $.ajax({
+          type: "POST",
+          url: '/home/addlikeComemnt',
+          contentType: "application/json; charset=utf-8",
+          dataType: 'json',
+          data: JSON.stringify(data),
+          success: function(data, status)
+          {
+
+              console.log('success');
+              window.location=document.URL;
+          },
+          error: function(data, status)
+          {
+              console.log('error');
+          }
+      });
   }
   function geteventclick(){
       alert("ok")

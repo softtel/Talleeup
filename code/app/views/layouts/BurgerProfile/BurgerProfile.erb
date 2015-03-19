@@ -17,6 +17,38 @@
     <div class="bk-top-header headerburger">
       <div class="container">
         <div class="navbar-header">
+          <!-- Modal -->
+          <div class="modal fade" id="myModalSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content" style="top:70px">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="exampleModalLabel">Search Burgers</h4>
+                </div>
+                <div class="modal-body">
+
+
+                  <div role="tabpanel" class="tab-pane active" id="Email" style="padding-left: 10px;padding-top: 10px;height: 140px">
+                    <form action="/search" method="post">
+                      <div class="form-group">
+                        <label for="recipient-name" class="control-label">KeyWord:</label>
+                        <input type="text" name="keyword" class="form-control" id="recipient-name">
+                        <span id="error-email" style="color: red"></span>
+                      </div>
+
+                    </form>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                      <button type="submit"  class="btn btn-primary">Search</button>
+
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
           <%if device_type == :mobile %>
 
               <%if user_signed_in? %>
@@ -38,43 +70,12 @@
 
 
           <%end%>-->
-          <form  action="/home/search" >
+          <form  action="/search" >
           <%if device_type == :mobile %>
               <div class="m-search-home">
                 <input  type="button" data-toggle="modal" data-target="#myModalSearch"/>
               </div>
-                <!-- Modal -->
-                <div class="modal fade" id="myModalSearch" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content" style="top:70px">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search Burgers</h4>
-                      </div>
-                      <div class="modal-body">
 
-
-                        <div role="tabpanel" class="tab-pane active" id="Email" style="padding-left: 10px;padding-top: 10px;height: 140px">
-                          <form action="/home/search" method="post">
-                            <div class="form-group">
-                              <label for="recipient-name" class="control-label">KeyWord:</label>
-                              <input type="text" name="keyword" class="form-control" id="recipient-name">
-                              <span id="error-email" style="color: red"></span>
-                            </div>
-
-                          </form>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit"  class="btn btn-primary">Search</button>
-
-                          </div>
-                        </div>
-
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
           <%else%>
               <div class="search-home">
                 <input name="keyword" placeholder="search" type="text"/>
@@ -85,9 +86,33 @@
 
 
           <div class="button-review">
-            <a href="/review">
+
+              <%if user_signed_in? %>
+                <a href="/reviewuser">
                 <input type="button" value="REVIEW" name="REVIEW">
-            </a>
+                </a>
+              <%else%>
+                <a href="#">
+                  <input type="button" value="REVIEW" name="REVIEW" data-toggle="modal" data-target="#checkreview">
+                  <!-- Modal -->
+                  <div class="modal fade" id="checkreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelggggg" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="exampleModalLabelggggg">Notification</h4>
+                        </div>
+                        <div class="modal-body loginnnnnn">
+                          <p style="color: #666">You must be logged in to review a burger. Please sign-in or create an account</p>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </a>
+               <%end%>
+
+
           </div>
 
             <% if user_signed_in? %>
@@ -177,7 +202,19 @@
 
           <div class="full-noline-bur"></div>
 
-          <div class="item-menu-top-header-bur"><a href="/review?product_id=<%=params[:id]%>" class="bur-review" >REVIEW </a></div>
+          <div class="item-menu-top-header-bur">
+
+
+
+            <% if user_signed_in? %>
+                <a href="/review?product_id=<%=params[:id]%>" class="bur-review" >REVIEW </a>
+            <%else%>
+                <a href="#"  data-toggle="modal" data-target="#checkreview" class="bur-review" >REVIEW </a>
+
+            <%end%>
+
+          </div>
+
          <!-- <div class="no-line-bur"></div>-->
 
           <!--<div class="item-menu-top-header-bur"><a href="#" class="bur-addtolist">ADD TO LIST </a></div>-->
@@ -195,24 +232,24 @@
     </div>
   </div>
   <!-- Modal -->
-  <div class="modal fade" id="myModal<%=params[:id] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="myModal<%=params[:id] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelhhh" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content" style="top:70px">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="exampleModalLabel">Share Burgers</h4>
+          <h4 class="modal-title" id="exampleModalLabelhhh">Share Burgers</h4>
         </div>
         <div class="modal-body">
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#Email" aria-controls="Email" role="tab" data-toggle="tab">Email</a></li>
+            <li role="presentation" class="active"><a href="#Emailhhhh" aria-controls="Email" role="tab" data-toggle="tab">Email</a></li>
             <li role="presentation"><a href="#Facebook" aria-controls="Facebook" role="tab" data-toggle="tab">Facebook</a></li>
             <li role="presentation"><a href="#Twiter" aria-controls="Twiter" role="tab" data-toggle="tab">Twiter</a></li>
 
           </ul>
           <!-- Tab panes -->
           <div class="tab-content">
-            <div role="tabpanel" class="tab-pane active" id="Email" style="padding-left: 10px;padding-top: 10px;height: 300px">
+            <div role="tabpanel" class="tab-pane active" id="Emailhhhh" style="padding-left: 10px;padding-top: 10px;height: 300px">
 
               <form>
                 <div class="form-group">

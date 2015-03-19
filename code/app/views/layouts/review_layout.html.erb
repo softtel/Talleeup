@@ -15,62 +15,7 @@
 <body>
 
 <div id="layer-review"></div>
-<div id="share-dialog" class="center-block">
-    <button id="btn-close-dialog" type="button" class="close" aria-label="Close"><span style="color: #145a8b" aria-hidden="true">&times;</span></button>
-    <div id="share-dialog-1">
-      <h2 class="text-center text-bold" style="padding-top: 74px">BOOMSHAKALAKA!</h2>
-      <h6 class="text-center text-normal">Thanks for bringing even more</h6>
-      <h6 class="text-center text-normal">awesomeness to TalleeUp</h6>
-    </div>
-  <div id="share-dialog-2">
-    <h4 class="text-center text-bold" style="padding-top: 33px">Add Friends!</h4>
-    <h6 class="text-center text-normal" >Share this review with your friends</h6>
-    <div id="form-group-share" class="form-group center-block" style="position: relative">
-        <input id="txt-share-friend"   class="form-control" />
 
-    </div>
-    <%
-       arr=Array.new
-
-       @userall.each  do |item|
-         arr.push(item.email)
-
-       end
-       arr.join
-
-    %>
-    <!--<input type="hidden" value="<%=arr%>" id="sdnfsdsdf">-->
-  </div>
-  <div id="share-dialog-3">
-    <h4 class="text-center text-bold" style="padding-top: 33px">Share your Experience</h4>
-    <h6 class="text-center text-normal">Tell everyone about your burger review</h6>
-    <div class="center-block">
-      <div class="center-block" id="fb-root"></div>
-      <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/vi_VN/sdk.js#xfbml=1&appId=1527198720891153&version=v2.0";
-          fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));</script>
-
-      <a class="twitter-share-button center-block" href="https://twitter.com/share"
-         data-related="twitterdev"
-         data-size="large"
-         data-count="none">
-        Tweet
-      </a>
-      <script type="text/javascript">
-          window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
-      </script>
-    </div>
-
-  </div>
-  <div id="share-dialog-4">
-    <button id="btn-done" class="center-block">DONE <span id="showloadding_reviews" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button>
-
-  </div>
-</div>
 
 <div id="profile-header-container"  class="container-fluid review-header-container">
 
@@ -123,6 +68,7 @@
   function closeDialog(){
       $('#share-dialog').hide();
       $('#layer-review').hide();
+      window.location="/userprofile/<%=current_user.id%>";
   }
 
   $(document).ready(function(){

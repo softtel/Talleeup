@@ -84,7 +84,8 @@ ActiveAdmin.register Product do
 
   member_action :components, :method=>:get do
   end
-
+  member_action :getbycomponentById, :method=>:post do
+  end
   member_action :delete_component, :method=>:get do
   end
 
@@ -121,14 +122,20 @@ ActiveAdmin.register Product do
 
     def components
       @components = ProductComponent.where(product_id: params[:id])
-      @component_values = ComponentValue.all
+
       @product_component = ProductComponent.new(product_id: params[:id])
+      @component_main=Component.all()
+      @component_values = ComponentValue.where(component_id: @component_main.first().id)
     end
 
     def delete_component
       @product_component = ProductComponent.find(params[:id])
       @product_component.destroy
       redirect_to :action => "components", :id => @product_component.product_id
+    end
+    def getbycomponentById
+      @component_values = ComponentValue.where(component_id: params[:componentvaluesId])
+      render :json => { :data =>  @component_values}
     end
   end
 

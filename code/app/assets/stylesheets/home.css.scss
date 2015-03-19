@@ -634,7 +634,7 @@
   }
 
   img#arrow-up {
-    margin-top: -45px;
+    margin-top: 0px;
   }
 
   h1.introduct{
@@ -780,16 +780,20 @@
 
   h3.product-reviews-center-top{
     margin-top: 12px;
-    font-size: 12px;
+    font-size: 14px !important;
     font-weight: bolder;
+    width: 280px;
   }
 
   h4.product-reviews-center-bottom{
-    font-size: 12px;
+    font-size: 12px !important;
     margin-bottom: 0px;
     font-weight: bolder;
   }
-
+  .product-reviews-center h4
+  {
+    font-size: 12px !important;
+  }
   p.product-reviews-score{
   }
 
@@ -1197,7 +1201,7 @@ div#main-bar-color{
 .product-reviews-center h4{
   color: #CECFD1;
   font-family: myFirstFont;
-  font-size: 18px !important;
+  font-size: 18px ;
   letter-spacing: 1px;
 }
 
@@ -1246,7 +1250,7 @@ div#main-bar-color{
   position: absolute;
   top: 17px;
   left: 0;
-  z-index: 3;
+ // z-index: 3;
 }
 
 .product-reviews-people{
@@ -1435,6 +1439,10 @@ span.icon {
 and (min-device-width : 320px)
 and (max-device-width : 480px)
 and (orientation : landscape) {
+  .product-reviews-score .score
+  {
+    top: 10px;
+  }
   .input-login-wrapper
   {
     width: 100%;
@@ -1448,7 +1456,10 @@ and (orientation : landscape) {
 and (min-device-width : 320px)
 and (max-device-width : 480px)
 and (orientation : portrait) {
-
+  .product-reviews-score .score
+  {
+    top: 10px
+  }
   div#register-container-fluid
   {
     top: 23%;
@@ -1572,36 +1583,45 @@ and (max-device-width : 1024px) {
 @media only screen and (min-width:338px)
 and (max-width:338px)
 and (orientation : portrait) {
+  .product-reviews-score .score
+  {
+    top:10px
+  }
   #city-filter
   {
     font-size:22px;
   }
   .product-reviews-center h3
   {
-    font-size: 18px;
+    font-size: 14px;
 
   }
   .product-reviews-center h4
   {
-    font-size: 16px;
+    font-size: 12px !important;
   }
 }
 @media only screen and (min-width:351px)
 and (max-width:351px)
 and (orientation : portrait)
 {
+  .product-reviews-score .score
+  {
+    top:10px
+  }
+
   #city-filter
   {
     font-size:22px;
   }
   .product-reviews-center h3
   {
-    font-size: 18px;
+    font-size: 14px;
 
   }
   .product-reviews-center h4
   {
-    font-size: 16px;
+    font-size: 12px !important;
   }
   .modal-body{
     padding-bottom: 115px;
@@ -1616,35 +1636,43 @@ and (orientation : portrait)
 and (max-width:395px)
 and (orientation : portrait)
 {
+  .product-reviews-score .score
+  {
+    top:10px
+  }
   #city-filter
   {
     font-size:33px;
   }
   .product-reviews-center h3
   {
-    font-size: 22px;
+    font-size: 14px;
 
   }
   .product-reviews-center h4
   {
-    font-size: 18px;
+    font-size: 12px !important;
   }
 }
 @media only screen and (min-width:384px)
 and (max-width:384px)
 and (orientation : portrait) {
+  .product-reviews-score .score
+  {
+    top:10px
+  }
   #city-filter
   {
     font-size:33px;
   }
   .product-reviews-center h3
   {
-    font-size: 22px;
+    font-size: 14px;
 
   }
   .product-reviews-center h4
   {
-    font-size: 18px;
+    font-size: 12px !important;
   }
 }
 div#register-container-fluid div.form-group
@@ -1656,12 +1684,34 @@ div#register-container-fluid div.form-group
 @media only screen and (min-width:357px)
 and (max-width:357px)
 and (orientation : portrait) {
+  .product-reviews-score .score
+  {
+    top:10px
+  }
   .modal-body {
     height: 200px !important;
+  }
+  .product-reviews-center h3
+  {
+    font-size: 14px !important;
+  }
+  .product-reviews-center h4
+  {
+    font-size: 12px !important;
   }
 }
 @media only screen and (min-width:595px)
 and (max-width:595px)
 and (orientation : landscape) {
 
+}
+
+@media only screen and (min-width:375px)
+and (max-width:375px)
+
+{
+  .product-reviews-score .score
+  {
+    top:9px
+  }
 }

@@ -16,7 +16,7 @@
 <div class="cl"></div>
 <div class="no-line-header">
   <div class="line-no">&nbsp;</div>
-  <div class="count-number-text"><%=@data.count(:all) %> burgers</div>
+  <div class="count-number-text"><%=@data.count(:all) %> burgers </div></div>
   <div class="line-no">&nbsp;</div>
 </div>
 <div class="cl"></div>
@@ -39,6 +39,7 @@
               <% if(is_reviewed) %>
 
                     <div class="layer-product-image" style="width: 100%;height: 100%"></div>
+
 
               <% end %>
               <div class="number-reviews">
@@ -83,7 +84,7 @@
       <div class="item-conettn-body">
         <a href="/BurgerProfile/<%=item.id %>">
           <div class="item-img" style="position: relative">
-            <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'width:269px;height:220px;border-top-left-radius:10px;border-bottom-left-radius:10px') %>
+            <%= image_tag(item.images.url(:original), :class => 'img-responsive',:style => 'width:269px;height:219px;border-top-left-radius:10px;border-bottom-left-radius:10px') %>
             <% if(is_reviewed) %>
 
                   <div class="layer-product-image" style="height: 100% !important;"></div>
@@ -94,7 +95,7 @@
         <div class="item-body">
           <div class="item-reviews">
             <div class="number-reviews">
-              <%=  item.get_review_score.round(1) %><span class="number-sub">/35<!--<%=item.getMaxReview %>--></span>
+              <%=  item.get_review_score.round(1) %><span class="number-sub" title="Maximum reviews">/35<!--<%=item.getMaxReview %>--></span>
             </div>
             <div class="user-reviews">
               <div class="title-reviews">Reviews</div>
@@ -137,7 +138,7 @@
                   <% if(is_reviewed) %>
                       <span class="icon"></span>
                   <% end %>
-                Reviews
+                Review
               </div></a>
               <div class="text-review-share">
                 <button type="button" style="background: none;border: none;text-transform: uppercase"  data-toggle="modal" data-target="#myModal<%=item.id %>">
@@ -179,7 +180,7 @@
                         </div>
                         <div class="form-group">
                           <label for="message-text" class="control-label">Message:</label>
-                          <textarea class="form-control" id="message-text-<%=item.id%>"></textarea>
+                          <textarea class="form-control" id="message-text-<%=item.id%>">I just crushed the <%= item.productname%> at <%= item.restaurantsname%>.Check out my <%=root_url %>BurgerProfile/<%=item.id%></textarea>
                           <span id="error-message-<%=item.id%>" style="color: red"></span>
                         </div>
                       </form>

@@ -1,3 +1,60 @@
+<div id="share-dialog" class="center-block" style="z-index: 99999999">
+  <button id="btn-close-dialog" type="button" class="close" aria-label="Close"><span style="color: #145a8b" aria-hidden="true">&times;</span></button>
+  <div id="share-dialog-1">
+    <h2 class="text-center text-bold" style="padding-top: 74px">BOOMSHAKALAKA!</h2>
+    <h6 class="text-center text-normal">Thanks for bringing even more</h6>
+    <h6 class="text-center text-normal">awesomeness to TalleeUp</h6>
+  </div>
+  <div id="share-dialog-2">
+    <h4 class="text-center text-bold" style="padding-top: 33px">Add Friends!</h4>
+    <h6 class="text-center text-normal" >Share this review with your friends</h6>
+    <div id="form-group-share" class="form-group center-block" style="position: relative">
+      <input id="txt-share-friend"   class="form-control" />
+
+    </div>
+    <%
+       arr=Array.new
+
+       @userall.each  do |item|
+         arr.push(item.email)
+
+       end
+       arr.join
+
+    %>
+    <!--<input type="hidden" value="<%=arr%>" id="sdnfsdsdf">-->
+  </div>
+  <div id="share-dialog-3">
+    <h4 class="text-center text-bold" style="padding-top: 33px">Share your Experience</h4>
+    <h6 class="text-center text-normal">Tell everyone about your burger review</h6>
+    <div class="center-block">
+      <div class="center-block" id="fb-root"></div>
+      <script>
+          (function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
+              fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));</script>
+      <div class="fb-share-button" style="padding-left: 44.7%;padding-bottom: 10px" data-href="<%=root_url %>BurgerProfile/<%=@idproduct%>" data-layout="button"></div>
+      <a class="twitter-share-button center-block" href="https://twitter.com/share?text=I just crushed the <%= @nameproduct%> at <%= @namerestaurent%>.Check out my &url=<%=root_url %>BurgerProfile/<%=@idproduct%>"
+         data-related="twitterdev"
+         data-size="large"
+         data-count="none">
+        Tweet
+      </a>
+      <script type="text/javascript">
+          window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+      </script>
+    </div>
+
+  </div>
+  <div id="share-dialog-4">
+    <button id="btn-done" class="center-block">DONE <span id="showloadding_reviews" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button>
+
+  </div>
+</div>
 <div id="step-1-container-fluid" class="container-fluid step-container-fluid">
   <div id="step-1-container" class="container step-container">
     <div id="step-1-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
@@ -173,7 +230,11 @@
             <div class="inputWrapper">
               <input id="btn-attach-image" onchange="readURL(this);" class="fileInput" type="file" />
               <div style="padding-top: 35px">
-                <img id="blah" src="/Images/no.png" alt="your image" />
+                   <% if @reviewed.present?%>
+                    <img id="blah" style="width: 100px" src="/comment/<%=@reviewed.getCommentImages%>" alt="your image" />
+                    <%else%>
+                    <img id="blah" src="/Images/no.png" alt="your image" />
+                   <%end%>
               </div>
             </div>
 
@@ -184,8 +245,29 @@
 
     <div id="form-control-submit" class="center-block">
       <% if @isReviewed.blank? || !@isReviewed   %>
-          <button id="btn-talleeup" class="center-block">TALLEEUP!</button>
-      <% end %>
+            <button id="btn-talleeup" lang="1" class="center-block">TALLEEUP!</button>
+         <%else%>
+          <button id="btn-talleeup-vibale" lang="0" class="center-block " data-toggle="modal" data-target="#checkreviewgfdhdfgdf" style="background-color: #c4c5c6">TALLEEUP!</button>
+          <div class="modal fade" id="checkreviewgfdhdfgdf" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelggggg" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="exampleModalLabelggggg">Notification</h4>
+                </div>
+                <div class="modal-body loginnnnnn">
+                  <p style="color: #666">
+                    You've reviewed this burger on <%=@reviewedinfog.created_at.localtime%>.
+                    You can review it again in <%=30-@date_now.to_i%> days.
+                    Please select another burger from the list to review.
+
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+         <% end %>
     </div>
 
 <%end%>
@@ -422,9 +504,11 @@
         if(numRate==0) {
 
             $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
-            $("#idiididid_"+_id+"").delay(2000);
+
             $("#idiididid_"+_id+"").html("Fail");
-            $("#idiididid_"+_id+"").fadeOut('slow', 1);
+            setTimeout(function(){
+                $("#idiididid_"+_id+"").hide('slow');
+            }, 2000);
             //$("#idiididid_"+_id+"").html("Fail")
 
         }
@@ -434,9 +518,11 @@
 
             $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
             //$("#idiididid_"+_id+"").html("Average")
-            $("#idiididid_"+_id+"").delay(2000);
+            //$("#idiididid_"+_id+"").delay(2000);
             $("#idiididid_"+_id+"").html("Average");
-            $("#idiididid_"+_id+"").fadeOut('slow', 1);
+            setTimeout(function(){
+                $("#idiididid_"+_id+"").hide('slow');
+            }, 2000);
             //rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': 'white'});
         }
 
@@ -446,9 +532,12 @@
 
             $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
             //$("#idiididid_"+_id+"").html("Perfect")
-            $("#idiididid_"+_id+"").delay(2000);
             $("#idiididid_"+_id+"").html("Perfect");
-            $("#idiididid_"+_id+"").fadeOut('slow', 1);
+            setTimeout(function(){
+                $("#idiididid_"+_id+"").hide('slow');
+            }, 2000);
+
+
         }
         else
         {

@@ -17,7 +17,11 @@
     <div class="col-md-4 col-sm-4 col-xs-4 product-image">
         <%= image_tag(product.images.url(:medium), class: 'img-responsive img-product') %>
         <div class="mobile-btn-group center-block">
+          <%if user_signed_in? %>
           <a href="/review?product_id=<%= product.id %>" class="link-mobile-button"><button class="mobile-button center-block">REVIEW</button></a>
+          <%else%>
+              <a href="#"  data-toggle="modal" data-target="#checkreview" class="link-mobile-button"><button class="mobile-button center-block">REVIEW</button></a>
+          <%end%>
           <a href="/BurgerProfile/<%=product.id %>" class="link-mobile-button"><button class="mobile-button center-block">SHARE</button></a>
           <a href="/BurgerProfile/<%=product.id %>" class="link-mobile-button"><button class="mobile-button center-block">SEE COMMENT</button></a>
         </div>
@@ -37,12 +41,12 @@
         <% if action_name==='index' %>
             <span class="score"><%=  product.get_review_score.round(1) %></span>
            <!-- <span class="max-score-review">/<%=product.getMaxReview%></span>-->
-            <span class="max-score-review">/35</span>
+            <span class="max-score-review" title="Maximum reviews">/35</span>
          <%else%>
             <span class="score"><%=  product.get_review_score.round(1) %></span>
-            <span class="min-score-review">/<%=product.getMinReview%></span>
+            <span class="min-score-review" title="Minimum reviews">/<%=product.getMinReview%></span>
             <!--<span class="max-score-review">/<%=product.getMaxReview%></span>-->
-            <span class="max-score-review">/35</span>
+            <span class="max-score-review" title="Maximum reviews">/35</span>
         <%end%>
 
       </p>
@@ -53,7 +57,13 @@
         <div class="list-avatars">
 
           <% product.get_reviewers.limit(5).each  do |review| %>
-              <%= link_to image_tag(review.user.profile.avatar.url(:thumb), :class=>"img-circle avatar-reviewer"), {:controller => :home, :action => :userprofile, :id => review.user_id}, :class => "link-avatar-viewer" %>
+              <%if user_signed_in? %>
+                    <%= link_to image_tag(review.user.profile.avatar.url(:thumb), :class=>"img-circle avatar-reviewer"), {:controller => :home, :action => :userprofile, :id => review.user_id}, :class => "link-avatar-viewer" %>
+                <%else%>
+                  <a class="link-avatar-viewer" href="#" data-toggle="modal" data-target="#checkreviewuserprodile">
+                    <%=image_tag(review.user.profile.avatar.url(:thumb), :class=>"img-circle avatar-reviewer")%>
+                  </a>
+              <%end%>
           <% end %>
 
           <span class="num-reviewer pull-right">(+<%= product.get_reviewers.count %>)</span>
@@ -63,9 +73,25 @@
       <!--End product-reviews-people-->
     </div>
     <!--End product-reviews-top-->
+    <!-- Modal -->
+    <div class="modal fade" id="checkreviewuserprodile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content" style="top:70px">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">Notification</h4>
+          </div>
+          <div class="modal-body">
+            <p style="color: #666">You must be logged in to review a profile. Please sign-in or create an account</p>
+          </div>
 
+        </div>
+      </div>
+    </div>
     <div class="product-reviews-center">
+
       <a href="/BurgerProfile/<%=product.id %>"><h3 class="product-reviews-center-top"><%= product.name %></h3></a>
+
       <h4 class="product-reviews-center-bottom"><%= product.restaurant.name %></h4>
       <div class="pull-right circles">
         <img src="/assets/circle-empty.png">
@@ -76,6 +102,7 @@
     <!--End product-reviews-center-->
 
     <div class="product-btn-group">
+      <%if user_signed_in? %>
       <a href="/review?product_id=<%= product.id %>">
         <button class="btn-control btn-review">
           <% if(is_reviewed) %>
@@ -84,6 +111,32 @@
           REVIEW
         </button>
       </a>
+          <%else%>
+          <a href="#"  data-toggle="modal" data-target="#checkreview">
+            <button class="btn-control btn-review">
+              <% if(is_reviewed) %>
+                  <span class="icon"></span>
+              <% end %>
+              REVIEW
+            </button>
+          </a>
+          <!-- Modal -->
+          <div class="modal fade" id="checkreview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelggggg" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="exampleModalLabelggggg">Notification</h4>
+                </div>
+                <div class="modal-body loginnnnnn">
+                  <p style="color: #666">You must be logged in to review a burger. Please sign-in or create an account</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+      <%end%>
+
       <button class="btn-control btn-share" data-toggle="modal" data-target="#myModal<%=product.id %>">SHARE</button>
     </div>
     <!--End product-btn-group-->
@@ -119,7 +172,7 @@
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="control-label">Message:</label>
-                  <textarea class="form-control" id="message-text-<%=product.id%>"></textarea>
+                  <textarea class="form-control" id="message-text-<%=product.id%>">I just crushed the <%= product.name%> at <%= product.restaurant.name%>.Check out my <%=root_url %>BurgerProfile/<%=product.id%></textarea>
                   <span id="error-message-<%=product.id%>" style="color: red"></span>
                 </div>
               </form>
@@ -132,10 +185,12 @@
             <div role="tabpanel" class="tab-pane" id="Facebook<%=product.id%>" style="padding:20px;height: 400px">
 
               <div id="fb-root"></div>
-              <script>
+              <script type="text/javascript">
 
                   (function(d, s, id) {
+
                       var js, fjs = d.getElementsByTagName(s)[0];
+                      console.log(d.getElementById(id))
                       if (d.getElementById(id)) return;
                       js = d.createElement(s); js.id = id;
                       js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
@@ -147,8 +202,8 @@
 
               <a class="twitter-share-button"
                  href="https://twitter.com/share?text=I just crushed the <%= product.name%> at <%= product.restaurant.name%>.Check out my &url=<%=root_url %>BurgerProfile/<%=product.id%>"
-                 data-url="<%=request.original_url %>"
-                 data-counturl="<%=request.original_url %>"
+                 data-url="<%=root_url %>"
+                 data-counturl="<%=root_url %>"
                  data-count="vertical">
                 Tweet
               </a>

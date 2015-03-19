@@ -726,16 +726,16 @@ and (orientation : landscape) {
 
   .content-body-share
   {
-    height: 53px;
-    line-height: 53px;
+    height: 55px;
+    line-height: 55px;
   }
   .text-review-share
   {
-    line-height: 53px;
+    line-height: 55px;
   }
   .text-review
   {
-    line-height: 53px;
+    line-height: 55px;
   }
 }
 @media only screen
@@ -764,14 +764,16 @@ and (orientation : portrait) {
   {
     font-size:44pt;
     line-height: 48px;
+    width:44.5%;
   }
   .user-reviews
   {
     padding-top: 3px;
+    width: 55%;
   }
   .title-product-reviews
   {
-    padding-top: 0px;
+    padding-top: 30px;
   }
   .name-title-product-review-child
   {
@@ -779,7 +781,8 @@ and (orientation : portrait) {
   }
   .user-review-toolbal
   {
-    padding-top: 6px;
+    padding-top: 13px;
+
   }
   .content-body-share
   {
@@ -805,6 +808,66 @@ and (orientation : portrait) {
   {
     line-height: 58px;
   }
+  .search-home input[type="text"]
+  {
+    width:170px;
+  }
+  span.icon
+  {
+    top: 10%;
+  }
+  .menu-top-header
+  {
+    height: auto !important;
+  }
+  .container-menu-add
+  {
+    display: inherit;
+  }
+  .no-line-bur
+  {
+    height: 10px;
+  }
+  .item-menu-top-header-bur
+  {
+    width: 100%;
+  }
+  .modal-dialog
+  {
+    width: 73%;
+  }
+  .content-deatisl-title
+  {
+    width: 100%;
+  }
+  .item-content-details
+  {
+    width: 100%;
+  }
+  .detaisl-item-titl
+  {
+    font-size: 29px;
+  }
+  .content-reviews
+  {
+    width: 100%;
+  }
+  .item-reviews-bur-comennt
+  {
+    width: 100%;
+  }
+  .buttom-loadmore
+  {
+    width: 100%;
+  }
+  .text-loadmore
+  {
+    width: 100%;
+  }
+  .daaaacomnet
+  {
+    top:50%
+  }
 }
 
 
@@ -813,7 +876,7 @@ and (orientation : portrait) {
 and (min-device-width : 320px)
 and (max-device-width : 480px)
 and (orientation : portrait) {
-  .modal-body
+  .loginnnnnn
   {
     height: 164px;
   }
@@ -908,7 +971,7 @@ and (orientation : portrait) {
   }
   .name-title-product-review
   {
-    font-size: 18pt;
+    font-size: 14px;
     /*height: 47px;*/
     line-height: 25px;
     height: auto;
@@ -917,7 +980,7 @@ and (orientation : portrait) {
   {
     padding-top: 8px;
 
-    font-size: 15pt;
+    font-size: 12px;
   }
   .item-add
   {
@@ -969,10 +1032,10 @@ and (orientation : portrait) {
 and (min-device-width : 320px)
 and (max-device-width : 480px)
 and (orientation : landscape) {
-  .modal-body
+  /*.modal-body
   {
     height: 164px;
-  }
+  }*/
   #Email, #Password{
     width:100%;
   }
@@ -1069,7 +1132,7 @@ and (orientation : landscape) {
   }
   .name-title-product-review
   {
-    font-size: 22pt;
+    font-size: 14px;
     height: auto;
     line-height: 32px;
   }
@@ -1077,7 +1140,7 @@ and (orientation : landscape) {
   {
     padding-top: 5px;
 
-    font-size: 18pt;
+    font-size: 12px;
   }
   .item-add
   {
@@ -1105,6 +1168,7 @@ and (orientation : landscape) {
   .text-bk-content-header
   {
     width: 100%;
+    font-size: 39px !important;
   }
   .item-menu-top-header:last-child
   {
@@ -1135,6 +1199,54 @@ and (orientation : landscape)
     float: left;
     background-repeat: no-repeat;
   }
+  .item-menu-top-header-bur
+  {
+    width: 100%;
+  }
+  .no-line-bur
+  {
+    height: 10px;
+  }
+  .container-menu-add
+  {
+    display: inherit;
+  }
+  .modal-dialog
+  {
+    width: 69%;
+  }
+  .item-content-details
+  {
+    width: 100%;
+  }
+  .content-deatisl-title
+  {
+    width: 100%;
+  }
+  .detaisl-item-titl
+  {
+    font-size: 26px;
+  }
+  .content-reviews
+  {
+    width: 100%;
+  }
+  .item-reviews-bur-comennt
+  {
+    width: 100%;
+  }
+  .buttom-loadmore
+  {
+    width: 100%;
+  }
+  .text-loadmore
+  {
+    width: 100%;
+  }
+  .menu-top-header
+  {
+    height: auto !important;
+  }
   .m-search-home input {
     background-image: image_url("07.png");
 
@@ -1161,11 +1273,11 @@ and (orientation : landscape)
 
   .button-review
   {
-    padding-left: 106px;
+    padding-left: 70px;
   }
   .button-profile
   {
-    padding-left: 170px;
+    padding-left: 40px;
   }
 
 
@@ -1374,13 +1486,13 @@ and (orientation : portrait) {
   }
   .name-title-product-review
   {
-    font-size: 13pt;
+    font-size: 14px;
     height: 11px;
     line-height: 11px;
   }
   .name-title-product-review-child
   {
-    font-size: 10pt;
+    font-size: 12px;
     padding-top: 7px;
   }
   .title-reviews
@@ -1486,7 +1598,7 @@ and (orientation : landscape) {
   appearance: none;
   background-repeat: no-repeat;
   background-position: right center;
-
+  padding-right:20px;
 }
 .style_select select:focus {
   outline: none;
@@ -1711,12 +1823,12 @@ and (orientation : portrait) {
   }
   .name-title-product-review
   {
-    font-size: 14pt;
+    font-size: 14px;
     padding-top: 2px;
   }
   .name-title-product-review-child
   {
-    font-size: 11pt;
+    font-size: 12px;
     padding-top: 0px;
   }
   .title-reviews
@@ -1912,12 +2024,12 @@ and (orientation : portrait)
   }
   .name-title-product-review
   {
-    font-size: 14pt;
+    font-size: 14px;
     padding-top: 2px;
   }
   .name-title-product-review-child
   {
-    font-size: 11pt;
+    font-size: 12px;
     padding-top: 0px;
   }
   .title-reviews
@@ -2044,8 +2156,12 @@ and (orientation : portrait)
   }
   .name-title-product-review-child
   {
-    font-size: 14pt;
+    font-size: 12px;
     padding-top: 0px;
+  }
+  .name-title-product-review
+  {
+    font-size: 14px;
   }
   .fiter-line
   {
@@ -2098,7 +2214,7 @@ and (orientation : portrait)
   }
   .name-title-product-review-child
   {
-    font-size: 14pt;
+    font-size: 12px;
     padding-top: 0px;
   }
   .fiter-line
@@ -2113,4 +2229,8 @@ and (orientation : portrait)
   {
     padding-top: 20%;
   }
+}
+#city_id
+{
+  line-height: 30px;
 }

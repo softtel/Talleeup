@@ -48,7 +48,8 @@ class Product < ActiveRecord::Base
   end
 
   def get_reviewers
-    return Review.where('product_id' => self.id).select(:user_id).distinct
+    data=Review.where('product_id' => self.id).select(:user_id).distinct
+    return data
   end
 
   def get_review_score

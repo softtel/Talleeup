@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   get 'home/myprofile'
 
   get '/review'=> 'home#review'
-
+  get 'reviewuser'=>'home#reviewuser'
   post 'home/review_post'
   get 'home/test'
   post 'home/user_meta_country_city'
@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   post 'home/CheckEmail'
   post 'home/getUserFllow'
   post '/home/getcityByIDCountry'
+  post '/home/addlikeComemnt'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", confirmations: 'confirmations' }
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # resources :users

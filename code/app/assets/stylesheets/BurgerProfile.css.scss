@@ -741,10 +741,12 @@ and (orientation : portrait) {
   {
     font-size: 100px;
   }
+
   .text-burgerprofile
   {
-    font-size: 26pt !important;
-    padding-top: 33px !important;
+    font-size: 20pt !important;
+    padding-top: 29px !important;
+    line-height: auto !important;
   }
   .item-number-bottom
   {
@@ -900,4 +902,91 @@ and (orientation : landscape) {
   .lagre_review{
     margin-top: -10px !important;
   }
+}
+#Emailhhhh
+{
+  height: 42px;
+  font-family: myFirstFont;
+  text-transform: lowercase;
+  color: #bbc0c3 !important;
+}
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 320px)
+ {
+  .modal-dialog
+  {
+    width: 38%;
+  }
+}
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 375px)
+{
+  .modal-dialog
+  {
+    width: 360px;
+  }
+}
+@media only screen
+and (min-device-width : 414px)
+and (max-device-width : 414px)
+{
+  .modal-dialog
+  {
+    width: 50%;
+  }
+}
+@media only screen
+and (min-device-width : 480px)
+and (max-device-width : 480px)
+{
+  .modal-dialog
+  {
+    width: 59%;
+  }
+}
+@media only screen
+and (min-device-width : 667px)
+and (max-device-width : 667px)
+{
+  .modal-dialog
+  {
+    width: 81.5% !important;
+  }
+  #Email
+  {
+    width: 100% ;
+  }
+  #btn-search
+  {
+    top: 3px;
+  }
+}
+@media only screen
+and (min-device-width : 736px)
+and (max-device-width : 736px)
+{
+  .modal-dialog
+  {
+    width: 90.5% !important;
+  }
+  #Email
+  {
+    width: 100% ;
+  }
+}
+@media only screen
+and (min-device-width : 360px)
+and (max-device-width : 360px)
+{
+  .modal-dialog
+  {
+    width: 43% !important;
+  }
+  #Email
+  {
+    width: 100% ;
+  }
+
 }

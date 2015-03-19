@@ -131,7 +131,9 @@ class User < ActiveRecord::Base
   def get_products_reviewed(limit = 1000)
     return Product.joins(:reviews).where(reviews: {user_id: self.id}).limit(limit).distinct
   end
-
+  def self.get_products_reviewedAll(limit = 1000)
+    return Product.joins(:reviews).limit(limit).distinct
+  end
   def isFollowed(friend_id)
     count = Follow.where("user_id = ? AND followed_user = ?", self.id, friend_id).limit(1).count
     if(count == 0)

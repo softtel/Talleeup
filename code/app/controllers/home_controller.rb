@@ -2,7 +2,7 @@ require 'product_view_models'
 
 class HomeController < ApplicationController
    #before_action :authenticate_user!
-   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail]
+   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail,:reviewuser]
    #autocomplete :brand, :name, :display_value => :funky_method
   def index
     if user_signed_in?
@@ -290,8 +290,16 @@ end
       @disbale="disabled"
       if(@isReviewed)
         @reviewed = Review.getReviewed(current_user.id,  @product.id)
+        @reviewedinfog = Review.getReviewedInfo(current_user.id,  @product.id)
+        @date_now=(Time.now - @reviewedinfog.created_at.to_time)/1.day
         @reviewed_components = @reviewed.get_reviewed_components()
+        #@reviewscommentproduct=Commentproduct.where(reviewsproductuser_id: @reviewed.getReviewedId(current_user.id,  @product.id))
       end
+      @idproduct=params[:product_id]
+      idrestaurent=Product.where(id: params[:product_id]).first().restaurant_id
+      @namerestaurent=Restaurant.where(id: idrestaurent).first().name
+      @nameproduct=Product.where(id: params[:product_id]).first().name
+
     else
       @product = Product.find_by_id(@restaurant_product.first().id)
       @disbale=""
@@ -583,6 +591,7 @@ end
       #end
       @cueeentr=City.find_by_id(@city_id)
       @profile=Profile.where(user_id: current_user.id).first()
+
       render :action => "login", layout: "homelogin/homelogin"
   end
 
@@ -645,7 +654,11 @@ end
       Commentproduct.updatelike(params[:id])
       render :json => { :status => true }
   end
+   def addlikeComemnt
 
+     Comment.updatelike(params[:id])
+     render :json => { :status => true }
+   end
   def actionSendMail
     _html="";
     _html+="<p>You just received an invitation from a friend . You can click  here</a> to see details:</p>"+request.host_with_port+params[:link];
@@ -670,7 +683,18 @@ end
 
      render :json => { :status => true }
   end
+   def reviewuser
 
+     @myprofile =   Profile.getProfile(current_user.id)
+     @profile = Profile.getProfile(current_user.id)
+     @user = User.where(id: current_user.id).first()
+
+     limit = (params[:fulllist].nil?) ? 5 : 1000
+     @products = User.get_products_reviewedAll(limit)
+     @is_full_list = (params[:fulllist].nil?) ? false : true
+
+     render layout: "reviewuser/reviewuser_layout"
+   end
    private
   # Use callbacks to share common setup or constraints between actions.
    def set_profile
