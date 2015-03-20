@@ -57,8 +57,8 @@ Rails.application.configure do
       #:tls                  => true,
       :domain             => 'gmail.com', #you can also use google.com
       :authentication => :plain,
-      :user_name          => 'nthit90@gmail.com',
-      :password           => '26101990hung@'
+      :user_name          => '@gmail.com',
+      :password           => '@'
   }
 
   Paperclip.options[:command_path] = 'C:\Program Files\ImageMagick-6.9.0-Q16'#"/usr/bin/"
