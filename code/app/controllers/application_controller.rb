@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
   protect_from_forgery with: :exception
   include Mobvious::Rails::Controller
   helper_method :device_type

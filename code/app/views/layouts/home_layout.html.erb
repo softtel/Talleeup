@@ -9,7 +9,9 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places,visualization&sensor=false"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places,visualization&sensor=false&language=en"></script>
+  <script language="javascript" type="text/javascript" src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+  <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 </head>
 <% if notice %>
     <body  onload="onloadpoup()">
@@ -182,124 +184,51 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<div id="fb-root"></div>
+<script type="text/javascript">
+    $(document).on("ready page:load", function(){
+        FB.XFBML.parse();
+       /* window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1524474791135285', // App ID
+                //channelUrl : '//alonsart.com/index.html', // Channel File
+                status     : true, // check login status
+                cookie     : true, // enable cookies to allow the server to access the session
+                xfbml      : true  // parse XFBML
+            });
+            //jQuery(document).trigger('FBSDKLoaded'); //This is the most important line to solving the issue
 
-<script>
+            // Additional initialization code here
+        };*/
+        /*(function(d){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
 
-$("#btn-login-submit").click(function(){
-    var _Email=$("#Email").val();
-    if(_Email=="")
-    {
-        $("#Email").css({"border":"1px solid red"});
-        return false;
-    }
-    var _Password=$("#Password").val();
-    if(_Password=="")
-    {
-        $("#Password").css({"border":"1px solid red"});
-        return false;
-    }
-    $.getJSON("/home/addSession",{},function(){
-    }).success(function(data){
-        $("#login-form").submit();
+        }(document));*/
+
+        /*(function(d, s, id) {
+
+            var js, fjs = d.getElementsByTagName(s)[0];
+
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(load, 'script', 'facebook-jssdk'));*/
     });
+   /* (function(d, s, id) {
 
-});
- $("#Password").change(function () {
-     var _Password=$("#Password").val();
-     if(_Password=="")
-     {
-         $("#Password").css({"border":"1px solid red"});
+        var js, fjs = d.getElementsByTagName(s)[0];
 
-     }
-     //else
-     //{
-     //    $("#Password").css({"border":"0px solid red"});
-    // }
- })
- $("#Email").change(function () {
-     var _Password=$("#Email").val();
-     if(_Password=="")
-     {
-         $("#Email").css({"border":"1px solid red"});
-
-     }
-     //else
-    // {
-     //    $("#Email").css({"border":"0px solid red"});
-    // }
- })
-
-$("#btn-register-submit").click(function(){
-    var _user_email=$("#user_email").val();
-    if(_user_email=="")
-    {
-        $("#user_email").css({"border":"1px solid red"});
-        return false;
-    }
-    if(_user_email.indexOf('@')==-1 || _user_email.indexOf('.')==-1 )
-    {
-        $("#user_email").css({"border":"1px solid red"});
-        return false;
-    }
-    else
-    {
-        $("#user_email").css({"border":"0px solid red"});
-
-    }
-    var _user_fullname=$("#user_fullname").val();
-    if(_user_fullname=="")
-    {
-        $("#user_fullname").css({"border":"1px solid red"});
-        return false;
-    }
-    var _user_password=$("#user_password").val();
-    if(_user_password=="")
-    {
-        $("#user_password").css({"border":"1px solid red"});
-            return false;
-    }
-    if(_user_password.length<8)
-    {
-        $("#user_password").attr("placeholder","Password must be more than 8 characters");
-        $("#user_password").css({"border":"1px solid red"});
-        return false;
-    }
-    var _comfirmpasss=$("#user_password_confirmation").val()
-    if(_comfirmpasss=="")
-    {
-        $("#user_password_confirmation").attr("placeholder","Please,Input password confirm !");
-        $("#user_password_confirmation").css({"border":"1px solid red"});
-        return false;
-    }
-    if(_user_password!=_comfirmpasss)
-    {
-        $("#user_password_confirmation").attr("placeholder","Password and Password Confirm not match");
-        $("#user_password_confirmation").css({"border":"1px solid red"});
-        return false;
-    }
-
-    var _email=$("#user_email").val();
-
-    $.post("/home/CheckEmail",{email:_email},function(){
-
-    }).success(function(data){
-        if(data.data.length>0)
-        {
-            $("#user_email").val("");
-            $("#user_email").attr("placeholder","Email already exists");
-            $("#user_email").css({"border":"1px solid red"});
-
-            return false;
-        }
-        else
-        {
-            $("#form-register").submit();
-        }
-    });
-
-
-
-});
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    // Ajax Request the Traditional Page*/
 
 </script>
 
@@ -313,9 +242,11 @@ $("#btn-register-submit").click(function(){
           geocoder.geocode({
               'latLng': latLng
           }, function (results, status) {
+
               _city="";
               _country="";
-              _address=results[0]["formatted_address"]
+              _address=results[0]["formatted_address"];
+              _shortname="";
               for (var i = 0; i < results[0].address_components.length; i++) {
                   var address = results[0].address_components[i];
 
@@ -327,36 +258,60 @@ $("#btn-register-submit").click(function(){
                   if(address.types[0]=="country")
                   {
                       _country=address.long_name
-
+                      _shortname=address.short_name
                   }
 
               }
               $.get("http://ipinfo.io", function(response) {
-                  var data = {city:_city,country:_country,address:_address,ip:response.ip};
-
+                  var data = {city:_city,country:_shortname,address:_address,ip:response.ip};
                   $.ajax({
                       type: "POST",
-                      url: '/home/addlocation',
+                      url: '<%=root_url%>home/addlocation',
                       contentType: "application/json; charset=utf-8",
                       dataType: 'json',
                       data: JSON.stringify(data),
                       success: function(data, status)
                       {
 
-                          //console.log('success');
+                          console.log(status);
 
                       },
                       error: function(data, status)
                       {
-                          //console.log('error');
+                          console.log(status);
                       }
                   });
 
 
               }, "jsonp");
 
+
           });
       });
+      FB.init({appId: '1524474791135285', status: true, cookie: true, xfbml: true});
+      /*window.fbAsyncInit = function() {
+          FB.init({
+              appId      : '1524474791135285', // App ID
+              //channelUrl : '//alonsart.com/index.html', // Channel File
+              status     : true, // check login status
+              cookie     : true, // enable cookies to allow the server to access the session
+              xfbml      : true  // parse XFBML
+          });
+          //jQuery(document).trigger('FBSDKLoaded'); //This is the most important line to solving the issue
+
+          // Additional initialization code here
+      };*/
+      /*(function(d){
+          var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement('script'); js.id = id; js.async = true;
+          js.src = "//connect.facebook.net/en_US/all.js";
+          ref.parentNode.insertBefore(js, ref);
+
+      }(document));*/
+
+
+
   })
 
   function changeemailddd()
@@ -391,6 +346,121 @@ $("#btn-register-submit").click(function(){
      //     }
      // });
   }
+  $("#btn-login-submit").click(function(){
+      var _Email=$("#Email").val();
+      if(_Email=="")
+      {
+          $("#Email").css({"border":"1px solid red"});
+          return false;
+      }
+      var _Password=$("#Password").val();
+      if(_Password=="")
+      {
+          $("#Password").css({"border":"1px solid red"});
+          return false;
+      }
+      $.getJSON("/home/addSession",{},function(){
+      }).success(function(data){
+          $("#login-form").submit();
+      });
+
+  });
+  $("#Password").change(function () {
+      var _Password=$("#Password").val();
+      if(_Password=="")
+      {
+          $("#Password").css({"border":"1px solid red"});
+
+      }
+      //else
+      //{
+      //    $("#Password").css({"border":"0px solid red"});
+      // }
+  })
+  $("#Email").change(function () {
+      var _Password=$("#Email").val();
+      if(_Password=="")
+      {
+          $("#Email").css({"border":"1px solid red"});
+
+      }
+      //else
+      // {
+      //    $("#Email").css({"border":"0px solid red"});
+      // }
+  })
+
+  $("#btn-register-submit").click(function(){
+      var _user_email=$("#user_email").val();
+      if(_user_email=="")
+      {
+          $("#user_email").css({"border":"1px solid red"});
+          return false;
+      }
+      if(_user_email.indexOf('@')==-1 || _user_email.indexOf('.')==-1 )
+      {
+          $("#user_email").css({"border":"1px solid red"});
+          return false;
+      }
+      else
+      {
+          $("#user_email").css({"border":"0px solid red"});
+
+      }
+      var _user_fullname=$("#user_fullname").val();
+      if(_user_fullname=="")
+      {
+          $("#user_fullname").css({"border":"1px solid red"});
+          return false;
+      }
+      var _user_password=$("#user_password").val();
+      if(_user_password=="")
+      {
+          $("#user_password").css({"border":"1px solid red"});
+          return false;
+      }
+      if(_user_password.length<8)
+      {
+          $("#user_password").attr("placeholder","Password must be more than 8 characters");
+          $("#user_password").css({"border":"1px solid red"});
+          return false;
+      }
+      var _comfirmpasss=$("#user_password_confirmation").val()
+      if(_comfirmpasss=="")
+      {
+          $("#user_password_confirmation").attr("placeholder","Please,Input password confirm !");
+          $("#user_password_confirmation").css({"border":"1px solid red"});
+          return false;
+      }
+      if(_user_password!=_comfirmpasss)
+      {
+          $("#user_password_confirmation").attr("placeholder","Password and Password Confirm not match");
+          $("#user_password_confirmation").css({"border":"1px solid red"});
+          return false;
+      }
+
+      var _email=$("#user_email").val();
+
+      $.post("/home/CheckEmail",{email:_email},function(){
+
+      }).success(function(data){
+          if(data.data.length>0)
+          {
+              $("#user_email").val("");
+              $("#user_email").attr("placeholder","Email already exists");
+              $("#user_email").css({"border":"1px solid red"});
+
+              return false;
+          }
+          else
+          {
+              $("#form-register").submit();
+          }
+      });
+
+
+
+  });
 </script>
 </body>
 </html>

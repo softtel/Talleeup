@@ -7,6 +7,32 @@
         -webkit-background-size: cover;
     }
 </style>
+<script>
+
+    window.fbAsyncInit = function() {
+        FB.init({
+            appId      : '1524474791135285', // App ID
+            //channelUrl : '//alonsart.com/index.html', // Channel File
+            status     : true, // check login status
+            cookie     : true, // enable cookies to allow the server to access the session
+            xfbml      : true  // parse XFBML
+        });
+
+        // Additional initialization code here
+    };
+
+    // Load the SDK Asynchronously
+    (function(d){
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+
+    window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
+</script>
+<div id="fb-root"></div>
 <div class="cl"></div>
 <div class="container">
 <div class="content-product">
@@ -192,16 +218,8 @@
                       </div>
                     <div role="tabpanel" class="tab-pane" id="Facebook<%=item.id%>" style="padding:20px;height: 400px">
 
-                      <div id="fb-root"></div>
-                      <script>
 
-                          (function(d, s, id) {
-                              var js, fjs = d.getElementsByTagName(s)[0];
-                              if (d.getElementById(id)) return;
-                              js = d.createElement(s); js.id = id;
-                              js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
-                              fjs.parentNode.insertBefore(js, fjs);
-                          }(document, 'script', 'facebook-jssdk'));</script>
+
                       <div class="fb-send"  data-href="<%=root_url %>BurgerProfile/<%=item.id%>" data-width="300px" data-colorscheme="light"></div>
                       </div>
                     <div role="tabpanel" class="tab-pane" id="Twiter<%=item.id%>" style="padding: 20px">
@@ -213,9 +231,7 @@
                          data-count="vertical">
                         Tweet
                       </a>
-                      <script type="text/javascript">
-                          window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
-                      </script>
+
                     </div>
                   </div>
                 </div>

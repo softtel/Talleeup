@@ -64,3 +64,4 @@ gem "prototype-rails"
 gem 'pg_search'
 gem 'ckeditor'
 gem 'rails4-autocomplete'
+

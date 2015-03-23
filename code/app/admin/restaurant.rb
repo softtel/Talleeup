@@ -1,6 +1,6 @@
 ActiveAdmin.register Restaurant do
 
-  permit_params :name, :address, :city_id
+  permit_params :name, :address, :city_id,:country_id
 
 
   index do
@@ -8,6 +8,7 @@ ActiveAdmin.register Restaurant do
     id_column
     column :name
     column :address
+
     column :city_id do |r|
       link_to(r.city.name, admin_city_path(r))
     end
@@ -17,6 +18,7 @@ ActiveAdmin.register Restaurant do
 
   filter :name
   filter :address
+  filter :country_id, as: :select, collection: Country.select(:id, :name).uniq
   filter :city_id, as: :select, collection: City.select(:id, :name).uniq
   filter :created_at
 
@@ -24,7 +26,25 @@ ActiveAdmin.register Restaurant do
     f.inputs "Restaurant Details" do
       f.input :name
       f.input :address
+      f.input :country_id, as: :select, collection: Country.select(:id, :name).order(name: :asc).uniq, :input_html => {
+          :onchange => remote_request(:post, :change_country, {:country_id=>"$('#restaurant_country_id').val()"}, "restaurant_city_id")
+      }
       f.input :city_id, as: :select, collection: City.select(:id, :name).uniq
+      #f.input :country_id,as: :select, collection: Country.select(:id, :name).uniq, :input_html => {
+          #:onchange => "
+   # var user = $(this).val();
+
+  #  $('#restaurant_city_id').val(0).find('option').each(function(){
+   #   var $option = $(this),
+   #     isCorrectUser = ($option.attr('data-user') === user);
+
+    #    $option.prop('visible',!isCorrectUser);
+    #});
+  #"
+    #  }
+    #  f.input :city_id,as: :select, collection: City.all.map{ |loc|
+    #    [loc.name,loc.id, {"data-user" => loc.country_id}]
+     # }
     end
     f.actions
   end
@@ -90,5 +110,12 @@ ActiveAdmin.register Restaurant do
 
     # This will render app/views/admin/posts/comments.html.erb
   end
-
+  member_action :change_country, :method=>:post do
+  end
+  controller do
+    def change_country
+      @flats = City.where(country_id: params[:country_id])
+      render :text=>view_context.options_from_collection_for_select(@flats, :id, :name)
+    end
+  end
 end

@@ -6,6 +6,8 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
+  <script language="javascript" type="text/javascript" src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+  <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
 </head>
 
 
@@ -129,7 +131,12 @@
               </a>
             <%end%>
           <%if user_signed_in? %>
-              <%= link_to(image_tag("logout.png"), destroy_user_session_path, :method => :delete, :id=>"btnlogout") %>
+
+              <%if device_type != :mobile %>
+                  <%= link_to("LOGOUT", destroy_user_session_path,:class=>"pull-right" ,:method => :delete, :id=>"btn-logout") %>
+              <%else%>
+                  <%= link_to(image_tag("logout.png"), destroy_user_session_path, :method => :delete, :id=>"btnlogout") %>
+              <%end%>
 
           <%end%>
 
@@ -222,6 +229,7 @@
 
           <div class="item-menu-top-header-bur">
             <a href="#" class="bur-share" data-toggle="modal" data-target="#myModal<%=params[:id] %>">SHARE </a>
+            <!--<a href="#" class="bur-share" onclick="opennenenne(<%=params[:id] %>)">SHARE  </a>-->
           </div>
 
           <div class="clearfix"></div>
@@ -263,7 +271,7 @@
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="control-label">Message:</label>
-                  <textarea class="form-control" id="message-text-<%=params[:id]%>"></textarea>
+                  <textarea class="form-control" id="message-text-<%=params[:id]%>">I just crushed the <%= Product.where(id: params[:id]).first().name%> at <%= Product.where(id: params[:id]).first().restaurant.name%>.Check out my <%=root_url %>BurgerProfile/<%=params[:id]%></textarea>
                   <span id="error-message-<%=params[:id]%>" style="color: red"></span>
                 </div>
               </form>
@@ -277,35 +285,30 @@
 
               <div id="fb-root"></div>
               <script>
+                      $(document).on("ready page:load", function(){
+                            //FB.XFBML.parse();
+                          //  var $response = $( html );
+                          if ($(".fb-send").length > 0) {
+                              if (typeof (FB) != 'undefined') {
+                                  FB.init({ status: true, cookie: true, xfbml: true });
+                              } else {
+                                  $.getScript("http://connect.facebook.net/en_US/all.js#xfbml=1", function () {
+                                      FB.init({ status: true, cookie: true, xfbml: true });
+                                  });
+                              }
+                          }
+                          // if there is an empty response do nothing
+                          //if( $response.length < 1 ) return;
 
-                  (function(d, s, id) {
-                  var js, fjs = d.getElementsByTagName(s)[0];
-                  if (d.getElementById(id)) return;
-                  js = d.createElement(s); js.id = id;
-                  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
-                  fjs.parentNode.insertBefore(js, fjs);
-              }(document, 'script', 'facebook-jssdk'));</script>
-              <div class="fb-send"  data-href="<%=request.original_url %>" data-width="300px" data-colorscheme="light"></div>
+                          // create the twitter buttons
+                         // $response.find('a.twitter-share-button').each(function()
+                         // {
+                          $.ajax({ url: '//platform.twitter.com/widgets.js', dataType: 'script', cache:true});
 
-             <!-- <form>
-                <div class="form-group">
-                  <label for="recipient-name" class="control-label">To:</label>
-                  <input type="text" class="form-control" id="recipient-name-<%=params[:id]%>">
-                  <span id="error-email-<%=params[:id]%>" style="color: red"></span>
-
-                </div>
-
-                <div class="form-group">
-                  <label for="message-text" class="control-label">Message:</label>
-                  <textarea class="form-control" id="message-text-<%=params[:id]%>"></textarea>
-                  <span id="error-message-<%=params[:id]%>" style="color: red"></span>
-                </div>
-              </form>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" onclick="sendmailaction(<%=params[:id]%>)" class="btn btn-primary">Send Message</button>
-                <span id="showloadding_<%=params[:id]%>" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span>
-              </div>-->
+                          //});
+                      });
+               </script>
+              <div class="fb-send" id="gdggdgdgdgdg<%=params[:id]%>"  data-href="<%=request.original_url %>" data-width="300px" data-colorscheme="light"></div>
 
             </div>
             <div role="tabpanel" class="tab-pane" id="Twiter" style="padding: 20px">
@@ -317,9 +320,9 @@
                  data-count="vertical">
                 Tweet
               </a>
-              <script type="text/javascript">
+              <!--<script type="text/javascript">
                   window.twttr=(function(d,s,id){var t,js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id)){return}js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);return window.twttr||(t={_e:[],ready:function(f){t._e.push(f)}})}(document,"script","twitter-wjs"));
-              </script>
+              </script>-->
             </div>
 
           </div>

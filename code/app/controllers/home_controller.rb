@@ -2,7 +2,7 @@ require 'product_view_models'
 
 class HomeController < ApplicationController
    #before_action :authenticate_user!
-   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail,:reviewuser]
+   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail,:reviewuser,:addlocation]
    #autocomplete :brand, :name, :display_value => :funky_method
   def index
     if user_signed_in?
@@ -13,7 +13,7 @@ class HomeController < ApplicationController
       @getLocation=Location.where(ip: _ip).order("id DESC")
 
       if !@getLocation.blank? && !request.post?
-        _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
+        _detectcountry=Country.where("lower(iso)=?", @getLocation.first().country.downcase)
         _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
         if !_detectcountry.blank?
           _detectcountryid=_detectcountry.first().id
@@ -340,7 +340,7 @@ end
       @getLocation=Location.where(ip: _ip).order("id DESC")
       # lay location duoc va khong post
       if !@getLocation.blank? && !request.post?
-          _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
+          _detectcountry=Country.where("lower(iso)=?", @getLocation.first().country.downcase)
           _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
           if !_detectcountry.blank?
             _detectcountryid=_detectcountry.first().id
