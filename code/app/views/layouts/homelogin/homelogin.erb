@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
 <header>
@@ -140,7 +141,7 @@
           <div class="style_select">
             <%= form_tag("/login", method: "post") do %>
 
-            <%= select_tag :city_id, options_for_select(@location.collect {|p| [ p.name, p.id,{style: 'background:transparent;color:#145a8b'} ] }, @city_id), :onchange => "this.form.submit()" %>
+           <%= select_tag :city_id, options_for_select(@location.collect {|p| [ p.name, p.id,{style: 'background:transparent;color:#145a8b'} ] }, @city_id), :onchange => "this.form.submit()" %>
             <%end%>
           </div>
 
@@ -264,3 +265,12 @@
 
 </body>
 </html>
+<!--<script>
+
+    $(document).on("ready page:load", function(){
+        FB.XFBML.parse();
+
+        $.ajax({ url: '//platform.twitter.com/widgets.js', dataType: 'script', cache:true});
+
+    });
+</script>-->

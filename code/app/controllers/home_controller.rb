@@ -94,7 +94,7 @@ class HomeController < ApplicationController
     _ip=request.remote_ip
     @getLocation=Location.where(ip: _ip).order("id DESC")
     if !@getLocation.blank?
-      _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
+      _detectcountry=Country.where("lower(iso)=?", @getLocation.first().country.downcase)
       _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
       if !_detectcountry.blank?
         _detectcountryid=_detectcountry.first().id
@@ -333,7 +333,6 @@ end
     return str
    end
   def login
-
       _ip=request.remote_ip
       @componant=Component.joins(:filter)
       @companonetcity=City.joins(:filter_city)
@@ -454,8 +453,10 @@ end
               @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
               countryid=City.where(id: @city_id).first().country_id
               @location=City.where(country_id:countryid)
+              @hung=1;
             else
               if @city.present? && params[:idcomponennt].present?
+                @hung=2;
                 @kk=params[:idcomponennt]
                 @icomponent=params[:idcomponennt].split(/;/)
                 _idcityfilter=Array.new
@@ -485,6 +486,7 @@ end
                 countryid=City.where(id: @city_id).first().country_id
                 @location=City.where(country_id:countryid)
               else
+                @hung=3;
                 @kk=params[:idcomponennt]
                 @icomponent=params[:idcomponennt].split(/;/)
                 _idcityfilter=Array.new
@@ -512,7 +514,7 @@ end
                 #@listvalue=ComponentValue.where(id: @icomponent)
                 @listvalue=Component.where(id: _idcategoryfilter)
                 @listcutyfilter=City.where(id:_idcityfilter)
-                _detectcountry=Country.where("lower(name)=?", @getLocation.first().country.downcase)
+                _detectcountry=Country.where("lower(iso)=?", @getLocation.first().country.downcase)
                 _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
                 if !_detectcountry.blank?
                   _detectcountryid=_detectcountry.first().id

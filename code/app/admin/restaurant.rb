@@ -29,7 +29,11 @@ ActiveAdmin.register Restaurant do
       f.input :country_id, as: :select, collection: Country.select(:id, :name).order(name: :asc).uniq, :input_html => {
           :onchange => remote_request(:post, :change_country, {:country_id=>"$('#restaurant_country_id').val()"}, "restaurant_city_id")
       }
-      f.input :city_id, as: :select, collection: City.select(:id, :name).uniq
+      if params[:id].present?
+        f.input :city_id,as: :select,collection: City.where(country_id: City.where(id: Restaurant.where(id: params[:id]).first().city_id).first().country_id).select(:id, :name).uniq
+      else
+        f.input :city_id,as: :select,collection: City.where(country_id: Country.order(name: :asc).first().id).select(:id, :name).uniq
+      end
       #f.input :country_id,as: :select, collection: Country.select(:id, :name).uniq, :input_html => {
           #:onchange => "
    # var user = $(this).val();
@@ -117,5 +121,6 @@ ActiveAdmin.register Restaurant do
       @flats = City.where(country_id: params[:country_id])
       render :text=>view_context.options_from_collection_for_select(@flats, :id, :name)
     end
+
   end
 end

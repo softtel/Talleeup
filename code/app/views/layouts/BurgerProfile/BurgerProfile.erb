@@ -6,8 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
-  <script language="javascript" type="text/javascript" src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-  <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+
 </head>
 
 
@@ -284,38 +283,16 @@
             <div role="tabpanel" class="tab-pane" id="Facebook" style="padding:20px;height: 400px">
 
               <div id="fb-root"></div>
-              <script>
-                      $(document).on("ready page:load", function(){
-                            //FB.XFBML.parse();
-                          //  var $response = $( html );
-                          if ($(".fb-send").length > 0) {
-                              if (typeof (FB) != 'undefined') {
-                                  FB.init({ status: true, cookie: true, xfbml: true });
-                              } else {
-                                  $.getScript("http://connect.facebook.net/en_US/all.js#xfbml=1", function () {
-                                      FB.init({ status: true, cookie: true, xfbml: true });
-                                  });
-                              }
-                          }
-                          // if there is an empty response do nothing
-                          //if( $response.length < 1 ) return;
 
-                          // create the twitter buttons
-                         // $response.find('a.twitter-share-button').each(function()
-                         // {
-                          $.ajax({ url: '//platform.twitter.com/widgets.js', dataType: 'script', cache:true});
-
-                          //});
-                      });
-               </script>
               <div class="fb-send" id="gdggdgdgdgdg<%=params[:id]%>"  data-href="<%=request.original_url %>" data-width="300px" data-colorscheme="light"></div>
+
 
             </div>
             <div role="tabpanel" class="tab-pane" id="Twiter" style="padding: 20px">
 
               <a class="twitter-share-button"
                  href="https://twitter.com/share?text=I just crushed the <%=Product.where(id: params[:id]).first().name%> at <%=Product.where(id: params[:id]).first().restaurant.name%>.Check out my &url=<%=root_url %>BurgerProfile/<%=params[:id]%>"
-                 data-url="<%=request.original_url %>"
+                 data-url="<%=root_url %>BurgerProfile/<%=params[:id]%>"
                  data-counturl="<%=root_url %>BurgerProfile/<%=params[:id]%>"
                  data-count="vertical">
                 Tweet
@@ -338,3 +315,16 @@
 </div>
 </body>
 </html>
+
+<script>
+    /*$(document).on("ready page:load", function(){
+        FB.XFBML.parse();
+
+        $.ajax({ url: '//platform.twitter.com/widgets.js', dataType: 'script', cache:true});
+    });
+    $(document).on("ready page:change", function() {
+        FB.init({ status: true, cookie: true, xfbml: true });
+    });*/
+
+
+</script>

@@ -9,9 +9,7 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places,visualization&sensor=false&language=en"></script>
-  <script language="javascript" type="text/javascript" src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
-  <script src="http://platform.twitter.com/widgets.js" type="text/javascript"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places,visualization&sensor=false&amp;language=en"></script>
 </head>
 <% if notice %>
     <body  onload="onloadpoup()">
@@ -252,7 +250,7 @@
 
                   if(address.types[0]=="administrative_area_level_1")
                   {
-                      _city=address.long_name;
+                      _city=bodauTiengViet(address.long_name);
 
                   }
                   if(address.types[0]=="country")
@@ -262,6 +260,7 @@
                   }
 
               }
+
               $.get("http://ipinfo.io", function(response) {
                   var data = {city:_city,country:_shortname,address:_address,ip:response.ip};
                   $.ajax({
@@ -313,7 +312,17 @@
 
 
   })
-
+  function bodauTiengViet(str) {
+      str= str.toLowerCase();
+      str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
+      str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
+      str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
+      str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
+      str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
+      str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
+      str= str.replace(/đ/g,"d");
+      return str;
+  }
   function changeemailddd()
   {
       var _email=$("#user_email").val();

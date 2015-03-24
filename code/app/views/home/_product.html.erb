@@ -206,28 +206,10 @@
   </div>
 </div>
 <script>
-    $(document).on("ready page:load", function(){
-//FB.XFBML.parse();
-//  var $response = $( html );
-        if ($(".fb-send").length > 0) {
-            if (typeof (FB) != 'undefined') {
-                FB.init({ status: true, cookie: true, xfbml: true });
-            } else {
-                $.getScript("http://connect.facebook.net/en_US/all.js#xfbml=1", function () {
-                    FB.init({ status: true, cookie: true, xfbml: true });
-                });
-            }
-        }
-// if there is an empty response do nothing
-//if( $response.length < 1 ) return;
-
-// create the twitter buttons
-// $response.find('a.twitter-share-button').each(function()
-// {
+   /* $(document).on("ready page:load", function(){
+        FB.XFBML.parse();
         $.ajax({ url: '//platform.twitter.com/widgets.js', dataType: 'script', cache:true});
-
-//});
-    });
+    });*/
 </script>
 
 <!-- End row product -->

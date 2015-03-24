@@ -19,6 +19,7 @@
 //= require ./sites/autocomplate
 //= require_directory ./sites
 //= require ckeditor/init
+//= require social
 $(function(){
     $.ajaxSetup({
         beforeSend: function( xhr ) {

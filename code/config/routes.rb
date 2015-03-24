@@ -56,6 +56,7 @@ Rails.application.routes.draw do
   post '/home/getcityByIDCountry'
   post '/home/addlikeComemnt'
   post '/admin/restaurants/change_country'
+  post '/admin/filter_cities/change_country'
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", confirmations: 'confirmations' }
   # devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   # resources :users
