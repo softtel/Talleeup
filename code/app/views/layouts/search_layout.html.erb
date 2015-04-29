@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Search</title>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+  <%= render partial: "navbar" %>
+
+
+
+
+<div class="container" id="main-container">
+  <%= yield %>
+</div>
+<!-- End main-container -->
+
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+  <script>
+
+      function responsive(){
+
+
+          var width = $(window).width();
+
+          if (width <= 470) {
+              $('#profile-user-image').removeClass('pull-right').addClass('center-block');
+              $('#col-profile-info').addClass('center-block');
+              $('#logo').attr('src', '/assets/userprofile/logo-mobile.png')
+          }else{
+              $('#profile-user-image').removeClass('center-block').addClass('pull-right');
+              $('#col-profile-info').removeClass('center-block');
+              $('#logo').attr('src', '/assets/userprofile/logo.png')
+          }
+      };
+
+      $(document).ready(function(){
+
+          responsive();
+
+          $(window).resize(function() {
+              responsive();
+          });
+
+      });// end ready
+  </script>
+
+
+
+</body>
+</html>

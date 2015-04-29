@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home index</title>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places,visualization&sensor=false&amp;language=en"></script>
+</head>
+<% if notice %>
+    <body  onload="onloadpoup()">
+<%else%>
+    <body>
+<%end%>
+
+<!--<p id="notice"><%= notice %></p>-->
+<% if notice %>
+<!-- Modal -->
+<div class="modal fade" id="myModalsinginup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Notification Sign Up</h4>
+      </div>
+      <div class="modal-body">
+        <p>
+          <%=raw  notice %>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function onloadpoup()
+  {
+        $("#myModalsinginup").modal();
+
+  }
+</script>
+<%end %>
+
+<div id="layer" onclick="layer()"></div>
+
+<%
+   _style=""
+  _email=""
+   _passwor=""
+
+    if session[:checklogin].present? and user_signed_in? ===false
+         _style="display:block"
+         _email="border:1px solid red"
+          _passwor="border:1px solid red"
+    end
+
+%>
+<div id="login-container-fluid" style="<%=_style%>" class="container-fluid">
+  <div id="login-container" style="<%=_style%>" class="center-block">
+
+    <%= form_for(:user, :url => session_path(:user), :format => :json, :html => {:id => "login-form" ,:class => "form-inline", :role=>"form"}) do |f| %>
+
+        <div class="form-group">
+          <div class="col-sm-5 col-xs-5 input-login-wrapper">
+            <%= f.email_field :email, autofocus: false,:style=>_email, :id => "Email", :class => "form-control input-login", :placeholder => "Email" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-5 col-xs-5 input-login-wrapper">
+            <%= f.password_field :password, autocomplete: "off",:style=>_passwor ,:id => "Password", :class => "form-control input-login", :placeholder=>"Password" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "LOGIN", :id => "btn-login-submit",:type=>"button" %>
+        </div>
+    <% end %>
+
+  </div>
+</div>
+
+<div id="header-container" class="container-fluid">
+  <div id="header-container-layer"></div>
+
+  <div id="header-content-layer">
+  <div id="header-content" class="container">
+
+    <%if user_signed_in? %>
+        <%= link_to(image_tag("logout.png"), destroy_user_session_path, :method => :delete, :id=>"btnlogout") %>
+    <%else%>
+        <button id="btn-login" onclick="login()" class="pull-right">LOGIN</button>
+    <%end%>
+
+    <div id="header-top" class="row">
+
+      <img style="" class="center-block img-responsive" id="arrow-up" src="/assets/arrow-up.png" alt=""/>
+
+      <h1 id="introduct-top" class="introduct center-block">
+        A community of passionate
+      </h1>
+
+      <h1 id="introduct-bottom" class="introduct center-block">
+        burger lovers
+      </h1>
+    <%unless user_signed_in?%>
+      <button id="btn-signup" onclick="signup()"  class="center-block">SIGN UP </button>
+
+      <p id="sign-ups" class="center-block">
+        <span>Sign up using</span>
+      <ul id="signup-list" class="center-block">
+        <li><%=  link_to "Facebook", user_omniauth_authorize_path(:facebook) %></li>
+        <li><%= link_to "Google+", user_omniauth_authorize_path(:google_oauth2) %></li>
+        <li><%= link_to "Twitter", user_omniauth_authorize_path(:twitter) %></li>
+        <li><%=link_to "Github", user_omniauth_authorize_path(:github)%></li>
+
+        <li><a href="javascript:void(0)" onclick="signup()">Email</a></li>
+      </ul>
+      </p>
+      <%end%>
+    </div>
+    <!--End header-top-->
+  </div>
+  </div>
+    <!-- End header -->
+
+  <div id="register-container-fluid">
+
+    <%= form_for(:user, :url => registration_path(:user), :format => :json, :html => {:id => "form-register" ,:class => "center-block", :role=>"form"}) do |f| %>
+
+        <button id="btn-slose-register-form" onclick="btnsloseregisterform()" type="button" class="close pull-right">
+          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+        </button>
+
+        <h2 class="center-block" id="form-register-title">Alright!</h2>
+
+
+
+        <div class="form-group form-group-register-mobile">
+          <%= f.text_field :fullname, :class => "form-control input-register-mobile", :placeholder => "full name" %>
+        </div>
+        <div class="form-group form-group-register-mobile">
+          <%= f.email_field :email, autofocus: true,onchange: "changeemailddd()", :class => "form-control input-register-mobile", :placeholder => "email" %>
+        </div>
+        <div class="form-group form-group-register-mobile">
+          <% if @validatable %>
+              <em>(<%= @minimum_password_length %> characters minimum)</em>
+              <br />
+          <% end %>
+          <%= f.password_field :password, autocomplete: "off", :class => "form-control input-register-mobile", :placeholder => "password" %>
+        </div>
+
+        <div class="form-group form-group-register-mobile">
+          <%= f.password_field :password_confirmation, autocomplete: "off", :class => "form-control input-register-mobile", :placeholder => "password confirm" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.submit "JOIN TALLEEUP", :class => "center-block", :id => "btn-register-submit",:type=>"button" %>
+        </div>
+    <% end %>
+  </div>
+</div>
+<!-- End header-container -->
+
+<div class="container" id="main-container">
+  <%= yield %>
+</div>
+<!-- End main-container -->
+
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<div id="fb-root"></div>
+<script type="text/javascript">
+    $(document).on("ready page:load", function(){
+        FB.XFBML.parse();
+       /* window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1524474791135285', // App ID
+                //channelUrl : '//alonsart.com/index.html', // Channel File
+                status     : true, // check login status
+                cookie     : true, // enable cookies to allow the server to access the session
+                xfbml      : true  // parse XFBML
+            });
+            //jQuery(document).trigger('FBSDKLoaded'); //This is the most important line to solving the issue
+
+            // Additional initialization code here
+        };*/
+        /*(function(d){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+
+        }(document));*/
+
+        /*(function(d, s, id) {
+
+            var js, fjs = d.getElementsByTagName(s)[0];
+
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(load, 'script', 'facebook-jssdk'));*/
+    });
+   /* (function(d, s, id) {
+
+        var js, fjs = d.getElementsByTagName(s)[0];
+
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    // Ajax Request the Traditional Page*/
+
+</script>
+
+<script>
+  $(document).ready(function(){
+
+      navigator.geolocation.getCurrentPosition(function (position) {
+          var geocoder = new google.maps.Geocoder();
+          var latLng   = new google.maps.LatLng(
+                  position.coords.latitude, position.coords.longitude);
+          geocoder.geocode({
+              'latLng': latLng
+          }, function (results, status) {
+
+              _city="";
+              _country="";
+              _address=results[0]["formatted_address"];
+              _shortname="";
+              for (var i = 0; i < results[0].address_components.length; i++) {
+                  var address = results[0].address_components[i];
+
+                  if(address.types[0]=="administrative_area_level_1")
+                  {
+                      _city=bodauTiengViet(address.long_name);
+
+                  }
+                  if(address.types[0]=="country")
+                  {
+                      _country=address.long_name
+                      _shortname=address.short_name
+                  }
+
+              }
+
+              $.get("http://ipinfo.io", function(response) {
+                  var data = {city:_city,country:_shortname,address:_address,ip:response.ip};
+                  $.ajax({
+                      type: "POST",
+                      url: '<%=root_url%>home/addlocation',
+                      contentType: "application/json; charset=utf-8",
+                      dataType: 'json',
+                      data: JSON.stringify(data),
+                      success: function(data, status)
+                      {
+
+                          console.log(status);
+
+                      },
+                      error: function(data, status)
+                      {
+                          console.log(status);
+                      }
+                  });
+
+
+              }, "jsonp");
+
+
+          });
+      });
+      FB.init({appId: '1524474791135285', status: true, cookie: true, xfbml: true});
+      /*window.fbAsyncInit = function() {
+          FB.init({
+              appId      : '1524474791135285', // App ID
+              //channelUrl : '//alonsart.com/index.html', // Channel File
+              status     : true, // check login status
+              cookie     : true, // enable cookies to allow the server to access the session
+              xfbml      : true  // parse XFBML
+          });
+          //jQuery(document).trigger('FBSDKLoaded'); //This is the most important line to solving the issue
+
+          // Additional initialization code here
+      };*/
+      /*(function(d){
+          var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+          if (d.getElementById(id)) {return;}
+          js = d.createElement('script'); js.id = id; js.async = true;
+          js.src = "//connect.facebook.net/en_US/all.js";
+          ref.parentNode.insertBefore(js, ref);
+
+      }(document));*/
+
+
+
+  })
+  function bodauTiengViet(str) {
+      str= str.toLowerCase();
+      str= str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
+      str= str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
+      str= str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
+      str= str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
+      str= str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
+      str= str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
+      str= str.replace(/đ/g,"d");
+      return str;
+  }
+  function changeemailddd()
+  {
+      var _email=$("#user_email").val();
+
+      $.post("/home/CheckEmail",{email:_email},function(){
+
+     }).success(function(data){
+            if(data.data.length>0)
+            {
+                $("#user_email").val("");
+                $("#user_email").attr("placeholder","Email already exists");
+                $("#user_email").css({"border":"1px solid red"});
+            }
+     });
+      //var _data={email:_email,authenticity_token:'<%= form_authenticity_token%>'}
+     // $.ajax({
+     //     type: "POST",
+     //     url: '/home/CheckEmail',
+     //     contentType: "application/json; charset=utf-8",
+     //     dataType: 'json',
+     //    data: JSON.stringify(_data),
+     //    success: function(data, status)
+     //     {
+     //          console.log(data)
+
+      //    },
+      //    error: function(data, status)
+     //     {
+     //         console.log("error");
+     //     }
+     // });
+  }
+  $("#btn-login-submit").click(function(){
+      var _Email=$("#Email").val();
+      if(_Email=="")
+      {
+          $("#Email").css({"border":"1px solid red"});
+          return false;
+      }
+      var _Password=$("#Password").val();
+      if(_Password=="")
+      {
+          $("#Password").css({"border":"1px solid red"});
+          return false;
+      }
+      $.getJSON("/home/addSession",{},function(){
+      }).success(function(data){
+          $("#login-form").submit();
+      });
+
+  });
+  $("#Password").change(function () {
+      var _Password=$("#Password").val();
+      if(_Password=="")
+      {
+          $("#Password").css({"border":"1px solid red"});
+
+      }
+      //else
+      //{
+      //    $("#Password").css({"border":"0px solid red"});
+      // }
+  })
+  $("#Email").change(function () {
+      var _Password=$("#Email").val();
+      if(_Password=="")
+      {
+          $("#Email").css({"border":"1px solid red"});
+
+      }
+      //else
+      // {
+      //    $("#Email").css({"border":"0px solid red"});
+      // }
+  })
+
+  $("#btn-register-submit").click(function(){
+      var _user_email=$("#user_email").val();
+      if(_user_email=="")
+      {
+          $("#user_email").css({"border":"1px solid red"});
+          return false;
+      }
+      if(_user_email.indexOf('@')==-1 || _user_email.indexOf('.')==-1 )
+      {
+          $("#user_email").css({"border":"1px solid red"});
+          return false;
+      }
+      else
+      {
+          $("#user_email").css({"border":"0px solid red"});
+
+      }
+      var _user_fullname=$("#user_fullname").val();
+      if(_user_fullname=="")
+      {
+          $("#user_fullname").css({"border":"1px solid red"});
+          return false;
+      }
+      var _user_password=$("#user_password").val();
+      if(_user_password=="")
+      {
+          $("#user_password").css({"border":"1px solid red"});
+          return false;
+      }
+      if(_user_password.length<8)
+      {
+          $("#user_password").attr("placeholder","Password must be more than 8 characters");
+          $("#user_password").css({"border":"1px solid red"});
+          return false;
+      }
+      var _comfirmpasss=$("#user_password_confirmation").val()
+      if(_comfirmpasss=="")
+      {
+          $("#user_password_confirmation").attr("placeholder","Please,Input password confirm !");
+          $("#user_password_confirmation").css({"border":"1px solid red"});
+          return false;
+      }
+      if(_user_password!=_comfirmpasss)
+      {
+          $("#user_password_confirmation").attr("placeholder","Password and Password Confirm not match");
+          $("#user_password_confirmation").css({"border":"1px solid red"});
+          return false;
+      }
+
+      var _email=$("#user_email").val();
+
+      $.post("/home/CheckEmail",{email:_email},function(){
+
+      }).success(function(data){
+          if(data.data.length>0)
+          {
+              $("#user_email").val("");
+              $("#user_email").attr("placeholder","Email already exists");
+              $("#user_email").css({"border":"1px solid red"});
+
+              return false;
+          }
+          else
+          {
+              $("#form-register").submit();
+          }
+      });
+
+
+
+  });
+</script>
+</body>
+</html>

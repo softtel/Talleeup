@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My profile</title>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+
+
+<div id="profile-header-container"  class="container-fluid myprofile-header-container">
+
+  <div id="layer-profile-header-container"></div>
+
+  <%= render partial: "navbar" %>
+
+  <%= render partial: "profile", locals: {profile: @myprofile} %>
+  <!-- End header -->
+</div>
+<!-- End header-container -->
+
+<div id="menu-bar-container" class="container-fluid">
+  <div id="menu-bar" class="container">
+    <div id="menu-item-boss" class="menu-item">
+      <h5>INVOLVEMENT</h5>
+      <h2><%= @user.get_involvement() %></h2>
+    </div>
+    <div id="menu-item-reviews" class="menu-item">
+      <h5>PASSIONATE REVIEWS</h5>
+      <h2><%= @user.get_numBuggerReviewed() %></h2>
+    </div>
+    <div id="menu-item-loved" class="menu-item">
+      <h5>LOVED</h5>
+      <h2>1234</h2>
+    </div>
+    <div id="menu-item-views" class="menu-item">
+      <h5>INFLUENCE (VIEWS)</h5>
+      <h2>5678</h2>
+    </div>
+    <div id="menu-item-loved" class="menu-item">
+      <h5>FOLLOWERS</h5>
+      <h2><%= @user.get_numFollows() %></h2>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div id="tab-container" class="container-fluid">
+  <div id="tab" class="container">
+    <div id="tab-feed" class="tab-item">
+      <h4><a href="#">FEED</a></h4>
+    </div>
+    <div id="tab-planned-experiences" class="tab-item tab-active">
+      <h4><a href="#">MY PLANNED EXPERIENCES</a></h4>
+    </div>
+    <div id="tab-my-experiences" class="tab-item">
+      <h4><a href="#">MY EXPERIENCES</a></h4>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="container-fluid myprofile-main-container">
+  <%= yield %>
+</div>
+<!-- End main-container -->
+
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<script>
+
+    function responsive(){
+
+
+        var width = $(window).width();
+
+        if (width <= 470) {
+            $('#profile-user-image').removeClass('pull-right').addClass('center-block');
+            $('#col-profile-info').addClass('center-block');
+            $('#logo').attr('src', '/assets/userprofile/logo-mobile.png')
+        }else{
+            $('#profile-user-image').removeClass('center-block').addClass('pull-right');
+            $('#col-profile-info').removeClass('center-block');
+            $('#logo').attr('src', '/assets/userprofile/logo.png')
+        }
+    };
+
+    $(document).ready(function(){
+
+        responsive();
+
+        $(window).resize(function() {
+            responsive();
+        });
+
+    });// end ready
+</script>
+
+
+<script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBR4Xu6UUOpsTriHpmaUaInzz55LzHhXYA">
+</script>
+
+<script type="text/javascript" src="http://google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox.js"></script>
+
+<script type="text/javascript">
+
+    var myLatlng = new google.maps.LatLng(-25.363882,131.044922);
+
+    var mapOptions = {
+        center: myLatlng,
+        zoom: 6
+    };
+
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+    var marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        position: myLatlng,
+        visible: true
+    });
+
+    //--------------------------
+    var boxText = document.createElement("div");
+    boxText.style.cssText = "border: 1px solid red; margin-top: 2px; background: #26AD60; padding: 2px; color: #ffffff";
+    boxText.innerHTML = "29.8";
+
+    var myOptions = {
+        content: boxText
+        ,disableAutoPan: false
+        ,maxWidth: 0
+        ,pixelOffset: new google.maps.Size(-20, -60)
+        ,zIndex: null
+        ,boxStyle: {
+            background: "url('tipbox.gif') no-repeat"
+            ,opacity: 0.75
+            ,width: "50px"
+        }
+        ,closeBoxMargin: "10px 2px 2px 2px"
+        ,closeBoxURL: "http://www.google.com/intl/en_us/mapfiles/close.gif"
+        ,infoBoxClearance: new google.maps.Size(1, 1)
+        ,isHidden: false
+        ,pane: "mapPane"
+        ,enableEventPropagation: false
+    };
+
+    var ib = new InfoBox(myOptions);
+    ib.open(map, marker);
+    //---------------------------
+
+</script>
+
+
+</body>
+</html>

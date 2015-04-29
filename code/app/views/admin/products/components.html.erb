@@ -1,0 +1,103 @@
+<%= form_for(@product_component, :url => {:controller => "admin/products", :action => "add_component"}) do |f| %>
+
+    <%= f.hidden_field :product_id %>
+    <label style="width: 150px"><b>Component:&nbsp;&nbsp;&nbsp;</b></label> <%= f.select(:id, options_for_select(@component_main.map{|c| [c.name, c.id]} ),{},{:onchange=> "changecountry()"}) %>
+    <br/>
+    <br/>
+    <label style="width: 150px"><b>Component Value:&nbsp;&nbsp;&nbsp;</b></label> <%= f.select(:component_value_id, options_for_select(@component_values.map{|c| [c.name, c.id]} )) %>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+
+<br />
+<br />
+<br />
+
+<table>
+  <thead>
+  <th>Component name</th>
+  <th>Value</th>
+  <th>Action</th>
+  </thead>
+  <tbody>
+  <% @components.each do |c| %>
+      <tr>
+        <td>
+          <%= c.component_value.component.name %>
+        </td>
+        <td>
+          <%= c.component_value.name %>
+        </td>
+        <td>
+          <%= link_to 'Destroy', :action => :delete_component, :id => c.id, method: :delete, confirm: 'Are you sure?' %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+<script>
+  function changecountry()
+  {
+      var _data={componentvaluesId:$("#product_component_id").val()}
+
+      $.ajax({
+       type: "POST",
+       url: '<%=url_for(:controller => "/admin/products", :action => "getbycomponentById")%>',
+       contentType: "application/json; charset=utf-8",
+       dataType: 'json',
+       data: JSON.stringify(_data),
+       success: function(data, status)
+       {
+           var _html="";
+            if(data.data.length>0)
+            {
+                for(var i=0;i<data.data.length;i++)
+                {
+                    _html+="<option value='"+data.data[i].id+"' >"+data.data[i].name+"</option>";
+                }
+            }
+           else
+            {
+                _html="<option value='0' >No result</option>";
+            }
+           console.log(data)
+            $("#product_component_component_value_id").html(_html)
+       },
+       error: function(data, status)
+       {
+       console.log('error');
+       }
+       });
+  }
+    /*$.ajax({
+        type: "POST",
+        url: '/home/getchangeproduct',
+        contentType: "application/json; charset=utf-8",
+        dataType: 'json',
+        data: JSON.stringify(_data),
+        success: function(data, status)
+        {
+            var _html="";
+            for(var i=0;i< data.data.length;i++)
+            {
+
+                var _id=data.data[i].id;
+                var _name=data.data[i].name;
+                var _elect=""
+                if (_idprocut==_id)
+                {
+                    _elect='selected'
+                }
+                _html+="<option "+_elect+" value='"+_id+"'>"+_name +"</option>";
+            }
+            $("#child-product").html(_html)
+
+        },
+        error: function(data, status)
+        {
+            console.log('error');
+        }
+    });*/
+</script>

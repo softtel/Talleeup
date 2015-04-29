@@ -1,0 +1,100 @@
+<input id="token_my" name="authenticity_token"
+       type="hidden"
+       value="<%= form_authenticity_token %>"/>
+
+<div id="profile-header" class="container">
+
+  <div id="profile-header-top" class="row">
+
+    <div class="col-md-7 col-xs-7" id="col-profile-user-image">
+
+      <% if (@isMyprofile) %>
+
+          <%= form_for(@myprofile, :url => {:controller => "home", :action => "upload_avatar"}, :method => :POST, :html => { :enctype => "multipart/form-data", :id => "form-change-avatar", :class => "pull-right" }) do |f| %>
+
+              <%= f.hidden_field :id%>
+
+              <div class="inputWrapper-change-avatar">
+                <%= f.text_field :avatar, :required => true,:onchange=>"changefile()", :type => :file, :id => "btn-attach-image", :class => "fileInput-change-avatar" %>
+              </div>
+
+
+              <!--<%= f.text_field :avatar, :required => true, :type => :file %>-->
+
+              <!--<div style="padding-left: 10px">
+                <%= f.submit 'submit', :class => 'btn btn-sm btn-success' %>
+              </div>-->
+          <% end %>
+
+      <% end %>
+
+      <%= image_tag(profile.avatar.url(:medium),:width=>"208px",:height=>"208px",:style=>"width:208px;height:208px", :id=>"profile-user-image", :class=>"pull-right img-responsive img-circle") %>
+    </div>
+    <div class="col-md-5 col-xs-5" id="col-profile-info">
+      <h1 id="wrapper-profile-fullname" class="wrapper-content-edit">
+        <span id="profile-fullname" class="content-edit"><%= @user.fullname %></span>
+        <span class="edit-actions">
+            <% if @isMyprofile %>
+                <img id="icon-edit-fullname" onclick="icon_edit(this.id)" class="icon-edit" src="/assets/icon-edit.png" />
+                <img id="icon-save-fullname" onclick="icon_save(this.id)" data-columnname="fullname" class="icon-save" src="/assets/icon-save.png" />
+            <% end %>
+        </span>
+      </h1>
+
+      <h5 id="wrapper-profile-address" class="wrapper-content-edit">
+       <!-- <span id="profile-address" class="content-edit"><%= profile.address %></span>-->
+        <span id="profile-address" class="content-edit"></span>
+       <!-- <span class="edit-actions">
+            <% if @isMyprofile %>
+               <img id="icon-edit-address" onclick="icon_edit(this.id)" class="icon-edit" src="/assets/icon-edit.png" />
+               <img id="icon-save-address" onclick="icon_save(this.id)" data-columnname="address" class="icon-save" src="/assets/icon-save.png" />
+            <% end %>
+        </span>-->
+      </h5>
+    </div>
+
+  </div>
+  <!--End header-top-->
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places,visualization&sensor=false"></script>
+<script>
+    $(document).ready(function(){
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var geocoder = new google.maps.Geocoder();
+            var latLng   = new google.maps.LatLng(
+                    position.coords.latitude, position.coords.longitude);
+            geocoder.geocode({
+                'latLng': latLng
+            }, function (results, status) {
+                _city="";
+                _country="";
+                _address=results[0]["formatted_address"]
+
+                for (var i = 0; i < results[0].address_components.length; i++) {
+                    var address = results[0].address_components[i];
+
+                    if(address.types[0]=="administrative_area_level_1")
+                    {
+                        _city=address.long_name;
+
+                    }
+                    if(address.types[0]=="country")
+                    {
+                        _country=address.long_name
+
+                    }
+
+                }
+                var _datacitypforfile=_city+"&nbsp;,&nbsp;"+_country;
+
+                $("#profile-address").html(_datacitypforfile);
+
+            });
+        });
+    })
+        function changefile()
+        {
+            $("#form-change-avatar").submit();
+
+        }
+    </script>

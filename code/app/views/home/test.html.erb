@@ -1,0 +1,20 @@
+<%= form_for(:user, :url => session_path(:user)) do |f| %>
+    <%= f.text_field :email %>
+    <%= f.password_field :password %>
+    <%= f.check_box :remember_me %>
+    <%= f.label :remember_me %>
+    <%= f.submit 'Sign in' %>
+    <%= link_to "Forgot your password?", new_password_path(:user) %>
+<% end %>
+
+<hr />
+
+<% if user_signed_in? %>
+    <li>
+      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+    </li>
+<% else %>
+    <li>
+      <%= link_to('Login', new_user_session_path)  %>
+    </li>
+<% end %>

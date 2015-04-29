@@ -1,0 +1,56 @@
+<style>
+    #header-container{
+        /*background: url('<%= @current_city.image.url(:original) %>') no-repeat center center fixed;*/
+        background-image: url('<%= @current_city.image.url(:original) %>');
+    }
+</style>
+
+<div id="main" class="col-md-12">
+
+  <div id="main-title" class="row center-block">
+    <h3 id="main-title-top">THE TOP 5 </h3>
+
+    <h1 id="main-title-body">The BEST of the BEST</h1>
+
+    <div id="main-bar-color" class="center-block"></div>
+  </div>
+  <!--End main-title-->
+
+
+  <div id="city-filter" class="row center-block">
+
+    <div class="styled-select center-block">
+
+      <%= form_tag("/index", method: "post") do %>
+        <%= select_tag :city_id, options_for_select(@cities.collect {|p| [ p.name, p.id ] }, @current_city.id), :onchange => "this.form.submit()" %>
+      <% end %>
+
+    </div>
+
+  </div>
+  <!-- End city-filter -->
+
+  <div class="row" id="main-body">
+
+    <div id="list-products" class="col-md-12">
+      <%= render partial: "product", collection: @products %>
+      <%
+
+         if user_signed_in?
+
+         else
+      %>
+          <button id="btn-seefull-index" onclick="btnseefullindex()" class="center-block btn-seefull">SEE FULL LIST</button>
+      <% end
+      %>
+
+
+    </div>
+
+    <!-- End list-product -->
+  </div>
+  <!-- End main-body -->
+
+</div>
+<!-- End main -->
+
