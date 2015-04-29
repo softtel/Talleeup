@@ -89,8 +89,9 @@
           <div class="button-review">
 
               <%if user_signed_in? %>
+
                 <a href="/reviewuser">
-                <input type="button" value="REVIEW" name="REVIEW">
+                    <input type="button" value="REVIEW" name="REVIEW">
                 </a>
               <%else%>
                 <a href="#">
@@ -213,7 +214,20 @@
 
 
             <% if user_signed_in? %>
-                <a href="/review?product_id=<%=params[:id]%>" class="bur-review" >REVIEW </a>
+                <%
+                   if current_user.blank?
+                     is_reviewed = false
+
+                   else
+                     is_reviewed = Product.check_reviewed_detals(current_user.id,params[:id])
+
+                   end
+                %>
+                <% if(is_reviewed) %>
+                    <a href="#" data-toggle="modal" data-target="#checkreviewsuccess_<%=params[:id]%>" class="bur-review" >REVIEW </a>
+                    <%else%>
+                    <a href="/review?product_id=<%=params[:id]%>" class="bur-review" >REVIEW </a>
+                 <%end%>
             <%else%>
                 <a href="#"  data-toggle="modal" data-target="#checkreview" class="bur-review" >REVIEW </a>
 
@@ -238,6 +252,36 @@
       </div>
     </div>
   </div>
+
+  <%if user_signed_in? %>
+    <div class="modal fade" id="checkreviewsuccess_<%=params[:id]%>" tabindex="-1" role="dialog" aria-labelledby="checkreviewsuccess" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content" style="top:70px">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="exampleModalLabel">Notification</h4>
+          </div>
+          <div class="modal-body">
+            <p style="color: #666">
+
+              <%
+                 if(is_reviewed)
+                   reviewedinfog = Review.getReviewedInfo(current_user.id,  params[:id])
+                   date_now=(Time.now - reviewedinfog.created_at.to_time)/1.day
+
+              %>
+                  You've reviewed this burger on <%=reviewedinfog.created_at.localtime%>.
+                  You can review it again in <%=30-date_now.to_i%> days.
+                  Please select another burger from the list to review.
+              <%end%>
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+<%end%>
+
   <!-- Modal -->
   <div class="modal fade" id="myModal<%=params[:id] %>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelhhh" aria-hidden="true">
     <div class="modal-dialog">
@@ -270,7 +314,7 @@
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="control-label">Message:</label>
-                  <textarea class="form-control" id="message-text-<%=params[:id]%>">I just crushed the <%= Product.where(id: params[:id]).first().name%> at <%= Product.where(id: params[:id]).first().restaurant.name%>.Check out my <%=root_url %>BurgerProfile/<%=params[:id]%></textarea>
+                  <textarea class="form-control" id="message-text-<%=params[:id]%>">I just crushed the <%= Product.where(id: params[:id]).first().name%> at <%= Product.where(id: params[:id]).first().restaurant.name%>.<%=root_url %>BurgerProfile/<%=params[:id]%></textarea>
                   <span id="error-message-<%=params[:id]%>" style="color: red"></span>
                 </div>
               </form>
@@ -291,7 +335,7 @@
             <div role="tabpanel" class="tab-pane" id="Twiter" style="padding: 20px">
 
               <a class="twitter-share-button"
-                 href="https://twitter.com/share?text=I just crushed the <%=Product.where(id: params[:id]).first().name%> at <%=Product.where(id: params[:id]).first().restaurant.name%>.Check out my &url=<%=root_url %>BurgerProfile/<%=params[:id]%>"
+                 href="https://twitter.com/share?text=I just crushed the <%=Product.where(id: params[:id]).first().name%> at <%=Product.where(id: params[:id]).first().restaurant.name%>.&url=<%=root_url %>BurgerProfile/<%=params[:id]%>"
                  data-url="<%=root_url %>BurgerProfile/<%=params[:id]%>"
                  data-counturl="<%=root_url %>BurgerProfile/<%=params[:id]%>"
                  data-count="vertical">

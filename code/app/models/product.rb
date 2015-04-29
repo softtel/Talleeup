@@ -37,12 +37,12 @@ class Product < ActiveRecord::Base
                                 LIMIT #{_limit}")
   end
 
-  def self.search(_keyword,city_id)
+  def self.search(_keyword)#,city_id)
       return Product.find_by_sql("SELECT distinct p.*
       FROM  products p
       JOIN restaurants rs ON p.restaurant_id=rs.id
-      WHERE  lower(p.name) like '%#{_keyword.downcase}%' and rs.city_id=#{city_id}
-    ")
+      WHERE  lower(p.name) like '%#{_keyword.downcase}%'") #and rs.city_id=#{city_id}
+   # ")
      #return Product.joins(:restaurants).where("products.name like ?"=> "%#{_keyword}%","restaurants.city_id"=>city_id)
     #return (Product.with_name_matching(_keyword) + Product.whose_name_starts_with(_keyword)).uniq
   end
@@ -69,6 +69,21 @@ class Product < ActiveRecord::Base
     first_day_of_month = Time.new(Time.now.year, Time.now.month, 1)
 
     reviewed = Review.where("user_id = ? AND product_id = ?", user_id, self.id).order(id: :desc)
+    if reviewed.length>0
+      date_now=(Time.now - reviewed.first().created_at.to_time)/1.day
+      if date_now <=30 and date_now >0
+        return  true
+      else
+        return false
+      end
+    else
+      return false
+    end
+
+  end
+  def self.check_reviewed_detals(user_id,_id)
+
+    reviewed = Review.where("user_id = ? AND product_id = ?", user_id, _id).order(id: :desc)
     if reviewed.length>0
       date_now=(Time.now - reviewed.first().created_at.to_time)/1.day
       if date_now <=30 and date_now >0

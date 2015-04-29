@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div id="layer-review"></div>
+<div id="layer-review" style="z-index: 999"></div>
 
 
 <div id="profile-header-container"  class="container-fluid review-header-container">
@@ -98,19 +98,20 @@
 
       $('#btn-done').click(function(){
           var _val=$("#txt-share-friend").val();
-          _val=_val.split(',')
-          for(var i=0;i<_val.length-1;i++)
-          {
+          //_val=_val.split(',')
+         // for(var i=0;i<_val.length-1;i++)
+          //{
               $("#showloadding_reviews").show();
 
-              $.post("/home/actionSendMail", {email:_val[i],message:"",link:"<%=request.original_url%>"}, function () {
+              $.post("/home/actionSendMailMutile", {email:_val,message:"",link:"<%=request.original_url%>"}, function () {
 
               }).success(function (data) {
 
                   $("#showloadding_reviews").hide();
+                  closeDialog();
               });
-          }
-          closeDialog();
+          //}
+          //
 
       });
 
@@ -165,44 +166,14 @@
       });
       */
 
-      /*var arr=$("#sdnfsdsdf").val();
+      var arr=$("#sdnfsdsdf").val();
       var find = '"';
       var re = new RegExp(find, 'g');
 
       arr = arr.replace(re, '');
       arr = arr.replace('[', '');
       arr = arr.replace(']', '');
-
-
-
-      arr=arr.split(',')*/
-
-
-      /*var arr = [
-          "ActionScript",
-          "AppleScript",
-          "Asp",
-          "BASIC",
-          "C",
-          "C++",
-          "Clojure",
-          "COBOL",
-          "ColdFusion",
-          "Erlang",
-          "Fortran",
-          "Groovy",
-          "Haskell",
-          "Java",
-          "JavaScript",
-          "Lisp",
-          "Perl",
-          "PHP",
-          "Python",
-          "Ruby",
-          "Scala",
-          "Scheme"
-      ];*/
-
+      arr=arr.split(',');
       function split( val ) {
           return val.split( /,\s*/ );
       }
@@ -210,7 +181,7 @@
           return split( term ).pop();
       }
 
-      /*$( "#txt-share-friend" )
+      $( "#txt-share-friend" )
           // don't navigate away from the field on tab when selecting an item
               .bind( "keydown", function( event ) {
                   if ( event.keyCode === $.ui.keyCode.TAB &&
@@ -240,7 +211,7 @@
                       this.value = terms.join( ", " );
                       return false;
                   }
-              });*/
+              });
 
 
   });// end ready

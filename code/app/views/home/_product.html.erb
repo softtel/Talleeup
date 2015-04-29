@@ -88,6 +88,37 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal -->
+    <%if user_signed_in? %>
+        <div class="modal fade" id="checkreviewsuccess_<%=product.id%>" tabindex="-1" role="dialog" aria-labelledby="checkreviewsuccess" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content" style="top:70px">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Notification</h4>
+              </div>
+              <div class="modal-body">
+                <p style="color: #666">
+
+                    <%
+                       if(is_reviewed)
+                           reviewedinfog = Review.getReviewedInfo(current_user.id,  product.id)
+                           date_now=(Time.now - reviewedinfog.created_at.to_time)/1.day
+
+                    %>
+                      You've reviewed this burger on <%=reviewedinfog.created_at.localtime%>.
+                      You can review it again in <%=30-date_now.to_i%> days.
+                      Please select another burger from the list to review.
+                     <%end%>
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+   <%end%>
+
     <div class="product-reviews-center">
 
       <a href="/BurgerProfile/<%=product.id %>"><h3 class="product-reviews-center-top"><%= product.name %></h3></a>
@@ -103,14 +134,25 @@
 
     <div class="product-btn-group">
       <%if user_signed_in? %>
-      <a href="/review?product_id=<%= product.id %>">
-        <button class="btn-control btn-review">
           <% if(is_reviewed) %>
-            <span class="icon"></span>
-          <% end %>
-          REVIEW
-        </button>
-      </a>
+              <a href="#" data-toggle="modal" data-target="#checkreviewsuccess_<%=product.id %>">
+                <button class="btn-control btn-review">
+                  <% if(is_reviewed) %>
+                    <span class="icon"></span>
+                  <% end %>
+                  REVIEW
+                </button>
+              </a>
+          <%else%>
+              <a href="/review?product_id=<%=product.id %>">
+                <button class="btn-control btn-review">
+                  <% if(is_reviewed) %>
+                      <span class="icon"></span>
+                  <% end %>
+                  REVIEW
+                </button>
+              </a>
+            <%end%>
           <%else%>
           <a href="#"  data-toggle="modal" data-target="#checkreview">
             <button class="btn-control btn-review">
@@ -172,7 +214,7 @@
                 </div>
                 <div class="form-group">
                   <label for="message-text" class="control-label">Message:</label>
-                  <textarea class="form-control" id="message-text-<%=product.id%>">I just crushed the <%= product.name%> at <%= product.restaurant.name%>.Check out my <%=root_url %>BurgerProfile/<%=product.id%></textarea>
+                  <textarea class="form-control" id="message-text-<%=product.id%>">I just crushed the <%= product.name%> at <%= product.restaurant.name%>.<%=root_url %>BurgerProfile/<%=product.id%></textarea>
                   <span id="error-message-<%=product.id%>" style="color: red"></span>
                 </div>
               </form>
@@ -190,7 +232,7 @@
             <div role="tabpanel" class="tab-pane" id="Twiter<%=product.id%>" style="padding: 20px">
 
               <a class="twitter-share-button"
-                 href="https://twitter.com/share?text=I just crushed the <%= product.name%> at <%= product.restaurant.name%>.Check out my &url=<%=root_url %>BurgerProfile/<%=product.id%>"
+                 href="https://twitter.com/share?text=I just crushed the <%= product.name%> at <%= product.restaurant.name%>.&url=<%=root_url %>BurgerProfile/<%=product.id%>"
                  data-url="<%=root_url %>"
                  data-counturl="<%=root_url %>"
                  data-count="vertical">

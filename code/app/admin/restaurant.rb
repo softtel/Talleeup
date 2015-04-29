@@ -18,8 +18,8 @@ ActiveAdmin.register Restaurant do
 
   filter :name
   filter :address
-  filter :country_id, as: :select, collection: Country.select(:id, :name).uniq
-  filter :city_id, as: :select, collection: City.select(:id, :name).uniq
+  filter :country_id, as: :select, collection: Country.select(:id, :name).order(name: :asc).uniq
+  filter :city_id, as: :select, collection: City.select(:id, :name).order(name: :asc).uniq
   filter :created_at
 
   form do |f|

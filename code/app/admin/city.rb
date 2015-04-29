@@ -19,8 +19,8 @@ ActiveAdmin.register City do
   end
 
   filter :name
-  filter :country_id, as: :select, collection: Country.select(:id, :name).uniq
-  filter :currency_id, as: :select, collection: Currency.select(:id, :name).uniq
+  filter :country_id, as: :select, collection: Country.select(:id, :name)
+  filter :currency_id, as: :select, collection: Currency.select(:id, :name)
   filter :created_at
 
   form :html => { :enctype => "multipart/form-data" } do |f|

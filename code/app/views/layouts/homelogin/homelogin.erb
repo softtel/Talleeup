@@ -121,10 +121,10 @@
               <%end%>
             </div>
             <%if user_signed_in? %>
-                <%if device_type != :mobile %>
-                <%= link_to("LOGOUT", destroy_user_session_path,:class=>"pull-right" ,:method => :delete, :id=>"btn-logout") %>
+                <%if device_type != :desktop %>
+                <%= link_to(image_tag("logout.png"), destroy_user_session_path, :method => :delete, :id=>"btnlogout") %>
                    <%else%>
-                    <%= link_to(image_tag("logout.png"), destroy_user_session_path, :method => :delete, :id=>"btnlogout") %>
+					<%= link_to("LOGOUT", destroy_user_session_path,:class=>"pull-right" ,:method => :delete, :id=>"btn-logout") %>
                 <%end%>
 
             <%end%>

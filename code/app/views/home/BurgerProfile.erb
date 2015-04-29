@@ -31,7 +31,7 @@
 
             $ArrowKeyNavigation: true,   			            //Allows arrow key to navigate or not
             $SlideWidth: 596,                                   //[Optional] Width of every slide in pixels, the default is width of 'slides' container
-            $SlideHeight: 397,                                  //[Optional] Height of every slide in pixels, the default is width of 'slides' container
+            $SlideHeight: 415,                                  //[Optional] Height of every slide in pixels, the default is width of 'slides' container
             $SlideSpacing: 30, 					                //Space between each slide in pixels
             $DisplayPieces: 3,                                  //Number of pieces to display (the slideshow would be disabled if the value is set to greater than 1), the default value is 1
             $ParkingPosition: 520,                                //The offset position to park slide (this options applys only when slideshow disabled).
@@ -89,9 +89,9 @@
     end
 %>
   <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: <%=_width%>;
-          height: 397px; overflow: hidden;">
+          height: 415px; overflow: hidden;">
     <!-- Slides Container -->
-    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: <%=_width%>; height: 397px;
+    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: <%=_width%>; height: 415px;
             overflow: hidden;">
       <%@productdetails.product_images.each do |kkkk| %>
       <div>
@@ -273,7 +273,7 @@
       </div>
     </div>
     <div style="width: 100%;float: left">
-    <div style="width: 780px;height: 2px;border-bottom: 1px solid #ccc;padding-top: 18px;margin: 0 auto"></div>
+    <div class="line_border_blur"></div>
     <div class="content-reviews">
 
       <%@scoreuser.each do |item| %>
@@ -310,7 +310,7 @@
         </div>
 
       </div>
-              <div style="width: 780px;height: 2px;border-bottom: 1px solid #ccc;margin: 0 auto"></div>
+              <div class="line_border_blur"></div>
         <%end%>
      <%end%>
       <%@comemntproduct.each do |chchch|%>
@@ -343,7 +343,7 @@
             </div>
 
           </div>
-          <div style="width: 780px;height: 2px;border-bottom: 1px solid #ccc;margin: 0 auto"></div>
+          <div class="line_border_blur"></div>
       <%end%>
 
     </div>

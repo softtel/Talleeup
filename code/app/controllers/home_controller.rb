@@ -2,7 +2,7 @@ require 'product_view_models'
 
 class HomeController < ApplicationController
    #before_action :authenticate_user!
-   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail,:reviewuser,:addlocation]
+   before_action :authenticate_user!, :except => [:index, :test,:addSession,:BurgerProfile,:CheckEmail,:reviewuser,:addlocation,:actionSendMailMutile]
    #autocomplete :brand, :name, :display_value => :funky_method
   def index
     if user_signed_in?
@@ -18,7 +18,7 @@ class HomeController < ApplicationController
         if !_detectcountry.blank?
           _detectcountryid=_detectcountry.first().id
 
-          @cities=City.where(country_id: _detectcountryid)
+          @cities=City.where(country_id: _detectcountryid).order(name: :asc)
           if !_dectechcity.blank?
             city_id=_dectechcity.first().id
           else if !@cities.blank?
@@ -26,7 +26,7 @@ class HomeController < ApplicationController
                else
                  country=Country.all.order("name ASC")
                  countryid=country.first().id
-                 @cities=City.where(country_id:countryid)
+                 @cities=City.where(country_id:countryid).order(name: :asc)
                  city_id=@cities.first().id
                end
           end
@@ -34,39 +34,88 @@ class HomeController < ApplicationController
         else
           country=Country.all.order("name ASC")
           countryid=country.first().id
-          @cities=City.where(country_id:countryid)
+          @cities=City.where(country_id:countryid).order(name: :asc)
           city_id=@cities.first().id
         end
       else if @getLocation.blank? && request.post?
              city_id=params[:city_id]
              countryid=City.where(id: city_id).first().country_id
-             @cities=City.where(country_id:countryid)
+             @cities=City.where(country_id:countryid).order(name: :asc)
 
            else if !@getLocation.blank? && request.post?
                   city_id=params[:city_id]
                   countryid=City.where(id: city_id).first().country_id
-                  @cities=City.where(country_id:countryid)
+                  @cities=City.where(country_id:countryid).order(name: :asc)
                 else
 
                   country=Country.all.order("name ASC")
                   countryid=country.first().id
-                  @cities=City.where(country_id:countryid)
+                  @cities=City.where(country_id:countryid).order(name: :asc)
                   city_id=@cities.first().id
                 end
 
            end
 
       end
-      @current_city = City.find_by_id(city_id)
+
 
       # country = request.location.country_code
       if user_signed_in?
-        @products = Product.get_products(city_id, 99999999)
+        ap = Product.get_products(city_id, 99999999)
+        if ap.count >0
+          @products=ap
+        else
+          idcountry_pre=@cities.first().country_id
+          restaurant_pre=Restaurant.joins(:products).where(restaurants:{country_id: idcountry_pre})
+          if restaurant_pre.length>0
+            city_id=restaurant_pre.first().city_id
+          else
+            #//default
+            if request.post?
+              city_id=params[:city_id]
+            else
+              country=Country.where(iso: 'US')
+              countryid=country.first().id
+              @cities=City.where(country_id:countryid).order(name: :asc)
+              city_id=@cities.where("lower(name)=?","san francisco").first().id
+            end
+          end
+          @products=Product.get_products(city_id, 99999999)
+        end
       else
-        @products = Product.get_products(city_id, 5)
+        if !request.post?
+          ap = Product.get_products(city_id, 5)
+          if ap.count >0
+            @products=ap
+          else
+            idcountry_pre=@cities.first().country_id
+            restaurant_pre=Restaurant.joins(:products).where(restaurants:{country_id: idcountry_pre})
+            if restaurant_pre.length>0
+              city_id=restaurant_pre.first().city_id
+            else
+              #//default
+              if request.post?
+                country=Country.where(iso: 'US')
+                countryid=country.first().id
+                @cities=City.where(country_id:countryid)
+                city_id=city_id=params[:city_id]
+              else
+                country=Country.where(iso: 'US')
+                countryid=country.first().id
+                @cities=City.where(country_id:countryid)
+                city_id=@cities.where("lower(name)=?","san francisco").first().id
+              end
+            end
+            @products=Product.get_products(city_id, 5)
+          end
+        else
+          city_id=params[:city_id]
+          countryid=City.where(id: city_id).first().country_id
+          @cities=City.where(country_id:countryid).order(name: :asc)
+          @products=Product.get_products(city_id, 5)
+        end
       end
-
-
+      @current_city = City.find_by_id(city_id)
       render layout: "home_layout"
     end
 
@@ -91,41 +140,41 @@ class HomeController < ApplicationController
   def search
 
     # @cityDetected = request.location.city
-    _ip=request.remote_ip
-    @getLocation=Location.where(ip: _ip).order("id DESC")
-    if !@getLocation.blank?
-      _detectcountry=Country.where("lower(iso)=?", @getLocation.first().country.downcase)
-      _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
-      if !_detectcountry.blank?
-        _detectcountryid=_detectcountry.first().id
-        @cities=City.where(country_id: _detectcountryid)
-        if !_dectechcity.blank?
-          city_id=_dectechcity.first().id
-        else
-          if !@cities.blank?
-            city_id=@cities.first().id
-          else
-            country=Country.all.order("name ASC")
-            countryid=country.first().id
-            @cities=City.where(country_id:countryid)
-            city_id=@cities.first().id
-            end
-        end
-      else
-        country=Country.all.order("name ASC")
-        countryid=country.first().id
-        @cities=City.where(country_id:countryid)
-        city_id=@cities.first().id
-      end
-    else
-      country=Country.all.order("name ASC")
-      countryid=country.first().id
-      @cities=City.where(country_id:countryid)
-      city_id=@cities.first().id
-    end
+  #  _ip=request.remote_ip
+  #  @getLocation=Location.where(ip: _ip).order("id DESC")
+  #  if !@getLocation.blank?
+  #    _detectcountry=Country.where("lower(iso)=?", @getLocation.first().country.downcase)
+    #  _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
+  #    if !_detectcountry.blank?
+   #     _detectcountryid=_detectcountry.first().id
+  #      @cities=City.where(country_id: _detectcountryid)
+  #      if !_dectechcity.blank?
+  #        city_id=_dectechcity.first().id
+   #     else
+   #       if !@cities.blank?
+   #         city_id=@cities.first().id
+    #      else
+     #       country=Country.all.order("name ASC")
+    #        countryid=country.first().id
+    #        @cities=City.where(country_id:countryid)
+    #        city_id=@cities.first().id
+    #        end
+    #    end
+     # else
+    #    country=Country.all.order("name ASC")
+    #    countryid=country.first().id
+    #    @cities=City.where(country_id:countryid)
+    #    city_id=@cities.first().id
+     # end
+   # else
+    #  country=Country.all.order("name ASC")
+    #  countryid=country.first().id
+    #  @cities=City.where(country_id:countryid)
+    #  city_id=@cities.first().id
+    #end
 
     @keyword = params[:keyword]
-    @products = Product.search(@keyword,city_id)
+    @products = Product.search(@keyword)#,city_id)
 
     @myprofile = Profile.getProfile(current_user.id)
 
@@ -311,7 +360,7 @@ end
     end
 
     @review_type = ReviewType.get_all
-    @userall=User.all().select(:email)
+    @userall=User.all().select(:fullname)
 
     render layout: "review_layout"
   end
@@ -343,26 +392,38 @@ end
           _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
           if !_detectcountry.blank?
             _detectcountryid=_detectcountry.first().id
-            @location=City.where(country_id: _detectcountryid)
+            @location=City.where(country_id: _detectcountryid).order(name: :asc)
             if !_dectechcity.blank?
               @city_id=_dectechcity.first().id
             else if !@location.blank?
                    @city_id=@location.first().id
                  else
-
-                   country=Country.all.order("name ASC")
+                   country=Country.where(iso: 'US')
                    countryid=country.first().id
                    @cities=City.where(country_id:countryid)
-                   @city_id=@cities.first().id
-                   @location=City.where(country_id: countryid)
+                   @city_id=@cities.where("lower(name)=?","san francisco").first().id
+                   @location=City.where(country_id: countryid).order(name: :asc)
+                   #@cities=City.where(country_id:countryid)
+                   #city_id=@cities.where("lower(name)=?","san francisco").first().id
+
+                   #country=Country.all.order("name ASC")
+                   #countryid=country.first().id
+
                  end
 
             end
           else
-            country=Country.all.order("name ASC")
+            #country=Country.all.order("name ASC")
+            #countryid=country.first().id
+            #@location=City.where(country_id:countryid).order(name: :asc)
+            #@city_id=@location.first().id
+
+            country=Country.where(iso: 'US')
             countryid=country.first().id
-            @location=City.where(country_id:countryid)
-            @city_id=@location.first().id
+            @cities=City.where(country_id:countryid)
+            @city_id=@cities.where("lower(name)=?","san francisco").first().id
+            @location=City.where(country_id: countryid).order(name: :asc)
+
           end
           @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
         #end lay location duoc va khong post
@@ -374,7 +435,7 @@ end
           if @city.present? && !params[:idcomponennt].present?
             @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
             countryid=City.where(id: @city_id).first().country_id
-            @location=City.where(country_id:countryid)
+            @location=City.where(country_id:countryid).order(name: :asc)
           else
             if @city.present? && params[:idcomponennt].present?
               @kk=params[:idcomponennt]
@@ -404,7 +465,7 @@ end
               @listvalue=Component.where(id: _idcategoryfilter)
               @listcutyfilter=City.where(id:_idcityfilter)
               countryid=City.where(id: @city_id).first().country_id
-              @location=City.where(country_id:countryid)
+              @location=City.where(country_id:countryid).order(name: :asc)
 
             else
               @kk=params[:idcomponennt]
@@ -437,9 +498,16 @@ end
               @listvalue=Component.where(id: _idcategoryfilter)
               @listcutyfilter=City.where(id:_idcityfilter)
               @datatata=@icomponent.length
-              country=Country.all.order("name ASC")
+
+              country=Country.where(iso: 'US')
               countryid=country.first().id
-              @location=City.where(country_id:countryid)
+              @cities=City.where(country_id:countryid)
+              @city_id=@cities.where("lower(name)=?","san francisco").first().id
+              @location=City.where(country_id: countryid).order(name: :asc)
+
+              #country=Country.all.order("name ASC")
+              #countryid=country.first().id
+              #@location=City.where(country_id:countryid).order(name: :asc)
 
             end
           end
@@ -452,7 +520,7 @@ end
             if @city.present? && !params[:idcomponennt].present?
               @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
               countryid=City.where(id: @city_id).first().country_id
-              @location=City.where(country_id:countryid)
+              @location=City.where(country_id:countryid).order(name: :asc)
               @hung=1;
             else
               if @city.present? && params[:idcomponennt].present?
@@ -484,7 +552,7 @@ end
                 @listvalue=Component.where(id: _idcategoryfilter)
                 @listcutyfilter=City.where(id:_idcityfilter)
                 countryid=City.where(id: @city_id).first().country_id
-                @location=City.where(country_id:countryid)
+                @location=City.where(country_id:countryid).order(name: :asc)
               else
                 @hung=3;
                 @kk=params[:idcomponennt]
@@ -519,18 +587,27 @@ end
                 if !_detectcountry.blank?
                   _detectcountryid=_detectcountry.first().id
                   @kkk=_detectcountryid
-                  @location=City.where(country_id: _detectcountryid)
+                  @location=City.where(country_id: _detectcountryid).order(name: :asc)
                   if !_dectechcity.blank?
                     @city_id=_dectechcity.first().id
                   else
                     if !@location.blank?
                         @city_id=@location.first().id
                     else
-                      country=Country.all.order("name ASC")
+
+                      #country=Country.all.order("name ASC")
+                      #countryid=country.first().id
+                      #@cities=City.where(country_id:countryid)
+                     #@city_id=@cities.first().id
+                     # @location=City.where(country_id: countryid).order(name: :asc)
+
+
+                      country=Country.where(iso: 'US')
                       countryid=country.first().id
                       @cities=City.where(country_id:countryid)
-                      @city_id=@cities.first().id
-                      @location=City.where(country_id: countryid)
+                      @city_id=@cities.where("lower(name)=?","san francisco").first().id
+                      @location=City.where(country_id: countryid).order(name: :asc)
+
                       end
                   end
 
@@ -541,10 +618,16 @@ end
           else
             # khong lay va khong post
             #if !@getLocation.blank? && !request.post?
-              country=Country.all.order("name ASC")
+              #country=Country.all.order("name ASC")
+              #countryid=country.first().id
+              country=Country.where(iso: 'US')
               countryid=country.first().id
-              @location=City.where(country_id:countryid)
-              @city_id=@location.first().id
+              @cities=City.where(country_id:countryid)
+              @city_id=@cities.where("lower(name)=?","san francisco").first().id
+              @location=City.where(country_id: countryid).order(name: :asc)
+
+              #@location=City.where(country_id:countryid).order(name: :asc)
+              #@city_id=@location.first().id
               @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id})
 
             #end
@@ -554,43 +637,92 @@ end
         end
 
       end
+      if @data.length<=0
+          if !request.post?
+            idcountry_pre=@location.first().country_id
+            restaurant_pre=Restaurant.joins(:products).where(restaurants:{country_id: idcountry_pre})
+            if restaurant_pre.length>0
+              @city_id=restaurant_pre.first().city_id
+              @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id})
+              #@pooooo=2
+            else
+                #if request.post?
+                  #if params[:city_id].present? && !params[:idcomponennt].present?
+                    #@city_id=params[:city_id]
+                    #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id})
+                    #@pooooo=1
+                  #else
+                   # if !params[:city_id].present? && params[:idcomponennt].present?
+                      #@city_id=params[:city_id]
+                      #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id})
+                   # end
+                  #end
+                #else
+                  #default
+                  country=Country.where(iso: 'US')
+                  countryid=country.first().id
+                  @location=City.where(country_id:countryid)
+                  @city_id=@location.where("lower(name)=?","san francisco").first().id
+                #end
 
-      #citycurrent = request.location.city
-      #countrycrrent=request.location.country
-      #if countrycrrent.nil?
-        #countryid=Country.find_by_name(countrycrrent).id
-      #else
+                @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id})
+            end
+          else
+            if params[:city_id].present? && !params[:idcomponennt].present?
+                  @city_id=params[:city_id]
+                  @data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(restaurants: {city_id: @city_id})
+                  @pooooo=1
+            else
+              # if !params[:city_id].present? && params[:idcomponennt].present?
+                  #@city_id=params[:city_id]
+                  @icomponent=params[:idcomponennt].split(/;/)
+                  _idcityfilter=Array.new
+                  _idcategoryfilter=Array.new
+                  if @icomponent.length>0
 
-     # end
+                    for x in @icomponent
+                      _c=x.split(/@/)
+                      if _c[1]=='city'
+                        _idcityfilter.push(_c[0])
+                      else
+                        _idcategoryfilter.push(_c[0])
+                      end
+                    end
+                  end
+                  @data=Product.joins(product_components: [{component_value: :component }]).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct
+                  if _idcityfilter.length>0
+                    @data=@data.where(restaurants: {city_id: _idcityfilter})
+                  end
+                  if _idcategoryfilter.length>0
+                    @data=@data.where(components:{id: _idcategoryfilter})
+                  end
+                  @listvalue=Component.where(id: _idcategoryfilter)
+                  @listcutyfilter=City.where(id:_idcityfilter)
+                #  _detectcountry=Country.where("lower(iso)=?", @getLocation.first().country.downcase)
+                 # _dectechcity=City.where("lower(name)=?",@getLocation.first().city.downcase)
+                 # if !_detectcountry.blank?
+                   # _detectcountryid=_detectcountry.first().id
+                   # @kkk=_detectcountryid
+                   # @location=City.where(country_id: _detectcountryid)
+                   # if !_dectechcity.blank?
+                   #   @city_id=_dectechcity.first().id
+                   # else
+                   #   if !@location.blank?
+                     #   @city_id=@location.first().id
+                     # else
+                      #  country=Country.all.order("name ASC")
+                      #  countryid=country.first().id
+                      #  @cities=City.where(country_id:countryid)
+                     #   @city_id=@cities.first().id
+                     #   @location=City.where(country_id: countryid)
+                     # end
+                   # end
 
-      #@location=City.all
-      #if request.post?
-
-        #@city_id=params[:city_id]
-        #@city = City.find_by_id(@city_id)
-        #if @city.present?
-            #@data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
-
-        #else
-          #@kk=params[:idcomponennt]
-          #@icomponent=params[:idcomponennt].split(/;/)
-          #@data=Product.joins(:product_components).joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").distinct.where(product_components:{component_value_id: @icomponent})
-          #@listvalue=ComponentValue.where(id: @icomponent)
-            
-        #end
-
-
-
-      #else
-        #if citycurrent.nil?
-          #locationcureent=City.find_by_name(citycurrent)
-          #@city_id=locationcureent.id
-          #@city = City.find_by_id(@city_id)
-         # @data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @city_id})
-        #else
-          #@data=Product.joins(:restaurant).select("products.id,products.images_file_name,products.name as productname,restaurants.name as restaurantsname").where(restaurants: {city_id: @location.first().id})
-        #end
-      #end
+                  #end
+               #end
+            end
+        end
+      end
       @cueeentr=City.find_by_id(@city_id)
       @profile=Profile.where(user_id: current_user.id).first()
 
@@ -673,6 +805,38 @@ end
     mail.deliver
     render :json => { :status => true }
   end
+   def actionSendMailMutile
+     _html="";
+     _html+="<p>You just received an invitation from a friend . You can click  here</a> to see details:</p>"+params[:link];
+     _html+="<p>"+params[:message]+"</p>";
+     _email=""
+     if user_signed_in?
+       _email=User.where(id: current_user.id).first().email
+     end
+     if params[:email].present?
+        result= params[:email].split(/,/);
+        listdata=[]
+        for hhh in result
+          listdata.push(hhh.strip)
+        end
+
+        _data=User.where(fullname: listdata);
+
+        for ddd in _data
+              mail = UserNotifier.send_mail_toshare(ddd.email,"You just received an invitation from a friend",_html,_email);
+              mail.deliver;
+
+        end
+
+        render :json => { :status => true }
+     else
+       render :json => { :status => false }
+      end
+
+
+  end
+
+
   def addlocation
      _city=params[:city]
      _country=params[:country]

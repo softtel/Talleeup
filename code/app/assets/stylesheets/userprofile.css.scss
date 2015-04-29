@@ -6,7 +6,7 @@
 
 @media (max-width: 1076px) {
   div#col-logo{
-    width: 350px;
+    width: 258px;
   }
 }
 
@@ -88,7 +88,7 @@
   }
 
   div#col-logo {
-    margin-right: 45px;
+    margin-right: 0px;
   }
 
   div#menu-item-views{
@@ -172,68 +172,88 @@
 
 @media (max-width: 470px) {
 
-  #profile-header-top{
+  #profile-header-top {
     margin: 0px !important;
 
   }
 
-  #profile-user-image{
+  #profile-user-image {
     width: 194px !important;
-//    border: 1px solid red;
+    //    border: 1px solid red;
   }
 
-  div#col-profile-info{
+  div#col-profile-info {
     text-align: center;
     padding-top: 0px !important;
     width: 100% !important;
   }
 
-  div#col-logo{
+  div#col-logo {
     width: 135px;
     margin-top: 10px;
   }
 
-  div#profile-header{
+  div#profile-header {
     padding: 0px;
   }
 
-  div#menu-bar-container{
+  div#menu-bar-container {
     padding: 0px;
     height: 155px !important;
   }
 
-  #menu-bar{
+  #menu-bar {
     padding-left: 0px;
     padding-right: 0px;
   }
 
-  div.menu-item{
+  div.menu-item {
     width: 50% !important;
     height: 50% !important;
   }
 
-  div#menu-item-boss, div#menu-item-loved{
+  div#menu-item-boss, div#menu-item-loved {
     border-right: 1px solid #E5E9EC;
   }
 
-  div#menu-item-boss, div#menu-item-reviews{
+  div#menu-item-boss, div#menu-item-reviews {
     border-bottom: 1px solid #E5E9EC;
   }
 
-  button.btn-follow{
+  button.btn-follow {
     width: 80% !important;
   }
 
-  div#col-profile-user-image{
+  div#col-profile-user-image {
     width: 100%;
   }
 
-  .info-details{
+  .info-details {
     margin: 0px -12px;
   }
-
+  .pull-right
+  {
+    width: 75%;
+  }
+  .circles
+  {
+    width: 18%;
+  }
+  .pull-left
+  {
+    width: 25%;
+  }
+  #countreyhhhhhh
+  {
+    width: 86.8%;
+  }
+  .btnlogoutnava
+  {
+    top: 35px !important;
+  }
   .info-details h4{
     font-size: 12px !important;
+
   }
 
   h1#main-title-body {
@@ -608,6 +628,7 @@ div.profile-main-title{
 .icon-edit-meta, .icon-save-meta{
   width: 25px;
   cursor: pointer;
+  float: right;
 }
 
 .icon-save-meta{

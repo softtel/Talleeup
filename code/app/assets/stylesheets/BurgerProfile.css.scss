@@ -293,10 +293,11 @@ font-family: myFirstFont;
 }
 .buttom-loadmore
 {
-  float: right;
-  text-align: center;
-  width: 60%;
+  /*float: right;*/
+  /*text-align: center;*/
+  width: 100%;
   padding-top: 37px;
+  clear:both;
 }
 .text-loadmore
 {
@@ -452,6 +453,9 @@ margin: 0 auto;
   display: none;
 }
 
+.line_border_blur{
+	width: 780px;height: 2px;border-bottom: 1px solid #ccc;padding-top: 18px;margin: 0 auto;
+}
 /* iPads (landscape) ----------- */
 @media only screen
 and (min-device-width : 768px)
@@ -533,6 +537,9 @@ and (max-device-width : 480px) {
     overflow-x: hidden;
     margin-left: -45px;
     width: 95px;
+  }
+  .line_border_blur{
+  width:100% !important;
   }
 }
 @media only screen and (min-width:395px)

@@ -545,7 +545,7 @@ and (orientation : portrait) {
     width: 30%;
   }
   .logo-header {
-    width: 27%;
+    width: 15%;
     background-image: image_url("homelogin-logo_768.png");
     height: 48px;
     margin-top: 30px;
@@ -617,7 +617,9 @@ and (orientation : portrait) {
   {
     right: 100px;
   }
-
+  .search-home input[type="text"]{
+	width: 245px;
+  }
 }
 
 /* iPads (landscape) ----------- */
@@ -2045,6 +2047,10 @@ and (orientation : portrait)
   {
     padding-top: 11px;
     height: 30px !important;
+  }
+  #btnlogout
+  {
+    top:49px;
   }
 }
 @media only screen and (min-width:623px)
