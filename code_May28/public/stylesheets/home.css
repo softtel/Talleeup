@@ -1,0 +1,158 @@
+#header{
+    background: image-url('bg-header.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    height: 833px;
+    padding-left: 90px !important;
+}
+
+#btn-login{
+    color: #ffffff;
+    font-size: 18px;
+    border: 2.5px solid #36c0de;
+    width: 140px;
+    height: 62px;
+    margin-top: 28px;
+    float: right;
+    margin-right: 175px;
+    display: block;
+    text-align: center;
+    background-color:transparent;
+    border-radius: 6px;
+}
+
+#introduct{
+    text-align: center;
+    color: #ffffff;
+    font-size: 38px;
+    margin-top: 80px;
+}
+
+#btn-signup{
+    width: 290px;
+    height: 62px;
+    font-size: 18px;
+    border-radius: 6px;
+    background-color: #fccf0f;
+    color: #145a8b;
+    border: transparent;
+    margin-top: 60px;
+    margin-bottom: 0px;
+}
+
+p#sign-ups{
+    text-align: center;
+    margin-top: 20px;
+}
+
+#sign-ups span{
+    font-size: 14px;
+    color: #ffffff;
+}
+
+ul#signup-list{
+    display: block;
+    text-align: center;
+    list-style: none;
+    padding:0;
+    margin-top: -5px;
+    /*border: 1px solid #ffffff;*/
+}
+
+ul#signup-list li{
+    font-size: 12px;
+    text-indent: -.7em;
+    margin-left: 4px;
+    /*border: 1px solid #ffffff;*/
+    display: inline;
+}
+
+ul#signup-list li a{
+    color: #fccf0f;
+}
+
+ul#signup-list li:not(:first-child):before {
+    content: "• ";
+    color: #ffffff;
+    padding-right: 7px;
+}
+
+
+/**********end header***********/
+#main{
+    padding-left: 90px !important;
+    background-color: #F3F7FA;
+    height: 500px;
+}
+
+#main-container{
+
+}
+
+#main-title{
+    text-align: center;
+}
+
+#main-title-top{
+    color: #B6BABD;
+}
+
+#main-title-body{
+    color: #145A8B;
+}
+
+#main-tile-bottom{
+    color: #165A8B;
+    font-size: 13px;
+}
+
+.product{
+    height: 240px;
+    background-color: #FFFFFF;
+    border: 1px solid #DFE8EF;
+    border-radius: 8px;
+}
+
+.product-image{
+    width: 265px;
+    height: 237px;
+    display: block;
+    float: left;
+}
+
+.product-reviews{
+    float: left;
+    /*background-color: yellow;*/
+    height: 237px;
+    width: 570px;
+}
+
+.product-reviews-top{
+    width: 98%;
+    height: 95px;
+    background-color: blue;
+    margin-left: 10px;
+    padding: 0px !important;
+}
+
+.product-reviews-score{
+    color: #34C1DD;
+    font-size: 70px;
+    /*width: 180px;*/
+    background-color: red;
+}
+
+.product-reviews-people{
+    background-color: green;
+    border: 1px solid black;
+}
+
+.btn-review, .btn-share{
+    width: 49%;
+    height: 55px;
+    background-color: #FCD00F;
+    color: #16598E;
+    font-size: 20px;
+}
