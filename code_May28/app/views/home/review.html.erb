@@ -1,0 +1,631 @@
+<style>
+  .ui-autocomplete
+  {
+      z-index: 9999 !important;
+  }
+</style>
+<div id="share-dialog" class="center-block" style="z-index: 999">
+  <button id="btn-close-dialog" type="button" class="close" aria-label="Close"><span style="color: #145a8b" aria-hidden="true">&times;</span></button>
+  <div id="share-dialog-1">
+    <h2 class="text-center text-bold" style="padding-top: 74px">BOOMSHAKALAKA!</h2>
+    <h6 class="text-center text-normal">Thanks for bringing even more</h6>
+    <h6 class="text-center text-normal">awesomeness to TalleeUp</h6>
+  </div>
+  <div id="share-dialog-2">
+    <h4 class="text-center text-bold" style="padding-top: 33px">Add Friends!</h4>
+    <h6 class="text-center text-normal" >Share this review with your friends</h6>
+    <div id="form-group-share" class="form-group center-block" style="position: relative">
+      <input id="txt-share-friend"   class="form-control" />
+
+    </div>
+    <%
+       arr=Array.new
+
+       @userall.each  do |item|
+         arr.push(item.fullname)
+
+       end
+       arr.join
+
+    %>
+    <input type="hidden" value="<%=arr%>" id="sdnfsdsdf">
+  </div>
+  <div id="share-dialog-3">
+    <h4 class="text-center text-bold" style="padding-top: 33px">Share your Experience</h4>
+    <h6 class="text-center text-normal">Tell everyone about your burger review</h6>
+    <div class="center-block">
+      <div class="center-block" id="fb-root"></div>
+      <div class="fb-share-button" style="padding-left: 44.7%;padding-bottom: 10px" data-href="<%=root_url %>BurgerProfile/<%=@idproduct%>" data-layout="button"></div>
+      <a class="twitter-share-button center-block" href="https://twitter.com/share?text=I just crushed the <%= @nameproduct%> at <%= @namerestaurent%>.&url=<%=root_url %>BurgerProfile/<%=@idproduct%>"
+         data-related="twitterdev"
+         data-size="large"
+         data-count="none">
+        Tweet
+      </a>
+
+    </div>
+
+  </div>
+  <div id="share-dialog-4">
+    <button id="btn-done" class="center-block">DONE <span id="showloadding_reviews" style="display: none" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></button>
+
+  </div>
+</div>
+<div id="step-1-container-fluid" class="container-fluid step-container-fluid">
+  <div id="step-1-container" class="container step-container">
+    <div id="step-1-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
+      <img id="step-1-image" class="center-block img-responsive" src="/assets/review/check.png"  alt="" />
+      <!--<img id="step-1-image-mobile" class="center-block img-responsive" src="/assets/review/check.png"  alt="" />-->
+      <h3 class="center-block text-title">Resturant & Burger</h3>
+      <!--<h4 class="center-block text-details">This is some detail for this step</h4>
+      <h4 class="center-block text-details">if it needs it</h4>-->
+    </div>
+    <div id="step-1-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
+
+      <div style="margin-bottom: 19px" class="form-group form-group-mobile form-group-mobile-top">
+
+
+        <select <%=@disbale%> id="reviews-select" style="height: 62px" class="txt-control txt-success txt-control-mobile-top">
+          <%=@restaurant.each do |item| %>
+              <%
+                 _select=""
+                 if  params[:product_id].present?
+                   if item.id===@product.restaurant.id
+                     _select="selected"
+                   end
+                 end
+              %>
+              <option <%=_select%> value="<%=item.id %>"><%=item.name%></option>
+          <%end%>
+        </select>
+
+
+        <img class="padding-image" src="/assets/review/valid.png" />
+      </div>
+
+      <div class="form-group form-group-mobile">
+
+
+        <select <%=@disbale%> id="child-product" style="height: 62px"  class="txt-control txt-success txt-normal txt-control-mobile-bottom">
+          <%=@restaurant_product.each do |child|%>
+              <%
+                 _selectdd=""
+                 if  params[:product_id].present?
+                   if child.id===@product.id
+                     _selectdd="selected"
+                   end
+                 end
+              %>
+              <option <%= _selectdd %> value="<%=child.id %>"><%=child.name%></option>
+          <%end%>
+        </select>
+
+
+        <!--<input placeholder="Name Of Burger" class="txt-control txt-success txt-normal txt-control-mobile-bottom" value="" />-->
+
+        <img class="padding-image" src="/assets/review/valid.png" />
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<%= form_tag("/review", method: "post",enctype: "multipart/form-data",multipart: true) do %>
+    -->
+    <div id="step-2-container-fluid" class="container-fluid step-container-fluid">
+      <div id="step-2-container" class="container step-container">
+        <div id="step-2-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
+          <img class="center-block img-responsive image-step-2" src="/assets/review/2.png"  alt="" />
+          <h3 class="center-block text-title">Rate</h3>
+         <!-- <h4 class="center-block text-details">This is some detail for this step</h4>
+          <h4 class="center-block text-details">if it needs it</h4>-->
+        </div>
+        <div id="step-2-left-mobile">
+          <div id="step-2-left-title-mobile">
+            <div id="image-step-2-mobile">
+              <img class="center-block img-responsive image-step-2" src="/assets/review/2.png"  alt="" />
+            </div>
+            <span id="image-text-step-2-mobile">Rate</span>
+            <div class="clearfix"></div>
+          </div>
+          <div id="box-total-number-mobile">
+            <span id="total-number-mobile"  class="total-number"><%= (@reviewed.present?) ? @reviewed.totalpoint : 0 %></span>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div id="step-2-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
+          <div id="total-rate" class="center-block">
+            <h5 id="total-title">TALLEE</h5>
+            <h1 id="total-number" name="total-number" class="total-number"><%= (@reviewed.present?) ? @reviewed.totalpoint : 0 %></h1>
+          </div>
+
+
+
+            <% if @reviewed_components.blank?   %>
+                <% @review_type.each do |r_t| %>
+                  <script>
+                      $(function() {
+                          $( "#slider-range-min-<%=r_t.id%>" ).slider({
+                              range: "min",
+                              value: 0,
+                              min: 0,
+                              max: 7,
+                              slide: function( event, ui ) {
+
+
+                                  hoverchangereview(ui.value,<%= r_t.id %>)
+                              }
+                          });
+                      });
+                  </script>
+                 <!-- <div id="slider-range-min-<%=r_t.id%>" class="style-slider-range"></div>-->
+                  <div class="form-group form-group-rate-mobile" style="position:relative">
+                    <div class="hover-tootip" id="idiididid_<%= r_t.id %>" style="display: none"></div>
+                    <div class="rate-control" >
+                      <div class="rate-name" lang="<%= r_t.id %>"><%= r_t.name %></div>
+                      <!--<div class="rate-number" lang="<%= r_t.id %>">0</div>-->
+                     <!-- <div style="border-top-left-radius: 7px;border-bottom-left-radius:7px" class="rate-number" id="reviews_number_0_<%= r_t.id %>" onclick="hoverchangereview(0,<%= r_t.id %>)" lang="<%= r_t.id %>">0</div>-->
+                      <div class="rate-number" onclick="addreview(1,<%=r_t.id%>)" id="reviews_number_1_<%= r_t.id %>" lang="<%= r_t.id %>">1</div>
+                      <div class="space_number"></div>
+
+                      <div class="rate-number" onclick="addreview(2,<%=r_t.id%>)" id="reviews_number_2_<%= r_t.id %>" lang="<%= r_t.id %>">2</div>
+                      <div class="space_number"></div>
+                      <div class="rate-number" onclick="addreview(3,<%=r_t.id%>)" id="reviews_number_3_<%= r_t.id %>" lang="<%= r_t.id %>">3</div>
+                      <div class="space_number"></div>
+                      <div class="rate-number" onclick="addreview(4,<%=r_t.id%>)" id="reviews_number_4_<%= r_t.id %>" lang="<%= r_t.id %>">4</div>
+                      <div class="space_number"></div>
+                      <div class="rate-number" onclick="addreview(5,<%=r_t.id%>)" id="reviews_number_5_<%= r_t.id %>" lang="<%= r_t.id %>">5</div>
+                      <div class="space_number"></div>
+                      <div class="rate-number" onclick="addreview(6,<%=r_t.id%>)" id="reviews_number_6_<%= r_t.id %>" lang="<%= r_t.id %>">6</div>
+                      <div class="space_number"></div>
+                      <div class="rate-number" data-reviewTypeId="<%= r_t.id %>"  onclick="addreview(7,<%=r_t.id%>)" id="reviews_number_7_<%= r_t.id %>" lang="<%= r_t.id %>">7</div>
+                     <!-- <div data-reviewTypeId="<%= r_t.id %>" id="rate-result_8_<%= r_t.id %>" class="rate-result">0</div>-->
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                <% end %>
+            <% else %>
+                <% @reviewed_components.each do |c| %>
+                  <div class="form-group form-group-rate-mobile" style="position:relative">
+                    <div class="rate-control">
+                      <div style="border-top-left-radius: 7px;border-bottom-left-radius:7px" class="rate-name"><%= (c.review_type.present?) ? c.review_type.name : "Admin Deleted" %></div>
+                      <!--<div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_0_<%= c.id %>">0</div>-->
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_1_<%= c.id %>">1</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_2_<%= c.id %>">2</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_3_<%= c.id %>">3</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_4_<%= c.id %>">4</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_5_<%= c.id %>">5</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_6_<%= c.id %>">6</div>
+                      <div class="rate-number" lang="<%=c.id%>" id="com_reviews_number_7_<%= c.id %>">7</div>
+                      <div class="rate-result"><%= c.point %></div>
+                      <div class="clearfix"></div>
+                    </div>
+                  </div>
+                <% end %>
+            <% end %>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="step-3-container-fluid" class="container-fluid step-container-fluid">
+      <div id="step-3-container" class="container step-container">
+        <div id="step-3-left" class="col-md-4 col-sm-4 col-xs-4 step-left">
+          <img class="center-block img-responsive" src="/assets/review/3.png"  alt="" />
+          <h3 class="center-block text-title">Comments</h3>
+         <!-- <h4 class="center-block text-details">This is some detail for this step</h4>
+          <h4 class="center-block text-details">if it needs it</h4>-->
+        </div>
+
+        <div id="step-3-left-mobile">
+          <div id="image-step-3-mobile">
+            <img class="center-block img-responsive" src="/assets/review/3.png"  alt="" />
+          </div>
+          <span id="image-text-step-2-mobile">Comments</span>
+          <div class="clearfix"></div>
+        </div>
+
+
+        <div id="step-3-right" class="col-md-8 col-sm-8 col-xs-8 step-right">
+          <div id="form-group-comment" class="form-group">
+            <textarea id="txt-textarea-comment" name="txt-textarea-comment" class="txt-control txt-normal"><% if (@reviewed.present?) %> <%= @reviewed.getComment %> <% end %></textarea>
+            <!--<div class="inputWrapper">
+              <input id="btn-attach-image" onchange="readURL(this);" class="fileInput" type="file" />
+              <div style="padding-top: 35px">
+                   <% if @reviewed.present?%>
+                    <img id="blah" style="width: 100px" src="/comment/<%=@reviewed.getCommentImages%>" alt="your image" />
+                    <%else%>
+                    <img id="blah" src="/Images/no.png" alt="your image" />
+                   <%end%>
+              </div>
+            </div>-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="form-control-submit" class="center-block">
+      <% if @isReviewed.blank? || !@isReviewed   %>
+            <button id="btn-talleeup" lang="1" class="center-block">TALLEEUP!</button>
+         <%else%>
+          <button id="btn-talleeup-vibale" lang="0" class="center-block " data-toggle="modal" data-target="#checkreviewgfdhdfgdf" style="background-color: #c4c5c6">TALLEEUP!</button>
+          <div class="modal fade" id="checkreviewgfdhdfgdf" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelggggg" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="exampleModalLabelggggg">Notification</h4>
+                </div>
+                <div class="modal-body loginnnnnn">
+                  <p style="color: #666">
+                    You've reviewed this burger on <%=@reviewedinfog.created_at.localtime%>.
+                    You can review it again in <%=30-@date_now.to_i%> days.
+                    Please select another burger from the list to review.
+
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+         <% end %>
+    </div>
+
+<%end%>
+
+
+
+<script>
+
+    function valid(){
+
+        var isValid = true;
+        var _tong=0;
+        $('.rate-result').each(function(){
+
+            _tong=_tong+Number($(this).text());
+
+            if(_tong<=0)
+            {
+                isValid = false;
+                return false;
+            }
+        });
+
+        if(isValid)
+        {
+            $('.image-step-2').attr('src', '/assets/review/check.png');
+        }
+        return isValid;
+    }
+
+    $(document).ready(function(){
+
+
+
+        var _id=$("#reviews-select").val();
+        var _idprocut='<%=params[:product_id]%>';
+
+        var _data={idre:_id}
+        $.ajax({
+            type: "POST",
+            url: '/home/getchangeproduct',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            data: JSON.stringify(_data),
+            success: function(data, status)
+            {
+                var _html="";
+                for(var i=0;i< data.data.length;i++)
+                {
+
+                    var _id=data.data[i].id;
+                    var _name=data.data[i].name;
+                    var _elect=""
+                    if (_idprocut==_id)
+                    {
+                        _elect='selected'
+                    }
+                    _html+="<option "+_elect+" value='"+_id+"'>"+_name +"</option>";
+                }
+                $("#child-product").html(_html)
+
+            },
+            error: function(data, status)
+            {
+                console.log('error');
+            }
+        });
+    });
+    $('.rate-control').each(function () {
+        var numRate = $(this).find('.rate-result').text();
+        var _lang=$(this).children('.rate-number').attr("lang")
+
+        $(this).children('.rate-result').text(numRate);
+        //for(var i=0;i<=numRate;i++)
+       // {
+        for(var i=0;i<=numRate;i++)
+        {
+
+            if(numRate==0)
+            {
+                $("#com_reviews_number_"+i+"_"+_lang+"").css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+            }
+            else
+            {
+                $("#com_reviews_number_"+i+"_"+_lang+"").css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+            }
+
+        }
+
+            //$(this).children('.rate-number').slice(0, 2).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+       // }
+        for(var k=numRate+1;k<=7;k++) {
+           // $(this).children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+            $("#com_reviews_number_"+k+"_"+_lang+"").css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+        }
+
+    });// end each
+    $('#btn-talleeup').click(function(e){
+
+        var _user = <%= current_user.id %>;
+        if(_user!="") {
+            if (!valid()) {
+                alert('You must complete before you submit information!');
+                return true;
+            }
+            var _idproduct = $("#child-product").val();
+           // var _file=$("#btn-attach-image")[0].files[0];
+           // var _daatt=$("#btn-attach-image").val();
+            //var _namefile=""
+           // if(_daatt!="") {
+
+
+            //    var data, xhr;
+
+          //      data = new FormData();
+           //     data.append('file', $("#btn-attach-image")[0].files[0]);
+           //     data.append('authenticity_token', '<%= form_authenticity_token%>');
+
+           //     xhr = new XMLHttpRequest();
+
+           //     xhr.open('POST', '/home/uploadImgaes', true);
+
+            //    xhr.onreadystatechange = function (response) {
+           //     };
+
+           //     xhr.send(data);
+           //     e.preventDefault();
+            //    _namefile=_file.name
+           // }
+            var data_rate = {
+                review_components: [],
+                review: {
+                    user_id: _user,
+                    product_id: _idproduct,
+                    totalpoint: $('#total-number').text()
+                },
+                comment: {
+                    content: $('#txt-textarea-comment').val()
+                    //namefile:_namefile
+                }
+            }
+            $('.rate-control div.rate-number').each(function () {
+                if($(this).hasClass("classactivebackground"))
+                {
+                    data_rate.review_components.push({
+                        review_type_id: $(this).attr('lang'),
+                        point: $(this).text()
+                    });
+                }
+
+
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '/home/review_post',
+                contentType: "application/json; charset=utf-8",
+                enctype: 'multipart/form-data',
+                dataType: 'json',
+                data: JSON.stringify(data_rate),
+
+                multipart: true,
+                success: function (data, status) {
+
+                    $('#layer-review').show();
+                    $('#share-dialog').show();
+
+                    var body = $("html, body");
+                    body.animate({scrollTop: 0}, '0', 'swing', function () {
+                    });
+
+                    $('#btn-talleeup').hide();
+                },
+                error: function (data, status) {
+                    console.log('error');
+                }
+            });
+        }
+    });// end click
+    $("#reviews-select").change(function(){
+        var _id=$("#reviews-select").val();
+        var _data={idre:_id}
+        $.ajax({
+            type: "POST",
+            url: '/home/getchangeproduct',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'json',
+            data: JSON.stringify(_data),
+            success: function(data, status)
+            {
+                var _html="";
+
+                for(var i=0;i< data.data.length;i++)
+                {
+
+                    var _id=data.data[i].id;
+                    var _name=data.data[i].name;
+                    _html+="<option value='"+_id+"'>"+_name +"</option>";
+                }
+                $("#child-product").html(_html)
+
+            },
+            error: function(data, status)
+            {
+                console.log('error');
+            }
+        });
+    });
+    $("#child-product").change(function(){
+
+        var _id=$("#child-product").val();
+        window.location="/review?product_id="+_id+""
+    })
+    function hoverchangereview(_number,_id)
+    {
+        var numRate = _number;//$("#reviews_number_"+_number+"_"+_id+"").text();
+
+        //var rateControl = $(this).closest('.rate-control');
+        var _idddd=$(this).attr("lang");
+        $("#rate-result_8_"+_id+"").text(numRate);
+        //rateControl.children('.rate-result').text(numRate);
+        //rateControl.children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+        for(var i=0;i<=_number;i++) {
+            $("#reviews_number_" + i + "_" + _id + "").css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+
+        }
+        for(var k=(_number+1);k<=7;k++) {
+            $("#reviews_number_" + k + "_" + _id + "").css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+        }
+        //rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+
+
+        var totalRate = 0;
+        $('.rate-result').each(function(){
+            totalRate += Number($(this).text());
+        });
+
+        if(numRate==0) {
+
+            $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+
+            $("#idiididid_"+_id+"").html("Fail");
+            setTimeout(function(){
+                $("#idiididid_"+_id+"").hide('slow');
+            }, 2000);
+            //$("#idiididid_"+_id+"").html("Fail")
+
+        }
+
+        else  if(numRate==4)
+        {
+
+            $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+            //$("#idiididid_"+_id+"").html("Average")
+            //$("#idiididid_"+_id+"").delay(2000);
+            $("#idiididid_"+_id+"").html("Average");
+            setTimeout(function(){
+                $("#idiididid_"+_id+"").hide('slow');
+            }, 2000);
+            //rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': 'white'});
+        }
+
+
+        else if(numRate==7)
+        {
+
+            $("#idiididid_"+_id+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+            //$("#idiididid_"+_id+"").html("Perfect")
+            $("#idiididid_"+_id+"").html("Perfect");
+            setTimeout(function(){
+                $("#idiididid_"+_id+"").hide('slow');
+            }, 2000);
+
+
+        }
+        else
+        {
+            $("#idiididid_"+_id+"").css({"display":"none"});
+        }
+
+        $('.total-number').text(totalRate);
+        valid();
+
+    }
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                        .attr('src', e.target.result)
+                        .width(50)
+                        .height(50);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $(".rate-number").hover(
+           function () {
+
+                var _val=$(this).text();
+                var _id=$(this).attr("lang");
+               if(_val==1)
+               {
+                   $("#idiididid_"+_id+"").css({"display":"block","margin-left":"-6%"});
+
+                   $("#idiididid_"+_id+"").html("Fail");
+                  setTimeout(function(){
+                       $("#idiididid_"+_id+"").hide('slow');
+                   }, 2000);
+               }
+                if(_val==4)
+                {
+
+                    $("#idiididid_"+_id+"").css({"display":"block","margin-left":"29%"});
+                    //$("#idiididid_"+_id+"").html("Average")
+                    //$("#idiididid_"+_id+"").delay(2000);
+                    $("#idiididid_"+_id+"").html("Average");
+                    setTimeout(function(){
+                        $("#idiididid_"+_id+"").hide('slow');
+                    }, 2000);
+                }
+               if(_val==7)
+               {
+                   $("#idiididid_"+_id+"").css({"display":"block","margin-left":"63%"});
+                   //$("#idiididid_"+_id+"").html("Perfect")
+                   $("#idiididid_"+_id+"").html("Perfect");
+                   setTimeout(function(){
+                       $("#idiididid_"+_id+"").hide('slow');
+                   }, 2000);
+               }
+           }
+
+           , function () {
+
+
+           }
+     );
+    function addreview(_val,_id) {
+        var i=1;
+        var _total=0;
+        var _datatotal=$("#total-number").html();
+        for(;i<=7;i++)
+        {
+            if($("#reviews_number_"+i+"_"+_id+"").hasClass("classactivebackground")) {
+                $("#reviews_number_" + i + "_" + _id + "").removeClass("classactivebackground");
+                _datatotal=Number(_datatotal)-Number($("#reviews_number_" + i + "_" + _id + "").html())
+            }
+        }
+        $("#reviews_number_"+_val+"_"+_id+"").addClass("classactivebackground");
+
+
+        _total=Number(_datatotal)+Number(_val);
+        $(".total-number").html(_total)
+    }
+</script>

@@ -1,0 +1,31 @@
+<div class="row product">
+
+  <a href="/home/BurgerProfile/">
+    <div class="col-md-4 col-sm-4 col-xs-4 product-image">
+      <%= link_to image_tag(user_followed.user.profile.avatar.url(:medium), :class=>"img-responsive"), {:controller => :home, :action => :userprofile, :id => user_followed.user_id} %>
+    </div>
+  </a>
+  <!--End product-image-->
+  <div class="col-md-8 col-sm-8 col-xs-8 product-reviews">
+    <div class="product-reviews-top">
+      <p class="product-reviews-score">
+            <span class="score"><%= user_followed.totalpoint %></span>
+      </p>
+    </div>
+    <!--End product-reviews-top-->
+
+    <div class="product-reviews-center">
+      <a href="/BurgerProfile/<%= user_followed.product.id %>"><h3 class="product-reviews-center-top"><%= user_followed.product.name %></h3></a>
+      <h4 class="product-reviews-center-bottom">
+        <% if user_followed.commentproduct.present? %>
+            <%= user_followed.commentproduct.content %>
+      <% end %>
+      </h4>
+    </div>
+    <!--End product-reviews-center-->
+
+
+  </div>
+  <!-- End product-reviews -->
+</div>
+<!-- End row product -->

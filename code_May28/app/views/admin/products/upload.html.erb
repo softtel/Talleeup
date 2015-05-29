@@ -1,0 +1,49 @@
+<style>
+  #list-product li{
+      float: left;
+      margin-left: 10px;
+      list-style: none;
+  }
+
+  .img-responsive{
+      width: 100px;
+      height: 50px;
+  }
+
+  #product_image_product_id{
+      display: none;
+  }
+</style>
+
+<%= form_for(@product_image, :url => {:controller => "admin/products", :action => "uploadpost"}, :html => { :enctype => "multipart/form-data" }) do |f| %>
+
+    <%= f.hidden_field :product_id %>
+
+    <%= f.text_field :image, :required => true, :type => :file %>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>
+
+
+<hr />
+
+<table>
+  <thead>
+    <th>Image</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
+  <% @images.each do |p| %>
+      <tr>
+        <td>
+            <%= image_tag(p.image.url(:thumb), class: 'img-responsive') %>
+        </td>
+        <td>
+            <%= link_to 'Destroy', :action => :delete, :id => p.id, method: :delete, confirm: 'Are you sure?' %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

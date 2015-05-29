@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Review</title>
+
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+
+<div id="layer-review" style="z-index: 999"></div>
+
+
+<div id="profile-header-container"  class="container-fluid review-header-container">
+
+
+
+  <%= render partial: "navbar" %>
+
+
+  <div id="review-titles" class="container-fluid">
+    <h1 id="review-titles-top" class="center-block">
+      RATE A BURGER
+    </h1>
+    <h3 id="review-titles-bottom" class="center-block">
+      Please empart your burger wisdom upon us all
+    </h3>
+  </div>
+
+  <%= yield %>
+
+  <!-- End header -->
+</div>
+<!-- End header-container -->
+
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+<div id="fb-root"></div>
+<script type="text/javascript">
+
+    (function(d, s, id) {
+
+        var js, fjs = d.getElementsByTagName(s)[0];
+        console.log(d.getElementById(id))
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=1524474791135285&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+<script>
+
+  function responsive(){
+
+
+    var width = $(window).width();
+
+    if (width <= 470) {
+        $('#profile-user-image').removeClass('pull-right').addClass('center-block');
+        $('#col-profile-info').addClass('center-block');
+        $('#logo').attr('src', '/assets/userprofile/logo-mobile.png')
+    }else{
+        $('#profile-user-image').removeClass('center-block').addClass('pull-right');
+        $('#col-profile-info').removeClass('center-block');
+        $('#logo').attr('src', '/assets/userprofile/logo.png')
+    }
+  };
+
+  function closeDialog(){
+      $('#share-dialog').hide();
+      $('#layer-review').hide();
+      window.location="/userprofile/<%=current_user.id%>";
+  }
+
+  $(document).ready(function(){
+
+      responsive();
+
+      $(window).resize(function() {
+          responsive();
+      });
+
+
+      $('#btn-close-dialog').click(function(){
+          closeDialog();
+      });
+
+      $('#btn-done').click(function(){
+          var _val=$("#txt-share-friend").val();
+          //_val=_val.split(',')
+         // for(var i=0;i<_val.length-1;i++)
+          //{
+              $("#showloadding_reviews").show();
+
+              $.post("/home/actionSendMailMutile", {email:_val,message:"",link:"<%=request.original_url%>"}, function () {
+
+              }).success(function (data) {
+
+                  $("#showloadding_reviews").hide();
+                  closeDialog();
+              });
+          //}
+          //
+
+      });
+
+      /*$('.rate-number').click(function()
+      {
+          var numRate = $(this).text();
+
+          var rateControl = $(this).closest('.rate-control');
+          var _idddd=$(this).attr("lang");
+          rateControl.children('.rate-result').text(numRate);
+          rateControl.children('.rate-number').slice(0, numRate).css({'background-color': '#38BEDE', 'color': '#38BEDE'});
+
+              rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': '#DFE3E6'});
+
+
+          var totalRate = 0;
+          $('.rate-result').each(function(){
+              totalRate += Number($(this).text());
+          });
+
+          if(numRate==0) {
+
+              $("#idiididid_"+_idddd+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+              $("#idiididid_"+_idddd+"").html("Fail")
+          }
+
+         else  if(numRate==4)
+          {
+
+              $("#idiididid_"+_idddd+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+              $("#idiididid_"+_idddd+"").html("Average")
+              rateControl.children('.rate-number').slice(numRate).css({'background-color': '#DFE3E6', 'color': 'white'});
+          }
+
+
+          else if(numRate==7)
+          {
+
+              $("#idiididid_"+_idddd+"").css({"display":"block","margin-left":Number(numRate)*8.7+"%"});
+              $("#idiididid_"+_idddd+"").html("Perfect")
+          }
+          else
+          {
+              $("#idiididid_"+_idddd+"").css({"display":"none"});
+          }
+
+          $('.total-number').text(totalRate);
+          valid();
+      },function(){
+          var _idddd=$(this).attr("lang");
+          $("#idiididid_"+_idddd+"").css({"display":"none"});
+      });
+      */
+
+      var arr=$("#sdnfsdsdf").val();
+      var find = '"';
+      var re = new RegExp(find, 'g');
+
+      arr = arr.replace(re, '');
+      arr = arr.replace('[', '');
+      arr = arr.replace(']', '');
+      arr=arr.split(',');
+      function split( val ) {
+          return val.split( /,\s*/ );
+      }
+      function extractLast( term ) {
+          return split( term ).pop();
+      }
+
+      $( "#txt-share-friend" )
+          // don't navigate away from the field on tab when selecting an item
+              .bind( "keydown", function( event ) {
+                  if ( event.keyCode === $.ui.keyCode.TAB &&
+                          $( this ).autocomplete( "instance" ).menu.active ) {
+                      event.preventDefault();
+                  }
+              })
+              .autocomplete({
+                  minLength: 0,
+                  source: function( request, response ) {
+                      // delegate back to autocomplete, but extract the last term
+                      response( $.ui.autocomplete.filter(
+                              arr, extractLast( request.term ) ) );
+                  },
+                  focus: function() {
+                      // prevent value inserted on focus
+                      return false;
+                  },
+                  select: function( event, ui ) {
+                      var terms = split( this.value );
+                      // remove the current input
+                      terms.pop();
+                      // add the selected item
+                      terms.push( ui.item.value );
+                      // add placeholder to get the comma-and-space at the end
+                      terms.push( "" );
+                      this.value = terms.join( ", " );
+                      return false;
+                  }
+              });
+
+
+  });// end ready
+ function changeautocomplete()
+  {
+
+      var _val=$("#txt-share-friend").val();
+      var _data=find(_val);
+      var _html="";
+      for(var i=0;i<_data.length;i++)
+      {
+
+          _html+="<div onclick='additem(\""+_data[i]+"\")'>"+_data[i]+"</div>";
+      }
+      $("#changeautocomplate").html(_html);
+        console.log(find(_val))
+
+  }
+  function additem(_str)
+  {
+      var _data=$("#idhhhhhh").val();
+      var _kk="";
+      if(_data=="") {
+          _kk =  _str + "@";
+      }
+      else
+      {
+
+          var _sppll=_data.split('@');
+          var _int=0;
+          for(var k=0;k<_sppll.length-1;k++)
+          {
+              if(_str==_sppll[k])
+              {
+                  _int=1;
+              }
+
+          }
+          if(_int==0)
+          {
+              _kk = _data + _str + "@";
+          }
+          else
+          {
+              _kk=_data;
+          }
+
+      }
+
+      $("#idhhhhhh").val(_kk)
+       var _html="";
+      var _hhhh=_kk.split('@');
+        for(var g=0;g<_hhhh.length-1;g++)
+        {
+            _html+="<div style='width: auto'>"+_hhhh[g]+"</div>";
+        }
+      $("#txt-share-friend").val(_html)
+
+  }
+  /*$("#txt-share-friend").change(function(){
+
+      /*console.log(find(data));
+  });*/
+
+  function find(data) {
+      var result = [];
+      var arr = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+      ];
+
+      for (var i in arr) {
+
+          var rgxp = new RegExp(data, "g");
+
+          if (arr[i].match(rgxp)) {
+              result.push(arr[i]);
+          }
+      }
+
+      return result;
+  }
+  function getfriend()
+  {
+      $.post("/home/getUserFllow",{},function(){
+
+      }).success(function(data){
+            console.log(data);
+      });
+  }
+
+</script>
+
+</body>
+</html>
